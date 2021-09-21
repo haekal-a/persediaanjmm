@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page_layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css">
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</th:block>
+<th:block layout:fragment="page_title">
+    <h1 class="m-0">PMQA - Monitoring</h1>
+</th:block>
+<th:block layout:fragment="page_breadcrumb">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">PMQA</li>
+        <li class="breadcrumb-item active">Monitoring</li>
+    </ol>
+</th:block>
+<section layout:fragment="content" class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monitoring</h3>
+                        <div class="card-tools">
+                            <a href="#" data-toggle="modal" data-target="#mdlPmqaMonitoring"
+                               class="pull-left btn btn-sm btn-success addMonitoring">Tambah Monitoring</a>
+                            <!--<button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>-->
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+<!--                                <div class="table-responsive">-->
+                                    <table id="tblPmqaMonitoring"
+                                           class="table table-bordered table-hover dataTable table-cell">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" rowspan="2">ID Monitoring</th>
+                                            <th colspan="10" class="text-center">Deliverable Detail</th>
+                                            <th rowspan="2" class="text-center">Latest Version</th>
+                                            <th rowspan="2" class="text-center">Posisi</th>
+                                            <th rowspan="2" class="text-center">Softcopy</th>
+                                            <th colspan="4" class="text-center">Hardcopy</th>
+                                            <th rowspan="2" class="text-center">Status Pembayaran</th>
+                                            <th rowspan="2" class="text-center">Keterangan</th>
+                                            <th rowspan="2" class="text-center">Detil Alur Dokumen</th>
+                                            <th rowspan="2" class="text-center">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Section No</th>
+                                            <th class="text-center">Function</th>
+                                            <th class="text-center">Task No</th>
+                                            <th class="text-center">Task</th>
+                                            <th class="text-center">Deliverable Name</th>
+                                            <th class="text-center">Schedule in ToR</th>
+                                            <th class="text-center">Deliverable Code</th>
+                                            <th class="text-center">Bulan Submission</th>
+                                            <th class="text-center">Submission Status</th>
+                                            <th class="text-center">Period</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Masuk</th>
+                                            <th class="text-center">Keluar</th>
+                                            <th class="text-center">Sisa</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+
+    <div class="modal fade" id="mdlPmqaMonitoring" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Monitoring</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="box box-solid">
+                        <form class="form-horizontal" id="formPmqaMonitoring" method="post">
+                            <input type="text" name="idMonitoring" id="idMonitoring" hidden/>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Deliverable Code</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="deliverableCode"
+                                               name="deliverableCode" placeholder="D-1 s.d. D-110">
+                                        <!-- divalidasi dari tabel master (id_deliverble), kalau tidak ada di tabel master tidak bisa simpan or gagal -->
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Section No.</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="sectionNo" name="sectionNo"
+                                               placeholder="" disabled="">
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Function</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="function" name="function"
+                                               placeholder="" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Task No.</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="taskNo" name="taskNo" placeholder=""
+                                               disabled="">
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Task</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="task" name="task" placeholder=""
+                                               disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Deliverable Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="deliverableName"
+                                               name="deliverableName" placeholder="" disabled="" style="height: 80px">
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Shedule In ToR</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="scheduleInTor" name="scheduleInTor"
+                                               placeholder="" disabled="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Bulan Submssion</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="monthSubmission"
+                                               name="monthSubmission" placeholder="">
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Latest Version</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="latestVersion" name="latestVersion"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Posisi</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="posisi" name="posisi" placeholder="">
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Sudah Dibayarkan</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="sudahDibayarkan"
+                                               name="sudahDibayarkan" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Submission Status</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="submissionStatus"
+                                               name="submissionStatus" placeholder="Active/Inactive">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Periode</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="periode" name="periode"
+                                               placeholder="TahunBulanTahunBulan">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Softcopy Status</label>
+                                    <div class="col-sm-6">
+                                        <select class="custom-select rounded-0" id="softcopyStatus"
+                                                name="softcopyStatus">
+                                            <option value="">-</option>
+                                            <option value="1">Ada</option>
+                                            <option value="2">Tidak Ada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hardcopy Status</label>
+                                    <div class="col-sm-6">
+                                        <select class="custom-select rounded-0" id="hardcopyStatus"
+                                                name="hardcopyStatus">
+                                            <option value="">-</option>
+                                            <option value="1">Ada</option>
+                                            <option value="2">Tidak Ada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hardcopy - Masuk</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="hardcopyMasuk" name="hardcopyMasuk"
+                                               placeholder="">
+                                        <!-- enabled ketika hardcopyStatus Ada -->
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hardcopy - Keluar</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="hardcopyKeluar"
+                                               name="hardcopyKeluar" placeholder="">
+                                        <!-- enabled ketika hardcopyStatus Ada -->
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hardcopy - Sisa</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="hardcopySisa" name="hardcopySisa"
+                                               placeholder="">
+                                        <!-- enabled ketika hardcopyStatus Ada -->
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Status Pembayaran</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="paymentStatus" name="paymentStatus"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Keterangan</label>
+                                    <div class="col-sm-6">
+                                        <input style="height: 80px" type="text" class="form-control" id="keterangan"
+                                               name="keterangan" placeholder="">
+                                    </div>
+                                </div>
+<!--                                <div class="form-group row">-->
+<!--                                    <label class="col-sm-2 col-form-label">Lihat Detail Alur</label>-->
+<!--                                    <div class="col-sm-6">-->
+<!--                                        <button type="submit" class="btn btn-success" id="detaiAlur"-->
+<!--                                                name="hardcopyMasuk">Lihat Detail-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="box-footer">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</section>
+<th:block layout:fragment="page_js">
+    <!-- DataTables  & Plugins -->
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+    <script th:src="@{/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+    <script th:src="@{/plugins/jszip/jszip.min.js}"></script>
+    <script th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
+    <script th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
+    <script th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+
+    <!-- jquery-validation -->
+    <script th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
+    <script th:src="@{/plugins/jquery-validation/additional-methods.min.js}"></script>
+    <script th:src="@{/plugins/jquery-validation/localization/messages_id.min.js}"></script>
+
+    <script th:src="@{/dist/js/pages/pmqa/deliverable/monitoring.js}"></script>
+</th:block>
+</html>

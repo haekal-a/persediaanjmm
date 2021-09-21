@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page_layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css"></th:block>
+<th:block layout:fragment="page_title">
+    <h1 class="m-0">PMQA - Alur Dokumen</h1>
+</th:block>
+<th:block layout:fragment="page_breadcrumb">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">PMQA</li>
+        <li class="breadcrumb-item active">Alur Dokumen</li>
+    </ol>
+</th:block>
+<section layout:fragment="content" class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Alur Dokumen</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblPmqaAlurDok" class="table table-bordered table-hover dataTable table-cell">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">ID Alur Dokumen</th>
+                                        <th class="text-center">ID Deliverable</th>
+                                        <th class="text-center">Periode</th>
+                                        <th class="text-center">ID Monitoring</th>
+                                        <th class="text-center">Version</th>
+                                        <th class="text-center">Version Name</th>
+                                        <th class="text-center">Tanggal Submission</th>
+                                        <th class="text-center">Surat Deloitte</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Nota Dinas Penerusan</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Persetujuan/Pengembalian Deliverables oleh PM PSIAP</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">BA Steerco</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Persetujuan Deliverables oleh Steering Committee</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Surat Pemberitahuan ke Deloitte</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">BA Kemajuan</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">BAST</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">BA Pembayaran</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Tagihan</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">ND Permohonan Pembayaran</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">SPP</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">SPM</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">SP2D</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Status Deliverable</th>
+                                        <th class="text-center">Status Pembayaran</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+
+</section>
+<th:block layout:fragment="page_js">
+    <!--    <script th:src="@{/dist/js/pages/dashboard.js}"></script>-->
+</th:block>
+</html>

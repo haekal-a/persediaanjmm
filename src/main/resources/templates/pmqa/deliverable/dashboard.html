@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page_layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css"></th:block>
+<th:block layout:fragment="page_title">
+    <h1 class="m-0">PMQA - Monitoring</h1>
+</th:block>
+<th:block layout:fragment="page_breadcrumb">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">PMQA</li>
+        <li class="breadcrumb-item active">Monitoring</li>
+    </ol>
+</th:block>
+<section layout:fragment="content" class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monitoring</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblPmqaMonitoring" class="table table-bordered table-hover dataTable table-cell">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" rowspan="2">ID Monitoring</th>
+                                        <th colspan="10" class="text-center">Deliverable Detail</th>
+                                        <th rowspan="2" class="text-center">Latest Version</th>
+                                        <th rowspan="2" class="text-center">Posisi</th>
+                                        <th rowspan="2" class="text-center">Softcopy</th>
+                                        <th colspan="4" class="text-center">Hardcopy</th>
+                                        <th rowspan="2" class="text-center">Status Pembayaran</th>
+                                        <th rowspan="2" class="text-center">Keterangan</th>
+                                        <th rowspan="2" class="text-center">Detil Alur Dokumen</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Section No</th>
+                                        <th class="text-center">Function</th>
+                                        <th class="text-center">Task No</th>
+                                        <th class="text-center">Task</th>
+                                        <th class="text-center">Deliverable Name</th>
+                                        <th class="text-center">Schedule in ToR</th>
+                                        <th class="text-center">Deliverable Code</th>
+                                        <th class="text-center">Bulan Submission</th>
+                                        <th class="text-center">Submission Status</th>
+                                        <th class="text-center">Period</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Masuk</th>
+                                        <th class="text-center">Keluar</th>
+                                        <th class="text-center">Sisa</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+
+</section>
+<th:block layout:fragment="page_js">
+    <!--    <script th:src="@{/dist/js/pages/dashboard.js}"></script>-->
+</th:block>
+</html>
