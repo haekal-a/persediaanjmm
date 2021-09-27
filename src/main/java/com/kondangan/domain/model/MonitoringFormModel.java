@@ -23,29 +23,24 @@ public class MonitoringFormModel implements Serializable {
     private String scheduleInTor;
     @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String deliverableCode;
-    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String monthSubmission;
     @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String submissionStatus;
     @NotNull(message = Constanta.MSG_FORM_NOTNULL)
-//    @Size(min = 9, message = Message.MSG_FORM_MINLENGTH)
-    @Digits(integer = 1, fraction = 0, message = Constanta.MSG_FORM_DIGITS)
-    private int period;
-    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
+//    @Size(min = 8, message = Constanta.MSG_FORM_MINLENGTH)
+    @Digits(integer = 8, fraction = 0, message = Constanta.MSG_FORM_DIGITS)
+    private Integer period;
     private String latestVersion;
+    private Integer position;
     @NotNull(message = Constanta.MSG_FORM_NOTNULL)
     @Digits(integer = 1, fraction = 0, message = Constanta.MSG_FORM_DIGITS)
-    private int position;
+    private Integer softcopyStatus;
     @NotNull(message = Constanta.MSG_FORM_NOTNULL)
     @Digits(integer = 1, fraction = 0, message = Constanta.MSG_FORM_DIGITS)
-    private int softcopyStatus;
-    @NotNull(message = Constanta.MSG_FORM_NOTNULL)
-    @Digits(integer = 1, fraction = 0, message = Constanta.MSG_FORM_DIGITS)
-    private int hardcopyStatus;
-    private int hardcopyIn;
-    private int hardcopyOut;
-    private int hardcopyLeft;
-    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
+    private Integer hardcopyStatus;
+    private Integer hardcopyIn;
+    private Integer hardcopyOut;
+    private Integer hardcopyLeft;
     private String paymentStatus;
     @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String keterangan;

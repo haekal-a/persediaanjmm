@@ -36,4 +36,10 @@ public class MonitoringController {
         User user = (User) request.getSession().getAttribute("userLogin");
         return monitoringService.deleteMonitoring(idMonitoring);
     }
+
+    @GetMapping("/getlist")
+    public ResponseModel getListMonitoring(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return monitoringService.getListMonitoring();
+    }
 }

@@ -47,18 +47,23 @@ var Monitoring = function (){
                 {"data": "scheduleInTor", "className": "all text-center"},
                 {"data": "deliverableCode", "className": "all text-center"},
                 {"data": "monthSubmission", "className": "all text-center"},
-                {"data": "submissionStatus", "className": "all"},
+                {"data": "submissionStatus", "className": "all", "render": function (data, type, full, meta) {
+                    return data == "2" ? "Active" : "Inactive";
+                    }},
                 {"data": "period", "className": "all text-center"},
                 {"data": "latestVersion", "className": "all text-center"},
                 {"data": "position", "className": "all"},
-                {"data": "softcopyStatus", "className": "all"},
-                {"data": "hardcopyStatus", "className": "all"},
+                {"data": "softcopyStatus", "className": "all", "render": function (data, type, full, meta) {
+                        return data == "2" ? "Ada" : "Tidak Ada";
+                    }},
+                {"data": "hardcopyStatus", "className": "all", "render": function (data, type, full, meta) {
+                        return data == "2" ? "Ada" : "Tidak Ada";
+                    }},
                 {"data": "hardcopyIn", "className": "all text-right"},
                 {"data": "hardcopyOut", "className": "all text-right"},
                 {"data": "hardcopyLeft", "className": "all text-right"},
                 {"data": "paymentStatus", "className": "all"},
                 {"data": "keterangan", "className": "all"},
-                {"data": null, "className": "all"},
                 {"data": null, "className": "all text-center"}
             ],
             columnDefs: [
@@ -108,12 +113,14 @@ var Monitoring = function (){
 
         // init validation
         validator = $('#formPmqaMonitoring').validate();
+        $("#adaHardcopy").hide();
 
         $('#mdlPmqaMonitoring').on('hide.bs.modal', function () {
             validator.resetForm();
             $('#formPmqaMonitoring').each(function () {
                 this.reset();
             });
+            $("#adaHardcopy").hide();
         });
 
         $("#formPmqaMonitoring").submit(function (e) {
@@ -132,14 +139,23 @@ var Monitoring = function (){
             var table = $('#tblPmqaMonitoring').DataTable();
             var tbl = table.row($(this).parents('tr'));
             var rData = tbl.data();
+            if (rData["hardcopyStatus"] == "2") $("#adaHardcopy").show();
             $("#idMonitoring").val(rData["idMonitoring"]);
-            $("#idDeliverable").val(rData["idDeliverable"]);
+            $("#deliverableCode").val(rData["deliverableCode"]);
             $("#sectionNo").val(rData["sectionNo"]);
             $("#function").val(rData["function"]);
             $("#taskNo").val(rData["taskNo"]);
             $("#task").val(rData["task"]);
             $("#deliverableName").val(rData["deliverableName"]);
             $("#scheduleInTor").val(rData["scheduleInTor"]);
+            $("#submissionStatus").val(rData["submissionStatus"]);
+            $("#period").val(rData["period"]);
+            $("#softcopyStatus").val(rData["softcopyStatus"]);
+            $("#hardcopyStatus").val(rData["hardcopyStatus"]);
+            $("#hardcopyIn").val(rData["hardcopyIn"]);
+            $("#hardcopyOut").val(rData["hardcopyOut"]);
+            $("#hardcopyLeft").val(rData["hardcopyLeft"]);
+            $("#keterangan").val(rData["keterangan"]);
             $("#mdlPmqaMonitoring").modal("show");
         });
 
@@ -172,10 +188,6 @@ var Monitoring = function (){
                         $("#task").val(obj.task);
                         $("#deliverableName").val(obj.deliverableName);
                         $("#scheduleInTor").val(obj.scheduleInTor);
-                        // $("#bulanSubmission").val();
-                        // $("#latestVersion").val();
-                        // $("#posisi").val();
-                        // $("#sudahDibayarkan").val();
                     } else {
                         var message = data.message;
                         Utility.showErrorMessage("Terjadi Kesalahan!", message);
@@ -184,7 +196,7 @@ var Monitoring = function (){
                 error: function (xhr, status, error) {
                     var err = xhr.responseJSON;
                     var msg = "";
-                    if (err.status === "BAD_REQUEST") {
+                    if (err.status === "Bad Request") {
                         $.each(err.errors, function (index, item) {
                             msg += " [" + item.field + "] " + item.defaultMessage;
                         });
@@ -197,6 +209,20 @@ var Monitoring = function (){
                     });
                 }
             });
+        });
+
+        $("#hardcopyStatus").on("change", function (e){
+            e.preventDefault();
+            if ($("#hardcopyStatus").val() == "2"){
+                $("#adaHardcopy").show("slow");
+            } else {
+                $("#adaHardcopy").hide("slow");
+            }
+        });
+
+        $("#period").inputmask("99999999", {
+            clearMaskOnLostFocus: true,
+            placeholder: "_"
         });
     };
 
@@ -231,7 +257,7 @@ var Monitoring = function (){
             error: function (xhr, status, error) {
                 var err = xhr.responseJSON;
                 var msg = "";
-                if (err.status === "BAD_REQUEST") {
+                if (err.status === "Bad Request") {
                     $.each(err.errors, function (index, item) {
                         msg += " [" + item.field + "] " + item.defaultMessage;
                     });
@@ -266,7 +292,7 @@ var Monitoring = function (){
             error: function (xhr, status, error) {
                 var err = xhr.responseJSON;
                 var msg = "";
-                if (err.status === "BAD_REQUEST") {
+                if (err.status === "Bad Request") {
                     $.each(err.errors, function (index, item) {
                         msg += " [" + item.field + "] " + item.defaultMessage;
                     });

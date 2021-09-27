@@ -10,4 +10,6 @@ public interface IMonitoringService {
     ResponseModel saveMonitoring(MonitoringFormModel monitoringFormModel, String idUser);
 
     ResponseModel deleteMonitoring(String idMonitoring);
+
+    ResponseModel getListMonitoring();
 }

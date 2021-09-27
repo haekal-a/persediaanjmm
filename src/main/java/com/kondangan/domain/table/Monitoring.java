@@ -22,14 +22,14 @@ public class Monitoring implements Serializable {
   private String deliverableCode;
   private String monthSubmission;
   private String submissionStatus;
-  private int period;
+  private Integer period;
   private String latestVersion;
-  private int position;
-  private int softcopyStatus;
-  private int hardcopyStatus;
-  private int hardcopyIn;
-  private int hardcopyOut;
-  private int hardcopyLeft;
+  private Integer position;
+  private Integer softcopyStatus;
+  private Integer hardcopyStatus;
+  private Integer hardcopyIn;
+  private Integer hardcopyOut;
+  private Integer hardcopyLeft;
   private String paymentStatus;
   private String keterangan;
   private String createdBy;
@@ -130,11 +130,11 @@ public class Monitoring implements Serializable {
   }
 
 
-  public int getPeriod() {
+  public Integer getPeriod() {
     return period;
   }
 
-  public void setPeriod(int period) {
+  public void setPeriod(Integer period) {
     this.period = period;
   }
 
@@ -148,56 +148,56 @@ public class Monitoring implements Serializable {
   }
 
 
-  public int getPosition() {
+  public Integer getPosition() {
     return position;
   }
 
-  public void setPosition(int position) {
+  public void setPosition(Integer position) {
     this.position = position;
   }
 
 
-  public int getSoftcopyStatus() {
+  public Integer getSoftcopyStatus() {
     return softcopyStatus;
   }
 
-  public void setSoftcopyStatus(int softcopyStatus) {
+  public void setSoftcopyStatus(Integer softcopyStatus) {
     this.softcopyStatus = softcopyStatus;
   }
 
 
-  public int getHardcopyStatus() {
+  public Integer getHardcopyStatus() {
     return hardcopyStatus;
   }
 
-  public void setHardcopyStatus(int hardcopyStatus) {
+  public void setHardcopyStatus(Integer hardcopyStatus) {
     this.hardcopyStatus = hardcopyStatus;
   }
 
 
-  public int getHardcopyIn() {
+  public Integer getHardcopyIn() {
     return hardcopyIn;
   }
 
-  public void setHardcopyIn(int hardcopyIn) {
+  public void setHardcopyIn(Integer hardcopyIn) {
     this.hardcopyIn = hardcopyIn;
   }
 
 
-  public int getHardcopyOut() {
+  public Integer getHardcopyOut() {
     return hardcopyOut;
   }
 
-  public void setHardcopyOut(int hardcopyOut) {
+  public void setHardcopyOut(Integer hardcopyOut) {
     this.hardcopyOut = hardcopyOut;
   }
 
 
-  public int getHardcopyLeft() {
+  public Integer getHardcopyLeft() {
     return hardcopyLeft;
   }
 
-  public void setHardcopyLeft(int hardcopyLeft) {
+  public void setHardcopyLeft(Integer hardcopyLeft) {
     this.hardcopyLeft = hardcopyLeft;
   }
 

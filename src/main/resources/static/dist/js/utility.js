@@ -27,6 +27,14 @@ var Utility = function (){
         if (typeof attr !== 'undefined' && attr !== false) {
             setDefaultValidation();
         }
+
+        var bsFile = $(".custom-file-input");
+        if (typeof bsFile !== 'undefined' && bsFile !== false){
+            bsCustomFileInput.init()
+        }
+
+        // Initialize selectpicker Elements
+        $('.selectpicker').selectpicker();
     }
 
     var formatTanggalToString = function (data) {

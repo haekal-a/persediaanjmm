@@ -4,7 +4,9 @@ import com.kondangan.domain.model.MonitoringFormModel;
 import com.kondangan.domain.model.ResponseModel;
 import com.kondangan.domain.model.datatables.mapping.DataTablesInput;
 import com.kondangan.domain.model.datatables.mapping.DataTablesOutput;
+import com.kondangan.domain.table.DetailDocument;
 import com.kondangan.domain.table.Monitoring;
+import com.kondangan.repository.DetailDocumentRepo;
 import com.kondangan.repository.MonitoringRepo;
 import com.kondangan.service.IMonitoringService;
 import com.kondangan.service.common.UtilityService;
@@ -26,6 +28,9 @@ public class MonitoringService implements IMonitoringService {
 
     @Autowired
     private UtilityService utilityService;
+
+    @Autowired
+    private DetailDocumentRepo detailDocumentRepo;
 
     @Override
     public ResponseModel getDaftarMonitoring(DataTablesInput dataTablesInput) {
@@ -73,8 +78,17 @@ public class MonitoringService implements IMonitoringService {
 
     @Override
     public ResponseModel deleteMonitoring(String idMonitoring) {
+//        List<DetailDocument> detailDocuments = detailDocumentRepo.
         Monitoring monitoring = monitoringRepo.getById(new BigDecimal(idMonitoring));
         monitoringRepo.delete(monitoring);
         return new ResponseModel("Delete Monitoring");
+    }
+
+    @Override
+    public ResponseModel getListMonitoring() {
+        List<Monitoring> monitoringList = monitoringRepo.findAll();
+        ResponseModel res = new ResponseModel("Get List Monitoring");
+        res.setObject(monitoringList);
+        return res;
     }
 }

@@ -161,7 +161,7 @@ var Master = function (){
             error: function (xhr, status, error) {
                 var err = xhr.responseJSON;
                 var msg = "";
-                if (err.status === "BAD_REQUEST") {
+                if (err.status === "Bad Request") {
                     $.each(err.errors, function (index, item) {
                         msg += " [" + item.field + "] " + item.defaultMessage;
                     });
@@ -196,7 +196,7 @@ var Master = function (){
             error: function (xhr, status, error) {
                 var err = xhr.responseJSON;
                 var msg = "";
-                if (err.status === "BAD_REQUEST") {
+                if (err.status === "Bad Request") {
                     $.each(err.errors, function (index, item) {
                         msg += " [" + item.field + "] " + item.defaultMessage;
                     });
@@ -231,7 +231,7 @@ var Master = function (){
             error: function (xhr, status, error) {
                 var err = xhr.responseJSON;
                 var msg = "";
-                if (err.status === "BAD_REQUEST") {
+                if (err.status === "Bad Request") {
                     $.each(err.errors, function (index, item) {
                         msg += " [" + item.field + "] " + item.defaultMessage;
                     });

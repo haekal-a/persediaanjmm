@@ -52,7 +52,6 @@
                                             <th colspan="4" class="text-center">Hardcopy</th>
                                             <th rowspan="2" class="text-center">Status Pembayaran</th>
                                             <th rowspan="2" class="text-center">Keterangan</th>
-                                            <th rowspan="2" class="text-center">Detil Alur Dokumen</th>
                                             <th rowspan="2" class="text-center">Aksi</th>
                                         </tr>
                                         <tr>
@@ -101,7 +100,7 @@
                                     <label class="col-sm-2 col-form-label">Deliverable Code</label>
                                     <div class="col-sm-2">
                                         <input type="text" class="form-control" id="deliverableCode"
-                                               name="deliverableCode" placeholder="D-1 s.d. D-110">
+                                               name="deliverableCode" placeholder="D-1 s.d. D-110" required maxlength="5">
                                         <!-- divalidasi dari tabel master (id_deliverble), kalau tidak ada di tabel master tidak bisa simpan or gagal -->
                                     </div>
                                 </div>
@@ -142,50 +141,31 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Bulan Submssion</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="monthSubmission"
-                                               name="monthSubmission" placeholder="">
-                                    </div>
-                                    <label class="col-sm-2 col-form-label">Latest Version</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="latestVersion" name="latestVersion"
-                                               placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Posisi</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="posisi" name="posisi" placeholder="">
-                                    </div>
-                                    <label class="col-sm-2 col-form-label">Sudah Dibayarkan</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="sudahDibayarkan"
-                                               name="sudahDibayarkan" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Submission Status</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="submissionStatus"
-                                               name="submissionStatus" placeholder="Active/Inactive">
+                                        <select class="custom-select rounded-0" id="submissionStatus"
+                                                name="submissionStatus" required>
+                                            <option value="">-</option>
+                                            <option value="2">Active</option>
+                                            <option value="1">Inactive</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Periode</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="periode" name="periode"
-                                               placeholder="TahunBulanTahunBulan">
+                                        <input type="text" class="form-control" id="period" name="period"
+                                               placeholder="yymmyymm contoh: 21012102" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Softcopy Status</label>
                                     <div class="col-sm-6">
                                         <select class="custom-select rounded-0" id="softcopyStatus"
-                                                name="softcopyStatus">
+                                                name="softcopyStatus" required>
                                             <option value="">-</option>
-                                            <option value="1">Ada</option>
-                                            <option value="2">Tidak Ada</option>
+                                            <option value="2">Ada</option>
+                                            <option value="1">Tidak Ada</option>
                                         </select>
                                     </div>
                                 </div>
@@ -193,49 +173,44 @@
                                     <label class="col-sm-2 col-form-label">Hardcopy Status</label>
                                     <div class="col-sm-6">
                                         <select class="custom-select rounded-0" id="hardcopyStatus"
-                                                name="hardcopyStatus">
+                                                name="hardcopyStatus" required>
                                             <option value="">-</option>
-                                            <option value="1">Ada</option>
-                                            <option value="2">Tidak Ada</option>
+                                            <option value="2">Ada</option>
+                                            <option value="1">Tidak Ada</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Hardcopy - Masuk</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="hardcopyMasuk" name="hardcopyMasuk"
-                                               placeholder="">
-                                        <!-- enabled ketika hardcopyStatus Ada -->
+                                <div id="adaHardcopy">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Hardcopy - Masuk</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="hardcopyIn"
+                                                   name="hardcopyIn" required maxlength="10">
+                                            <!-- enabled ketika hardcopyStatus Ada -->
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Hardcopy - Keluar</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="hardcopyKeluar"
-                                               name="hardcopyKeluar" placeholder="">
-                                        <!-- enabled ketika hardcopyStatus Ada -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Hardcopy - Keluar</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="hardcopyOut"
+                                                   name="hardcopyOut" required maxlength="10">
+                                            <!-- enabled ketika hardcopyStatus Ada -->
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Hardcopy - Sisa</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="hardcopySisa" name="hardcopySisa"
-                                               placeholder="">
-                                        <!-- enabled ketika hardcopyStatus Ada -->
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Status Pembayaran</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="paymentStatus" name="paymentStatus"
-                                               placeholder="">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Hardcopy - Sisa</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="hardcopyLeft" name="hardcopyLeft"
+                                                   required maxlength="10">
+                                            <!-- enabled ketika hardcopyStatus Ada -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keterangan</label>
                                     <div class="col-sm-6">
-                                        <input style="height: 80px" type="text" class="form-control" id="keterangan"
-                                               name="keterangan" placeholder="">
+                                        <textarea rows="3" class="form-control" id="keterangan"
+                                                  name="keterangan" required maxlength="255"></textarea>
                                     </div>
                                 </div>
 <!--                                <div class="form-group row">-->
@@ -284,6 +259,10 @@
     <script th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
     <script th:src="@{/plugins/jquery-validation/additional-methods.min.js}"></script>
     <script th:src="@{/plugins/jquery-validation/localization/messages_id.min.js}"></script>
+
+    <!-- InputMask -->
+    <script th:src="@{/plugins/moment/moment.min.js}"></script>
+    <script th:src="@{/plugins/inputmask/jquery.inputmask.min.js}"></script>
 
     <script th:src="@{/dist/js/pages/pmqa/deliverable/monitoring.js}"></script>
 </th:block>
