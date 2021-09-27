@@ -42,6 +42,5 @@ public class MonitoringFormModel implements Serializable {
     private Integer hardcopyOut;
     private Integer hardcopyLeft;
     private String paymentStatus;
-    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String keterangan;
 }
