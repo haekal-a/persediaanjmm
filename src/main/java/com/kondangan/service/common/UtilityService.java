@@ -46,7 +46,7 @@ public class UtilityService {
     }
 
     public void saveFile(MultipartFile file, String idDetailDocument, String idJenisDocument) throws IOException {
-        if (!file.isEmpty()) {
+        if (file != null) {
             String filePath = "";
 
             // normalize the file path

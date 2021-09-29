@@ -211,41 +211,6 @@ var Master = function (){
         });
     };
 
-    var deleteMaster = function (idMaster){
-        Utility.showBoxOverlay("formPmqaMaster");
-        $.ajax({
-            type: "DELETE",
-            url: "/pmqa/master/",
-            data: {"idMaster": idMaster},
-            success: function (data) {
-                Utility.removeBoxOverlay();
-                if (data.code == 1) {
-                    Utility.showSuccessMessage("Sukses!", "Data Berhasil dihapus.", function (r) {
-                        loadTblMaster();
-                    })
-                } else {
-                    var message = data.message;
-                    Utility.showErrorMessage("Terjadi Kesalahan!", message);
-                }
-            },
-            error: function (xhr, status, error) {
-                var err = xhr.responseJSON;
-                var msg = "";
-                if (err.status === "Bad Request") {
-                    $.each(err.errors, function (index, item) {
-                        msg += " [" + item.field + "] " + item.defaultMessage;
-                    });
-                } else {
-                    // msg = eval("(" + xhr.responseText + ")");
-                    msg = xhr.responseText;
-                }
-                Utility.showErrorMessage('Terjadi kesalahan!', msg, function (r) {
-                    Utility.removeBoxOverlay();
-                });
-            }
-        });
-    };
-
     return {
         init: function (){
             loadTblMaster();

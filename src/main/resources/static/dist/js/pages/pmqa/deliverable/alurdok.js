@@ -1,6 +1,7 @@
 var AlurDok = function (){
 
     var listMonitoring = [];
+    var listPeriod = [];
 
     var loadTblAlurDok = function () {
         $('#tblPmqaAlurDok').DataTable({
@@ -43,10 +44,28 @@ var AlurDok = function (){
                 {"data": "suratDeloitte", "className": "all text-center"},
                 {"data": "tglSurat", "className": "all text-center"},
                 {"data": "statusDeliverable", "className": "all", "render": function (data, type, full, meta) {
-                        return data == "2" ? "Active" : "Inactive";
+                        if (data == "1") {
+                            return "Dalam Proses QA";
+                        } else if (data == "2") {
+                            return "Perbaikan oleh Deloitte";
+                        } else if (data == "3") {
+                            return "Disetujui Steerco";
+                        } else {
+                            return data;
+                        }
                     }},
                 {"data": "statusPembayaran", "className": "all", "render": function (data, type, full, meta) {
-                        return data == "2" ? "Active" : "Inactive";
+                        if (data == "1") {
+                            return "Belum Dapat Dibayarkan";
+                        } else if (data == "2") {
+                            return "Siap Dibayar";
+                        } else if (data == "3") {
+                            return "Proses Pembayaran";
+                        } else if (data == "4") {
+                            return "Sudah Dibayar";
+                        } else {
+                            return data;
+                        }
                     }},
                 {"data": null, "className": "all text-center"}
             ],
@@ -94,12 +113,16 @@ var AlurDok = function (){
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     var obj = data.object;
+                    var listDeliverableCode = [];
                     $("#idDeliverable").empty();
                     $("#idDeliverable").append('<option value="" selected="" disabled>Pilih</option>');
                     if (obj.length > 0){
                         listMonitoring = obj;
                         $.each(obj, function (){
-                            $("#idDeliverable").append('<option value="'+this.deliverableCode+'">'+this.deliverableCode+'</option>');
+                            if (listDeliverableCode.indexOf(this.deliverableCode)==-1){
+                                $("#idDeliverable").append('<option value="'+this.deliverableCode+'">'+this.deliverableCode+'</option>');
+                                listDeliverableCode.push(this.deliverableCode);
+                            }
                         });
                         $("#idDeliverable").selectpicker('refresh');
                     }
@@ -132,11 +155,16 @@ var AlurDok = function (){
         var validator = $('#formPmqaAlurDok').validate();
 
         $('#mdlPmqaAlurDok').on('hide.bs.modal', function () {
-            // validator.resetForm();
+            validator.resetForm();
             $('#formPmqaAlurDok').each(function () {
                 this.reset();
             });
-            $("#idDeliverable").removeAttr("disabled");
+            // $("#idDeliverable").removeAttr("disabled");
+            $("#idDeliverable").prop("disabled", false).selectpicker('refresh');
+            $("#period").prop("disabled", false).selectpicker('refresh');
+            // $("#idDeliverable").selectpicker('refresh');
+            // $("#period").selectpicker('refresh');
+            // getListMonitoring();
         });
 
         $("#formPmqaAlurDok").submit(function (e) {
@@ -160,7 +188,11 @@ var AlurDok = function (){
             $("#idDeliverable").selectpicker('refresh');
             $("#idDeliverable").prop("disabled", true);
             $("#idMonitoring").val(rData["idMonitoring"]);
+            $("#period").empty();
+            $("#period").append('<option value="'+rData["period"]+'">'+rData["period"]+'</option>');
             $("#period").val(rData["period"]);
+            $("#period").selectpicker('refresh');
+            $("#period").prop("disabled", true);
             $("#version").val(rData["version"]);
             $("#versionName").val(rData["versionName"]);
             $("#suratDeloitte").val(rData["suratDeloitte"]);
@@ -212,13 +244,30 @@ var AlurDok = function (){
 
         $("#idDeliverable").on("change", function (e){
             e.preventDefault();
+            $("#idMonitoring").val("");
+            $("#version").val("");
+            $("#period").val("");
+            $("#period").empty();
+            $("#period").append('<option value="" selected="" disabled>Pilih</option>');
+            listPeriod = [];
             $.each(listMonitoring, function (){
                 if (this.deliverableCode === $("#idDeliverable").val()){
+                    $("#period").append('<option value="'+this.period+'">'+this.period+'</option>');
+                    listPeriod.push(this);
+                }
+            });
+            $("#period").selectpicker('refresh');
+        });
+
+        $("#period").on("change", function (e){
+            e.preventDefault();
+            console.log("tesss 11");
+            $.each(listPeriod, function (){
+                if (this.period == $("#period").val()){
                     $("#idMonitoring").val(this.idMonitoring);
-                    $("#period").val(this.period);
                     getLastVersion(this.idMonitoring, this.period);
                 }
-            })
+            });
         });
 
     };
@@ -291,20 +340,25 @@ var AlurDok = function (){
 
         var fd = new FormData();
         fd.append('model', new Blob([JSON.stringify(data)], {type: "application/json"}));
-        fd.append('fileUploadSurat', $("#uploadSurat")[0].files[0]);
-        fd.append('fileUploadNd', $('#uploadNd')[0].files[0]);
-        fd.append('fileUploadNdPsiap', $('#uploadNdPsiap')[0].files[0]);
-        fd.append('fileUploadBaSteerco', $('#uploadBaSteerco')[0].files[0]);
-        fd.append('fileUploadPersetujuanSteerco', $('#uploadPersetujuanSteerco')[0].files[0]);
-        fd.append('fileUploadSPemberitahuanPPK', $('#uploadSPemberitahuanPPK')[0].files[0]);
-        fd.append('fileUploadBaKemajuan', $('#uploadBaKemajuan')[0].files[0]);
-        fd.append('fileUploadBast', $('#uploadBast')[0].files[0]);
-        fd.append('fileUploadBaPembayaran', $('#uploadBaPembayaran')[0].files[0]);
-        fd.append('fileUploadTagihan', $('#uploadTagihan')[0].files[0]);
-        fd.append('fileUploadNdPermohonanBayar', $('#uploadNdPermohonanBayar')[0].files[0]);
-        fd.append('fileUploadSpp', $('#uploadSpp')[0].files[0]);
-        fd.append('fileUploadSpm', $('#uploadSpm')[0].files[0]);
-        fd.append('fileUploadSp2d', $('#uploadSp2d')[0].files[0]);
+        $.each($('input[type=file]')[0].files, function(i, file) {
+            if (file.length !== 0){
+                fd.append('file'+$('input[type=file]').prop('id'), file);
+            }
+        });
+        // fd.append('fileUploadSurat', $("#uploadSurat")[0].files[0]);
+        // fd.append('fileUploadNd', $('#uploadNd')[0].files[0]);
+        // fd.append('fileUploadNdPsiap', $('#uploadNdPsiap')[0].files[0]);
+        // fd.append('fileUploadBaSteerco', $('#uploadBaSteerco')[0].files[0]);
+        // fd.append('fileUploadPersetujuanSteerco', $('#uploadPersetujuanSteerco')[0].files[0]);
+        // fd.append('fileUploadSPemberitahuanPPK', $('#uploadSPemberitahuanPPK')[0].files[0]);
+        // fd.append('fileUploadBaKemajuan', $('#uploadBaKemajuan')[0].files[0]);
+        // fd.append('fileUploadBast', $('#uploadBast')[0].files[0]);
+        // fd.append('fileUploadBaPembayaran', $('#uploadBaPembayaran')[0].files[0]);
+        // fd.append('fileUploadTagihan', $('#uploadTagihan')[0].files[0]);
+        // fd.append('fileUploadNdPermohonanBayar', $('#uploadNdPermohonanBayar')[0].files[0]);
+        // fd.append('fileUploadSpp', $('#uploadSpp')[0].files[0]);
+        // fd.append('fileUploadSpm', $('#uploadSpm')[0].files[0]);
+        // fd.append('fileUploadSp2d', $('#uploadSp2d')[0].files[0]);
 
         $.ajax({
             type: "POST",

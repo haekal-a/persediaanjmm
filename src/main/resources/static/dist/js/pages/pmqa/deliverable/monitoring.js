@@ -172,6 +172,14 @@ var Monitoring = function (){
         });
 
         $("#deliverableCode").on("blur", function (e){
+
+            $("#sectionNo").val("");
+            $("#function").val("");
+            $("#taskNo").val("");
+            $("#task").val("");
+            $("#deliverableName").val("");
+            $("#scheduleInTor").val("");
+
             e.preventDefault();
             Utility.showBoxOverlay("formPmqaMonitoring");
             $.ajax({

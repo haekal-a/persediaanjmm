@@ -10,6 +10,7 @@ import com.kondangan.repository.DetailDocumentRepo;
 import com.kondangan.repository.MonitoringRepo;
 import com.kondangan.service.IMonitoringService;
 import com.kondangan.service.common.UtilityService;
+import com.kondangan.util.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,13 @@ public class MonitoringService implements IMonitoringService {
             monitoring = new Monitoring();
             monitoring.setCreatedBy(idUser);
             monitoring.setCreationDate(new Date());
+
+            // cek monitoring berdasarkan deliverablecode dan period
+            Monitoring mntr = monitoringRepo.findByDeliverableCodeAndPeriod(monitoringFormModel.getDeliverableCode(), monitoringFormModel.getPeriod());
+            if (!Objects.isNull(mntr)){
+                throw new AppException(1, "Deliverable Code dan Periode tersebut sudah direkam!");
+            }
+
         } else {
             monitoring = monitoringRepo.getById(new BigDecimal(monitoringFormModel.getIdMonitoring()));
             monitoring.setUpdatedBy(idUser);
