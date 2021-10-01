@@ -9,4 +9,8 @@ import java.math.BigDecimal;
 @Repository
 public interface MonitoringRepo extends JpaRepository<Monitoring, BigDecimal> {
     Monitoring findByDeliverableCodeAndPeriod(String deliverableCode, Integer period);
+
+    long countBySubmissionStatus(String submissionStatus);
+
+    long countByPaymentStatus(String paymentStatus);
 }

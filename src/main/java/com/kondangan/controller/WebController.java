@@ -84,7 +84,7 @@ public class WebController {
         model.addAttribute("pmqaDeliverableHeader", "menu-open");
         model.addAttribute("pmqaDeliverableMenu", "active");
         model.addAttribute("pmqaDashboardMenu", "active");
-        return "dashboard";
+        return "pmqa/deliverable/dashboard";
     }
 
     @GetMapping("/pmqa/master")

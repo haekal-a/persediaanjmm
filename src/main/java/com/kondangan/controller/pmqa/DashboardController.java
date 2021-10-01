@@ -25,4 +25,10 @@ public class DashboardController {
         User user = (User) request.getSession().getAttribute("userLogin");
         return dashboardService.getDeliverable(dataTablesInput);
     }
+
+    @GetMapping("/piechart")
+    public ResponseModel getPieChart(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return dashboardService.getPieChart();
+    }
 }
