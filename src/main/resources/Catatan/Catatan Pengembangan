@@ -1,0 +1,37 @@
+<done> 1. Tambah Monitoring, saat simpan, D berubah, clean section no dll.
+<done> 2. Tambah Alur Dokumen, ID Deliverable => distinct deliverable_code monitoring.
+<done> 3. Tambah Alur Dokumen, Periode = dropdown, pilih periode sesuai ID Deliverable.
+<done> 4. Tambah Alur Dokumen, Bisa Upload hanya salah satu dokumen aja.
+<done> 5. Tambah Alur Dokumen yang Wajib Diisi
+	a. ID Deliverable,
+	b. Periode
+	c. Version
+	d. Version Name
+	e. No Surat PMQA
+	f. Tgl Surat PMQA
+	g. tgl submit
+<done> 6. Monitoring, Tambah tidak bisa satu deliverable code di satu periode yang sama
+
+4 Okt 2021
+1. Dashboard di tambah keterangan
+	"Jumlah Data yang Ditampilkan adalah Jumlah Data Sudah Disubmit oleh PT Deloitte Consulting"
+2. tambah sign out
+3. Menu Role
+	yang di tampilkan
+			tombol tambah User
+	Username :
+	Nama	 :
+	Password :
+	level 	 : (dropdown)
+		1 = Admin
+		2 = User
+	Tombol Save
+
+	*Keterangan
+		Admin = bisa add/update/delete/view
+		User = View seluruh menu, kecuali role. dia hanya bisa view dia sendiri dan bisa update.
+
+4. Tombol View untuk role 'user'
+5. Fungsi Alur Dokumen untuk Download Dokumen
+6. Dashboard Awal
+7. Ubah Password
