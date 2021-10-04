@@ -13,8 +13,8 @@ var Dashboard = function (){
                 maintainAspectRatio : false,
                 responsive : true,
                 title: {
-                    display: false,
-                    text: "World Wide Wine Production"
+                    display: true,
+                    text: "Jumlah Data yang Ditampilkan adalah Jumlah Data Sudah Disubmit oleh PT Deloitte Consulting"
                 }
             }
         });
