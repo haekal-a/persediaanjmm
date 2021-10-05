@@ -32,6 +32,21 @@
 		User = View seluruh menu, kecuali role. dia hanya bisa view dia sendiri dan bisa update.
 
 4. Tombol View untuk role 'user'
-5. Fungsi Alur Dokumen untuk Download Dokumen
-6. Dashboard Awal
-7. Ubah Password
+5. Dashboard Awal
+6. Menu export to excel
+6. Fungsi Alur Dokumen untuk Download Dokumen
+7. Ubah Password (masuk ke Role)
+
+
+05 Okt 2021 (Kerjakan sebelum angka 4 diatas)
+- MOnitoring => update posisi berdasarkan status_deliverable
+- monitoring > Bulan Submission > Format bulan dan tahun
+- Alur Dokumen > Status Pembayaran > ubah narasi "siap dibayar" => "belum ditagihkan"
+- pastikan saat save alur dokumen, isi bulan submision saat version = 1
+
+- Tabel Master :
+hide ID Master
+
+- Tabel Monitoring:
+Tambah kolom No.
+Hide ID Monitoring
