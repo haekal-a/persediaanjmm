@@ -34,6 +34,11 @@ var AlurDok = function (){
             destroy: true,
             serverSide: false,
             columns: [
+                {
+                    "data": null, "className": "text-center", "width": "5%", "render": function (data, type, full, meta) {
+                        return meta.settings._iDisplayStart + meta.row + 1;
+                    }
+                },
                 {"data": "idDetailDocument", "className": "all text-center"},
                 {"data": "idDeliverable", "className": "all text-center"},
                 {"data": "idMonitoring", "className": "all text-center"},
@@ -58,7 +63,7 @@ var AlurDok = function (){
                         if (data == "1") {
                             return "Belum Dapat Dibayarkan";
                         } else if (data == "2") {
-                            return "Siap Dibayar";
+                            return "Belum Ditagihkan";
                         } else if (data == "3") {
                             return "Proses Pembayaran";
                         } else if (data == "4") {
@@ -72,19 +77,20 @@ var AlurDok = function (){
             columnDefs: [
                 {
                     "targets": -1, "render": function (data, type, full, meta) {
-                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit"></a>';
-                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete"></a>';
-                        return btnedit + btnDelete;
+                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit" title="Edit"></a>';
+                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete" title="Delete"></a>';
+                        var btnView = '<a href="#" class="fab fa-chromecast btn-primary btn-sm view" title="View"></a>';
+                        return roleUser ? btnView : btnedit + btnDelete;
                     }
                 }
             ],
             responsive: {
                 details: false
             },
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     "copy", "csv", "excel", "pdf", "print", "colvis"
-            // ],
+            dom: 'Blfrtip',
+            buttons: [
+                "copy", "excel"
+            ],
 
             scrollX: true,
             lengthChange: true,
@@ -150,6 +156,10 @@ var AlurDok = function (){
     };
 
     var pageHandler = function (){
+
+        if (roleUser){
+            $(".card-tools").empty();
+        }
 
         // init validation
         var validator = $('#formPmqaAlurDok').validate();
@@ -230,6 +240,59 @@ var AlurDok = function (){
             $("#mdlPmqaAlurDok").modal("show");
         });
 
+        $('#tblPmqaAlurDok').on("click", "a.view", function (e){
+            e.preventDefault();
+            var table = $('#tblPmqaAlurDok').DataTable();
+            var tbl = table.row($(this).parents('tr'));
+            var rData = tbl.data();
+            $("#idDetailDocument").val(rData["idDetailDocument"]).prop("disabled", true);
+            $("#idDeliverable").val(rData["idDeliverable"]);
+            $("#idDeliverable").selectpicker('refresh');
+            $("#idDeliverable").prop("disabled", true);
+            $("#idMonitoring").val(rData["idMonitoring"]);
+            $("#period").empty();
+            $("#period").append('<option value="'+rData["period"]+'">'+rData["period"]+'</option>');
+            $("#period").val(rData["period"]);
+            $("#period").selectpicker('refresh');
+            $("#period").prop("disabled", true);
+            $("#version").val(rData["version"]).prop("disabled", true);
+            $("#versionName").val(rData["versionName"]).prop("disabled", true);
+            $("#suratDeloitte").val(rData["suratDeloitte"]).prop("disabled", true);
+            $("#tglSurat").datepicker("setDate", Utility.formatTanggalToString(rData["tglSurat"])).prop("disabled", true);
+            $("#tglSubmission").datepicker("setDate", Utility.formatTanggalToString(rData["tglSubmission"])).prop("disabled", true);
+            $("#ndPenerusanPpk").val(rData["ndPenerusanPpk"]).prop("disabled", true);
+            $("#tglNd").datepicker("setDate", Utility.formatTanggalToString(rData["tglNd"])).prop("disabled", true);
+            $("#flagPsiap").val(rData["flagPsiap"]).prop("disabled", true);
+            $("#ndPsiap").val(rData["ndPsiap"]).prop("disabled", true);
+            $("#tglNdPsiap").datepicker("setDate", Utility.formatTanggalToString(rData["tglNdPsiap"])).prop("disabled", true);
+            $("#baSteerco").val(rData["baSteerco"]).prop("disabled", true);
+            $("#tglBaSteerco").datepicker("setDate", Utility.formatTanggalToString(rData["tglBaSteerco"])).prop("disabled", true);
+            $("#noApproveSteerco").val(rData["noApproveSteerco"]).prop("disabled", true);
+            $("#tglApprove").datepicker("setDate", Utility.formatTanggalToString(rData["tglApprove"])).prop("disabled", true);
+            $("#sPemberitahuanPpk").val(rData["sPemberitahuanPpk"]).prop("disabled", true);
+            $("#tglS").datepicker("setDate", Utility.formatTanggalToString(rData["tglS"])).prop("disabled", true);
+            $("#baKemajuan").val(rData["baKemajuan"]).prop("disabled", true);
+            $("#tglBaKemajuan").datepicker("setDate", Utility.formatTanggalToString(rData["tglBaKemajuan"])).prop("disabled", true);
+            $("#bast").val(rData["bast"]).prop("disabled", true);
+            $("#tglBast").datepicker("setDate", Utility.formatTanggalToString(rData["tglBast"])).prop("disabled", true);
+            $("#baPembayaran").val(rData["baPembayaran"]).prop("disabled", true);
+            $("#tglBaPembayaran").datepicker("setDate", Utility.formatTanggalToString(rData["tglBaPembayaran"])).prop("disabled", true);
+            $("#tagihan").val(rData["tagihan"]).prop("disabled", true);
+            $("#tglTagihan").datepicker("setDate", Utility.formatTanggalToString(rData["tglTagihan"])).prop("disabled", true);
+            $("#ndPermohonanBayar").val(rData["ndPermohonanBayar"]).prop("disabled", true);
+            $("#tglNdPermohonanBayar").datepicker("setDate", Utility.formatTanggalToString(rData["tglNdPermohonanBayar"])).prop("disabled", true);
+            $("#spp").val(rData["spp"]).prop("disabled", true);
+            $("#tglSpp").datepicker("setDate", Utility.formatTanggalToString(rData["tglSpp"])).prop("disabled", true);
+            $("#spm").val(rData["spm"]).prop("disabled", true);
+            $("#tglSpm").datepicker("setDate", Utility.formatTanggalToString(rData["tglSpm"])).prop("disabled", true);
+            $("#sp2D").val(rData["sp2D"]).prop("disabled", true);
+            $("#tglSp2D").datepicker("setDate", Utility.formatTanggalToString(rData["tglSp2D"])).prop("disabled", true);
+            $("#statusDeliverable").val(rData["statusDeliverable"]).prop("disabled", true);
+            $("#statusPembayaran").val(rData["statusPembayaran"]).prop("disabled", true);
+            $('[type="submit"]').remove();
+            $("#mdlPmqaAlurDok").modal("show");
+        });
+
         $("#tblPmqaAlurDok").on('click', 'a.delete', function (e) {
             e.preventDefault();
             var table = $('#tblPmqaAlurDok').DataTable();
@@ -269,6 +332,10 @@ var AlurDok = function (){
             });
         });
 
+        setTimeout(function(){
+            $('.dataTables_filter').addClass('pull-right');
+            $('.dataTables_length').addClass('pull-left').attr("style","padding-right:1rem");
+        }, 200);
     };
 
     var getLastVersion = function (idMonitoring, period){

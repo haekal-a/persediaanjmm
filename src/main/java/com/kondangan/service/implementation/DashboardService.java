@@ -51,7 +51,7 @@ public class DashboardService implements IDashboardService {
         long sudahBayar = monitoringRepo.countByPaymentStatus("4");
         label = new ArrayList<>();
         label.add("Belum Dapat Dibayarkan");
-        label.add("Siap Dibayar");
+        label.add("Belum Ditagihkan");
         label.add("Proses Pembayaran");
         label.add("Sudah Dibayar");
         data = new ArrayList<>();

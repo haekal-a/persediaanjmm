@@ -38,7 +38,6 @@ var Master = function (){
                         return meta.settings._iDisplayStart + meta.row + 1;
                     }
                 },
-                {"data": "idMaster", "className": "text-center"},
                 {"data": "idDeliverable", "className": "text-center"},
                 {"data": "sectionNo", "className": "text-center"},
                 {"data": "function"},
@@ -51,17 +50,18 @@ var Master = function (){
             columnDefs: [
                 {
                     "targets": -1, "render": function (data, type, full, meta) {
-                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit"></a>';
-                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete"></a>';
-                        return btnedit + btnDelete;
+                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit" title="Edit"></a>';
+                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete" title="Delete"></a>';
+                        var btnView = '<a href="#" class="fab fa-chromecast btn-primary btn-sm view" title="View"></a>';
+                        return roleUser ? btnView : btnedit + btnDelete;
                     }
                 }
             ],
             responsive: true,
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     "copy", "csv", "excel", "pdf", "print", "colvis"
-            // ],
+            dom: 'Blfrtip',
+            buttons: [
+                "copy", "excel"
+            ],
             lengthChange: true,
             lengthMenu: [10, 20, 50],
             ordering: false,
@@ -88,6 +88,11 @@ var Master = function (){
     };
 
     var pageHandler = function (){
+
+        if (roleUser){
+            // $("a.addMaster").prop("disabled", true);
+            $(".card-tools").empty();
+        }
 
         // init validation
         validator = $('#formPmqaMaster').validate();
@@ -126,6 +131,23 @@ var Master = function (){
             $("#mdlPmqaMaster").modal("show");
         });
 
+        $('#tblPmqaMaster').on("click", "a.view", function (e){
+            e.preventDefault();
+            var table = $('#tblPmqaMaster').DataTable();
+            var tbl = table.row($(this).parents('tr'));
+            var rData = tbl.data();
+            $("#idMaster").val(rData["idMaster"]).prop("disabled", true);
+            $("#idDeliverable").val(rData["idDeliverable"]).prop("disabled", true);
+            $("#sectionNo").val(rData["sectionNo"]).prop("disabled", true);
+            $("#function").val(rData["function"]).prop("disabled", true);
+            $("#taskNo").val(rData["taskNo"]).prop("disabled", true);
+            $("#task").val(rData["task"]).prop("disabled", true);
+            $("#deliverableName").val(rData["deliverableName"]).prop("disabled", true);
+            $("#scheduleInTor").val(rData["scheduleInTor"]).prop("disabled", true);
+            $('[type="submit"]').remove();
+            $("#mdlPmqaMaster").modal("show");
+        });
+
         $("#tblPmqaMaster").on('click', 'a.delete', function (e) {
             e.preventDefault();
             var table = $('#tblPmqaMaster').DataTable();
@@ -137,6 +159,11 @@ var Master = function (){
                 }
             })
         });
+
+        setTimeout(function(){
+            $('.dataTables_filter').addClass('pull-right');
+            $('.dataTables_length').addClass('pull-left').attr("style","padding-right:1rem");
+        }, 200);
     };
 
     var saveMaster = function () {

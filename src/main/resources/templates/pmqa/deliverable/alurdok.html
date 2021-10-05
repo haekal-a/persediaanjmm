@@ -12,6 +12,10 @@
 
     <!-- bootstrap-datepicker -->
     <link rel="stylesheet" th:href="@{/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}">
+    <style rel="stylesheet" type="text/css">
+        .pull-left{float: left !important;}
+        .pull-right{float: right !important;}
+    </style>
 </th:block>
 <th:block layout:fragment="page_title">
     <h1 class="m-0">PMQA - Alur Dokumen</h1>
@@ -48,6 +52,7 @@
                                 <table id="tblPmqaAlurDok" class="table table-bordered table-hover dataTable table-cell">
                                     <thead>
                                     <tr>
+                                        <th class="text-center">No</th>
                                         <th class="text-center">ID Alur Dokumen</th>
                                         <th class="text-center">ID Deliverable</th>
                                         <th class="text-center">ID Monitoring</th>
@@ -582,12 +587,12 @@
                                         <select class="custom-select rounded-0" id="statusPembayaran" name="statusPembayaran" required>
                                             <option value="" selected disabled>-</option>
                                             <option value="1">Belum Dapat Dibayarkan</option>
-                                            <option value="2">Siap Dibayar</option>
+                                            <option value="2">Belum Ditagihkan</option>
                                             <option value="3">Proses Pembayaran</option>
                                             <option value="4">Sudah Dibayar</option>
                                             <!-- "Flag:
                                                 1 = Belum Dapat Dibayarkan
-                                                2 = Siap Dibayar
+                                                2 = Belum Ditagihkan
                                                 3 = Proses Pembayaran
                                                 4 = Sudah Dibayarkan" -->
 

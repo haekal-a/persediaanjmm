@@ -109,9 +109,11 @@ public class DetailDocumentService implements IDetailDocumentService {
 
         // update monitoring
         Monitoring monitoring = monitoringRepo.getById(new BigDecimal(detailDoc.getIdMonitoring()));
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String strDate = dateFormat.format(detailDoc.getTglSubmission());
-        monitoring.setMonthSubmission(strDate);
+        if (alurDocFormModel.getVersion()==1) {
+            DateFormat dateFormat = new SimpleDateFormat("MMyyyy");
+            String strDate = dateFormat.format(detailDoc.getTglSubmission());
+            monitoring.setMonthSubmission(strDate);
+        }
         monitoring.setLatestVersion(detailDoc.getVersionName());
         monitoring.setPaymentStatus(detailDoc.getStatusPembayaran());
         monitoring.setUpdatedDate(new Date());

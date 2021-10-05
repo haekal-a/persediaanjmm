@@ -12,8 +12,6 @@ var Utility = function (){
             }
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
-
         //Date picker
         $('.datepicker').datepicker({
             format: "dd-mm-yyyy",
@@ -28,13 +26,16 @@ var Utility = function (){
             setDefaultValidation();
         }
 
-        var bsFile = $(".custom-file-input");
+        var bsFile = $(".custom-file-input").prop("id");
         if (typeof bsFile !== 'undefined' && bsFile !== false){
             bsCustomFileInput.init()
         }
 
         // Initialize selectpicker Elements
-        $('.selectpicker').selectpicker();
+        var selectpicker = $('.selectpicker').prop("id");
+        if (typeof selectpicker !== 'undefined' && selectpicker !== false) {
+            $('.selectpicker').selectpicker();
+        }
     }
 
     var formatTanggalToString = function (data) {

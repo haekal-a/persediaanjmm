@@ -33,12 +33,11 @@ var Monitoring = function (){
             destroy: true,
             serverSide: false,
             columns: [
-                // {
-                //     "data": null, "className": "all text-center", "width": "5%", "render": function (data, type, full, meta) {
-                //         return meta.settings._iDisplayStart + meta.row + 1;
-                //     }
-                // },
-                {"data": "idMonitoring", "className": "all text-center"},
+                {
+                    "data": null, "className": "all text-center", "width": "5%", "render": function (data, type, full, meta) {
+                        return meta.settings._iDisplayStart + meta.row + 1;
+                    }
+                },
                 {"data": "sectionNo", "className": "all text-center"},
                 {"data": "function", "className": "all"},
                 {"data": "taskNo", "className": "all text-center"},
@@ -69,19 +68,20 @@ var Monitoring = function (){
             columnDefs: [
                 {
                     "targets": -1, "render": function (data, type, full, meta) {
-                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit"></a>';
-                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete"></a>';
-                        return btnedit + btnDelete;
+                        var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit" title="Edit"></a>';
+                        var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete" title="Delete"></a>';
+                        var btnView = '<a href="#" class="fab fa-chromecast btn-primary btn-sm view" title="View"></a>';
+                        return roleUser ? btnView : btnedit + btnDelete;
                     }
                 }
             ],
             responsive: {
                 details: false
             },
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     "copy", "csv", "excel", "pdf", "print", "colvis"
-            // ],
+            dom: 'Blfrtip',
+            buttons: [
+                "copy", "excel"
+            ],
 
             scrollX: true,
             lengthChange: true,
@@ -110,6 +110,10 @@ var Monitoring = function (){
     };
 
     var pageHandler = function (){
+
+        if (roleUser){
+            $(".card-tools").empty();
+        }
 
         // init validation
         validator = $('#formPmqaMonitoring').validate();
@@ -156,6 +160,32 @@ var Monitoring = function (){
             $("#hardcopyOut").val(rData["hardcopyOut"]);
             $("#hardcopyLeft").val(rData["hardcopyLeft"]);
             $("#keterangan").val(rData["keterangan"]);
+            $("#mdlPmqaMonitoring").modal("show");
+        });
+
+        $('#tblPmqaMonitoring').on("click", "a.view", function (e){
+            e.preventDefault();
+            var table = $('#tblPmqaMonitoring').DataTable();
+            var tbl = table.row($(this).parents('tr'));
+            var rData = tbl.data();
+            if (rData["hardcopyStatus"] == "2") $("#adaHardcopy").show();
+            $("#idMonitoring").val(rData["idMonitoring"]).prop("disabled", true);
+            $("#deliverableCode").val(rData["deliverableCode"]).prop("disabled", true);
+            $("#sectionNo").val(rData["sectionNo"]).prop("disabled", true);
+            $("#function").val(rData["function"]).prop("disabled", true);
+            $("#taskNo").val(rData["taskNo"]).prop("disabled", true);
+            $("#task").val(rData["task"]).prop("disabled", true);
+            $("#deliverableName").val(rData["deliverableName"]).prop("disabled", true);
+            $("#scheduleInTor").val(rData["scheduleInTor"]).prop("disabled", true);
+            $("#submissionStatus").val(rData["submissionStatus"]).prop("disabled", true);
+            $("#period").val(rData["period"]).prop("disabled", true);
+            $("#softcopyStatus").val(rData["softcopyStatus"]).prop("disabled", true);
+            $("#hardcopyStatus").val(rData["hardcopyStatus"]).prop("disabled", true);
+            $("#hardcopyIn").val(rData["hardcopyIn"]).prop("disabled", true);
+            $("#hardcopyOut").val(rData["hardcopyOut"]).prop("disabled", true);
+            $("#hardcopyLeft").val(rData["hardcopyLeft"]).prop("disabled", true);
+            $("#keterangan").val(rData["keterangan"]).prop("disabled", true);
+            $('[type="submit"]').remove();
             $("#mdlPmqaMonitoring").modal("show");
         });
 
@@ -232,6 +262,11 @@ var Monitoring = function (){
             clearMaskOnLostFocus: true,
             placeholder: "_"
         });
+
+        setTimeout(function(){
+            $('.dataTables_filter').addClass('pull-right');
+            $('.dataTables_length').addClass('pull-left').attr("style","padding-right:1rem");
+        }, 200);
     };
 
     var saveMonitoring = function () {
