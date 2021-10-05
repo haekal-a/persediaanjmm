@@ -16,7 +16,7 @@
 >>1. Dashboard di tambah keterangan
 	"Jumlah Data yang Ditampilkan adalah Jumlah Data Sudah Disubmit oleh PT Deloitte Consulting"
 >>2. tambah sign out
-3. Menu Role
+..3. Menu Role
 	yang di tampilkan
 			tombol tambah User
 	Username :
@@ -28,7 +28,7 @@
 	Tombol Save
 
 	*Keterangan
-		Admin = bisa add/update/delete/view
+		?????Admin = bisa add/update/delete/view
 		User = View seluruh menu, kecuali role. dia hanya bisa view dia sendiri dan bisa update.
 
 4. Tombol View untuk role 'user'

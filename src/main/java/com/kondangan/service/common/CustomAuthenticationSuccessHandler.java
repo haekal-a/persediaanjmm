@@ -1,6 +1,5 @@
 package com.kondangan.service.common;
 
-import com.kondangan.domain.model.UserFormModel;
 import com.kondangan.domain.table.User;
 import com.kondangan.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,7 +18,9 @@
                 <i class="fas fa-sign-out-alt"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a th:href="@{/logout}" class="dropdown-item">
+                <span class="dropdown-item dropdown-header" th:text="${session.userLogin.nama}">User</span>
+                <div class="dropdown-divider"></div>
+                <a th:href="@{/logout}" class="dropdown-item text-bold text-right">
                     Logout
                 </a>
             </div>

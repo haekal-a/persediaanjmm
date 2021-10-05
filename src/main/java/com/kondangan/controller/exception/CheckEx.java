@@ -1,7 +1,6 @@
 package com.kondangan.controller.exception;
 
 import com.kondangan.domain.model.ResponseModel;
-import com.kondangan.domain.model.UserFormModel;
 import com.kondangan.domain.table.User;
 import com.kondangan.util.AppException;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -261,7 +261,6 @@ var AlurDok = function (){
 
         $("#period").on("change", function (e){
             e.preventDefault();
-            console.log("tesss 11");
             $.each(listPeriod, function (){
                 if (this.period == $("#period").val()){
                     $("#idMonitoring").val(this.idMonitoring);
@@ -327,16 +326,12 @@ var AlurDok = function (){
 
         var data = {};
         $(formData).each(function (index, obj) {
-            console.log("cek111");
             if (this.name.indexOf("tgl") != -1) {
-                console.log(this.value);
                 data[this.name] = Utility.formatTanggalToDate(this.value);
             } else {
                 data[this.name] = this.value;
             }
         });
-
-        console.log(data);
 
         var fd = new FormData();
         fd.append('model', new Blob([JSON.stringify(data)], {type: "application/json"}));

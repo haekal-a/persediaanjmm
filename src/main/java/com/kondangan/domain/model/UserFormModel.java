@@ -12,12 +12,14 @@ import java.util.Date;
 
 @Data
 public class UserFormModel implements Serializable {
-    private BigDecimal id;
+    private String id;
     @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String username;
+    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String nama;
     @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String password;
+    @NotBlank(message = Constanta.MSG_FORM_NOTNULL)
     private String level;
     private String createdBy;
     @Temporal(TemporalType.TIMESTAMP)

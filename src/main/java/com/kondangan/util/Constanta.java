@@ -2,7 +2,6 @@ package com.kondangan.util;
 
 public final class Constanta {
     public static final String SALT = "@bismillah%4#kondangan";
-    public static final String JABATAN_PK = "Penelaah Keberatan";
 
     public final static String MSG_FORM_NOTNULL = "Isian tidak boleh kosong.";
     public final static String MSG_FORM_DIGITS = "Masukkan angka saja.";
@@ -23,5 +22,8 @@ public final class Constanta {
     public static final String ID_SPP = "12";
     public static final String ID_SPM = "13";
     public static final String ID_SP2D = "14";
+
+    public static final String LEVEL_ADMIN = "1";
+    public static final String LEVEL_USER = "2";
 
 }

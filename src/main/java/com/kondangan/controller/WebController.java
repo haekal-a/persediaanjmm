@@ -1,5 +1,6 @@
 package com.kondangan.controller;
 
+import com.kondangan.domain.table.User;
 import com.kondangan.service.common.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class WebController {
 
     @GetMapping("/si/dashboard")
     public String showSiDashboard(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("siDeliverableHeader", "menu-open");
         model.addAttribute("siDeliverableMenu", "active");
@@ -49,7 +50,7 @@ public class WebController {
 
     @GetMapping("/si/master")
     public String showSiMaster(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("siDeliverableHeader", "menu-open");
         model.addAttribute("siDeliverableMenu", "active");
@@ -59,7 +60,7 @@ public class WebController {
 
     @GetMapping("/si/monitoring")
     public String showSiMonitoring(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("siDeliverableHeader", "menu-open");
         model.addAttribute("siDeliverableMenu", "active");
@@ -69,7 +70,7 @@ public class WebController {
 
     @GetMapping("/si/alurdok")
     public String showSiAlurDok(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("siDeliverableHeader", "menu-open");
         model.addAttribute("siDeliverableMenu", "active");
@@ -79,7 +80,7 @@ public class WebController {
 
     @GetMapping("/pmqa/dashboard")
     public String showPmqaDashboard(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("pmqaDeliverableHeader", "menu-open");
         model.addAttribute("pmqaDeliverableMenu", "active");
@@ -89,7 +90,7 @@ public class WebController {
 
     @GetMapping("/pmqa/master")
     public String showPmqaMaster(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("pmqaDeliverableHeader", "menu-open");
         model.addAttribute("pmqaDeliverableMenu", "active");
@@ -99,7 +100,7 @@ public class WebController {
 
     @GetMapping("/pmqa/monitoring")
     public String showPmqaMonitoring(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("pmqaDeliverableHeader", "menu-open");
         model.addAttribute("pmqaDeliverableMenu", "active");
@@ -109,7 +110,7 @@ public class WebController {
 
     @GetMapping("/pmqa/alurdok")
     public String showPmqaAlurDok(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("pmqaDeliverableHeader", "menu-open");
         model.addAttribute("pmqaDeliverableMenu", "active");
@@ -119,7 +120,7 @@ public class WebController {
 
     @GetMapping("/cm/dashboard")
     public String showCmDashboard(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("cmDeliverableHeader", "menu-open");
         model.addAttribute("cmDeliverableMenu", "active");
@@ -129,7 +130,7 @@ public class WebController {
 
     @GetMapping("/cm/master")
     public String showCmMaster(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("cmDeliverableHeader", "menu-open");
         model.addAttribute("cmDeliverableMenu", "active");
@@ -139,7 +140,7 @@ public class WebController {
 
     @GetMapping("/cm/monitoring")
     public String showCmMonitoring(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("cmDeliverableHeader", "menu-open");
         model.addAttribute("cmDeliverableMenu", "active");
@@ -149,7 +150,7 @@ public class WebController {
 
     @GetMapping("/cm/alurdok")
     public String showCmAlurDok(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("cmDeliverableHeader", "menu-open");
         model.addAttribute("cmDeliverableMenu", "active");
@@ -159,9 +160,9 @@ public class WebController {
 
     @GetMapping("/pengaturan/role")
     public String showPengaturanRole(HttpServletRequest request, ModelMap model){
-//        UserFormModel user = (UserFormModel) request.getSession().getAttribute("userLogin");
+//        User user = (User) request.getSession().getAttribute("userLogin");
 //        model.addAttribute("user", user);
         model.addAttribute("roleMenu", "active");
-        return "dashboard";
+        return "role";
     }
 }
