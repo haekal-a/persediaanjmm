@@ -85,7 +85,7 @@ var Monitoring = function (){
 
             scrollX: true,
             lengthChange: true,
-            lengthMenu: [10, 20, 50],
+            lengthMenu: [5, 10, 20, 50],
             ordering: false,
             searching: true,
             // pagingType: "numbers",

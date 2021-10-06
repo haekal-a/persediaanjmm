@@ -31,22 +31,34 @@
 		?????Admin = bisa add/update/delete/view
 		User = View seluruh menu, kecuali role. dia hanya bisa view dia sendiri dan bisa update.
 
-<V>4. Tombol View untuk role 'user'
+<done>4. Tombol View untuk role 'user'
 5. Dashboard Awal
-<V>6. Menu export to excel
+<done>6. Menu export to excel
 6. Fungsi Alur Dokumen untuk Download Dokumen
-<V>7. Ubah Password (masuk ke Role)
+<done> 7. Ubah Password (masuk ke Role)
 
 
 05 Okt 2021 (Kerjakan sebelum angka 4 diatas)
 ?????????????- MOnitoring => update posisi berdasarkan status_deliverable
-<V>- monitoring > Bulan Submission > Format bulan dan tahun
-<V>- Alur Dokumen > Status Pembayaran > ubah narasi "siap dibayar" => "belum ditagihkan"
-<V>- pastikan saat save alur dokumen, isi bulan submision saat version = 1
+        Saat Simpan Alur Dokumen, update di Position sama dengan deliverables Status, di table (web) yang tampil:
+        1 = Dalam Proses QA
+        2 = Perbaikan oleh Deloitte
+        3 = Telah Disetujui Steerco
+<done>- monitoring > Bulan Submission > Format bulan dan tahun
+<done>- Alur Dokumen > Status Pembayaran > ubah narasi "siap dibayar" => "belum ditagihkan"
+<done>- pastikan saat save alur dokumen, isi bulan submision saat version = 1
 
-<V>- Tabel Master :
-<V>hide ID Master
+<done>- Tabel Master :
+<done>hide ID Master
 
-<V>- Tabel Monitoring:
-<V>Tambah kolom No.
-<V>Hide ID Monitoring
+<done>- Tabel Monitoring:
+<done>Tambah kolom No.
+<done>Hide ID Monitoring
+
+06 Okt 2021
+1. User > user tidak bisa update level.
+2. Tampilan, Header, Aside dan Footer dibuat fixed. kayak nang AdminLTE sik Dashboard V2
+    wes tak coba sitik..
+3. Tabel Alur Dokumen
+    Hide ID Alur Dokumen
+    Tambahkan kolom No.

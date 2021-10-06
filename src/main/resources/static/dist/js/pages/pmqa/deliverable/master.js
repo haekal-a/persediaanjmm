@@ -63,7 +63,7 @@ var Master = function (){
                 "copy", "excel"
             ],
             lengthChange: true,
-            lengthMenu: [10, 20, 50],
+            lengthMenu: [5, 10, 20, 50],
             ordering: false,
             searching: true,
             // pagingType: "numbers",

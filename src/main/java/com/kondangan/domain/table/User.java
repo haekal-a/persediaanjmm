@@ -21,9 +21,9 @@ public class User implements Serializable {
   private String password;
   private String level;
   private String createdBy;
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date creationDate;
   private String lastUpdateBy;
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdateDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date creationDate;
 }

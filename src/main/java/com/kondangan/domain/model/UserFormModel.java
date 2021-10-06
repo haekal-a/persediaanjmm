@@ -23,7 +23,7 @@ public class UserFormModel implements Serializable {
     private String level;
     private String createdBy;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date cretionDate;
+    private Date creationDate;
     private String lastUpdateBy;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateDate;
