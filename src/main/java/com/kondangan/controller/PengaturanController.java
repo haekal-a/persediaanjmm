@@ -28,7 +28,7 @@ public class PengaturanController {
     @PostMapping(value = "/role/")
     public ResponseModel saveUser(@Valid final UserFormModel UserFormModel, HttpServletRequest request) throws IOException {
         User user = (User) request.getSession().getAttribute("userLogin");
-        return userService.saveUser(UserFormModel, user.getId().toString(), request);
+        return userService.saveUser(UserFormModel, user.getId().toString(), user.getLevel(), request);
     }
 
     @DeleteMapping(value = "/role/")

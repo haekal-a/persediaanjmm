@@ -112,6 +112,9 @@ var Role = function (){
             $("#user").val(rData["username"]);
             $("#nama").val(rData["nama"]);
             $("#level").val(rData["level"]);
+            if (roleUser){
+                $("#level").prop("disabled", true);
+            }
             $("#mdlUser").modal("show");
         });
 

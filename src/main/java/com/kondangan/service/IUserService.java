@@ -14,7 +14,7 @@ public interface IUserService {
 
     ResponseModel getDaftarUser(DataTablesInput dataTablesInput, BigDecimal idUser, String level);
 
-    ResponseModel saveUser(UserFormModel userFormModel, String idUserLogin, HttpServletRequest request);
+    ResponseModel saveUser(UserFormModel userFormModel, String idUserLogin, String levelUserLogin, HttpServletRequest request);
 
     ResponseModel deleteUser(String id, String idUserLogin);
 }

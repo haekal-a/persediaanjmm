@@ -39,7 +39,7 @@
 
 
 05 Okt 2021 (Kerjakan sebelum angka 4 diatas)
-?????????????- MOnitoring => update posisi berdasarkan status_deliverable
+<V>- MOnitoring => update posisi berdasarkan status_deliverable
         Saat Simpan Alur Dokumen, update di Position sama dengan deliverables Status, di table (web) yang tampil:
         1 = Dalam Proses QA
         2 = Perbaikan oleh Deloitte
@@ -56,9 +56,14 @@
 <done>Hide ID Monitoring
 
 06 Okt 2021
-1. User > user tidak bisa update level.
-2. Tampilan, Header, Aside dan Footer dibuat fixed. kayak nang AdminLTE sik Dashboard V2
+<V>1. User > user tidak bisa update level.
+<V>2. Tampilan, Header, Aside dan Footer dibuat fixed. kayak nang AdminLTE sik Dashboard V2
     wes tak coba sitik..
-3. Tabel Alur Dokumen
+<V>3. Tabel Alur Dokumen
     Hide ID Alur Dokumen
     Tambahkan kolom No.
+
+
+    !! PERHATIAN !!
+    file  (/dist/img/LogoDJPSekunder.png) klik kanan >> git >> add >> baru commit & push
+    kasus nek koe nambahi file2 baru

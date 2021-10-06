@@ -1,11 +1,9 @@
 package com.kondangan.service.implementation;
 
-import com.kondangan.controller.exception.AppErrorException;
 import com.kondangan.domain.model.ResponseModel;
 import com.kondangan.domain.model.UserFormModel;
 import com.kondangan.domain.model.datatables.mapping.DataTablesInput;
 import com.kondangan.domain.model.datatables.mapping.DataTablesOutput;
-import com.kondangan.domain.table.Master;
 import com.kondangan.domain.table.User;
 import com.kondangan.repository.UserRepo;
 import com.kondangan.service.IUserService;
@@ -15,8 +13,6 @@ import com.kondangan.util.Constanta;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +60,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseModel saveUser(UserFormModel userFormModel, String idUserLogin, HttpServletRequest request) {
+    public ResponseModel saveUser(UserFormModel userFormModel, String idUserLogin, String levelUserLogin, HttpServletRequest request) {
+        // lever user tidak dapat mengubah level
+        if (levelUserLogin.equals(Constanta.LEVEL_USER) &&
+                userFormModel.getLevel().equals(Constanta.LEVEL_ADMIN)){
+            throw new AppException(1, "Level tidak dapat diubah");
+        }
         User user;
         if (Objects.equals(userFormModel.getId(), "")){
             user = new User();

@@ -114,6 +114,7 @@ public class DetailDocumentService implements IDetailDocumentService {
             String strDate = dateFormat.format(detailDoc.getTglSubmission());
             monitoring.setMonthSubmission(strDate);
         }
+        monitoring.setPosition(Integer.valueOf(detailDoc.getStatusDeliverable()));
         monitoring.setLatestVersion(detailDoc.getVersionName());
         monitoring.setPaymentStatus(detailDoc.getStatusPembayaran());
         monitoring.setUpdatedDate(new Date());

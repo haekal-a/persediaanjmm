@@ -60,6 +60,11 @@ public class MonitoringService implements IMonitoringService {
             monitoring = monitoringRepo.getById(new BigDecimal(monitoringFormModel.getIdMonitoring()));
             monitoring.setUpdatedBy(idUser);
             monitoring.setUpdatedDate(new Date());
+            // deliv code dikunci jika sudah input alur dok
+            if (!monitoring.getLatestVersion().equals("") &&
+                    !monitoring.getDeliverableCode().equals(monitoringFormModel.getDeliverableCode())){
+                throw new AppException(1, "Deliverable code sudah tidak dapat diubah");
+            }
         }
         monitoring.setSectionNo(monitoringFormModel.getSectionNo());
         monitoring.setFunction(monitoringFormModel.getFunction());
@@ -68,17 +73,13 @@ public class MonitoringService implements IMonitoringService {
         monitoring.setDeliverableName(monitoringFormModel.getDeliverableName());
         monitoring.setScheduleInTor(monitoringFormModel.getScheduleInTor());
         monitoring.setDeliverableCode(monitoringFormModel.getDeliverableCode());
-        monitoring.setMonthSubmission(monitoringFormModel.getMonthSubmission());
         monitoring.setSubmissionStatus(monitoringFormModel.getSubmissionStatus());
         monitoring.setPeriod(monitoringFormModel.getPeriod());
-        monitoring.setLatestVersion(monitoringFormModel.getLatestVersion());
-        monitoring.setPosition(monitoringFormModel.getPosition());
         monitoring.setSoftcopyStatus(monitoringFormModel.getSoftcopyStatus());
         monitoring.setHardcopyStatus(monitoringFormModel.getHardcopyStatus());
         monitoring.setHardcopyIn(monitoringFormModel.getHardcopyIn());
         monitoring.setHardcopyOut(monitoringFormModel.getHardcopyOut());
         monitoring.setHardcopyLeft(monitoringFormModel.getHardcopyLeft());
-        monitoring.setPaymentStatus(monitoringFormModel.getPaymentStatus());
         monitoring.setKeterangan(monitoringFormModel.getKeterangan());
         monitoringRepo.save(monitoring);
         return new ResponseModel("Save Monitoring");

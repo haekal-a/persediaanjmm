@@ -39,7 +39,6 @@ var AlurDok = function (){
                         return meta.settings._iDisplayStart + meta.row + 1;
                     }
                 },
-                {"data": "idDetailDocument", "className": "all text-center"},
                 {"data": "idDeliverable", "className": "all text-center"},
                 {"data": "idMonitoring", "className": "all text-center"},
                 {"data": "period", "className": "all text-center"},
