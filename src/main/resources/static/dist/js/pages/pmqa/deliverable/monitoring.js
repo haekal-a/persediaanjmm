@@ -51,7 +51,17 @@ var Monitoring = function (){
                     }},
                 {"data": "period", "className": "all text-center"},
                 {"data": "latestVersion", "className": "all text-center"},
-                {"data": "position", "className": "all"},
+                {"data": "position", "className": "all", "render": function (data, type, full, meta) {
+                    if (data == 1){
+                        return "Dalam Proses QA";
+                    } else if (data == 2){
+                        return "Perbaikan oleh Deloitte";
+                    } else if (data == 3){
+                        return "Disetujui Steerco";
+                    } else {
+                        return data;
+                    }
+                    }},
                 {"data": "softcopyStatus", "className": "all", "render": function (data, type, full, meta) {
                         return data == "2" ? "Ada" : "Tidak Ada";
                     }},
