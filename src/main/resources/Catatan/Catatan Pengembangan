@@ -32,14 +32,12 @@
 		User = View seluruh menu, kecuali role. dia hanya bisa view dia sendiri dan bisa update.
 
 <done>4. Tombol View untuk role 'user'
-5. Dashboard Awal
 <done>6. Menu export to excel
-6. Fungsi Alur Dokumen untuk Download Dokumen
 <done> 7. Ubah Password (masuk ke Role)
 
 
 05 Okt 2021 (Kerjakan sebelum angka 4 diatas)
-<V>- MOnitoring => update posisi berdasarkan status_deliverable
+<done>- MOnitoring => update posisi berdasarkan status_deliverable
         Saat Simpan Alur Dokumen, update di Position sama dengan deliverables Status, di table (web) yang tampil:
         1 = Dalam Proses QA
         2 = Perbaikan oleh Deloitte
@@ -63,22 +61,29 @@
     Hide ID Alur Dokumen
     Tambahkan kolom No. ??
 
+-----DONE------
+
 11 Okt 2021
+5. Dashboard Awal
+6. Fungsi Alur Dokumen untuk Download Dokumen
+0. Admin ada tombol View (jadi ada 3 tombol, view update delete). User hanya view.
+0.1 Kolom No di Table Alur Dokumen.
 1. User > user tidak bisa hapus
-2. Permintaan Pak Febri, liat user yang sedang login dan bisa diskonek
-3. Permintaan Pak Febri, Menunjukan Lama Deliverables di DJP.
-4. Submission Status :
+<Next> 2. Permintaan Pak Febri, liat user yang sedang login dan bisa diskonek
+<Next> 3. Permintaan Pak Febri, Menunjukan Lama Deliverables di DJP.
+4. Tabel Monitoring, Submission Status :
     1 = inactive
     2 = Active
     3 = Reallocated
     4 = No Schedule
-5. ubah password (gagal save)
-6. Monitoring > Posisi (diupdate saat save alurdokumen)
+5. Menu ubah Password > Pengaturan > Ubah Password. buat semua level user
+6. menu role tidak usah di tampilkan untuk Login sebagai user.
+<done> 6. Monitoring > Posisi (diupdate saat save alurdokumen)
 7. Monitoring > Payment_STatus, tampilan di table (UI)
     1 = Belum Dapat Dibayarkan
-    2 = Siap Dibayar
+    2 = Belum Ditagih
     3 = Proses Pembayaran
-    4 = Sudah Dibayarkan"
+    4 = Sudah Dibayarkan
 
 
     !! PERHATIAN !!
