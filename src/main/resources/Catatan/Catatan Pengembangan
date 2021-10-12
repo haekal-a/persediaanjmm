@@ -56,12 +56,29 @@
 <done>Hide ID Monitoring
 
 06 Okt 2021
-<V>1. User > user tidak bisa update level.
-<V>2. Tampilan, Header, Aside dan Footer dibuat fixed. kayak nang AdminLTE sik Dashboard V2
+<done>1. User > user tidak bisa update level.
+<done>2. Tampilan, Header, Aside dan Footer dibuat fixed. kayak nang AdminLTE sik Dashboard V2
     wes tak coba sitik..
 <V>3. Tabel Alur Dokumen
     Hide ID Alur Dokumen
-    Tambahkan kolom No.
+    Tambahkan kolom No. ??
+
+11 Okt 2021
+1. User > user tidak bisa hapus
+2. Permintaan Pak Febri, liat user yang sedang login dan bisa diskonek
+3. Permintaan Pak Febri, Menunjukan Lama Deliverables di DJP.
+4. Submission Status :
+    1 = inactive
+    2 = Active
+    3 = Reallocated
+    4 = No Schedule
+5. ubah password (gagal save)
+6. Monitoring > Posisi (diupdate saat save alurdokumen)
+7. Monitoring > Payment_STatus, tampilan di table (UI)
+    1 = Belum Dapat Dibayarkan
+    2 = Siap Dibayar
+    3 = Proses Pembayaran
+    4 = Sudah Dibayarkan"
 
 
     !! PERHATIAN !!
