@@ -54,7 +54,7 @@ var Role = function (){
                     "targets": -1, "render": function (data, type, full, meta) {
                         var btnedit = '<a href="#" class="fas fa-edit btn-info btn-sm edit"></a>';
                         var btnDelete = '<a href="#" class="fas fa-trash btn-danger btn-sm delete"></a>';
-                        return btnedit + btnDelete;
+                        return roleUser ? btnedit : btnedit + btnDelete;
                     }
                 }
             ],
@@ -133,7 +133,16 @@ var Role = function (){
 
     var saveUser = function () {
         Utility.showBoxOverlay("formUser");
-        var formData = $('#formUser').serializeArray();
+        // var formData = $('#formUser').serializeArray();
+        var myform = $('#formUser');
+        // Find disabled inputs, and remove the "disabled" attribute
+        var disabled = myform.find(':input:disabled').removeAttr('disabled');
+
+        // serialize the form
+        var formData = myform.serializeArray();
+
+        // re-disabled the set of inputs that you previously enabled
+        disabled.attr('disabled','disabled');
         var data = {};
         $(formData).each(function (index, obj) {
             if (this.name.indexOf("user") != -1) {

@@ -47,7 +47,17 @@ var Monitoring = function (){
                 {"data": "deliverableCode", "className": "all text-center"},
                 {"data": "monthSubmission", "className": "all text-center"},
                 {"data": "submissionStatus", "className": "all", "render": function (data, type, full, meta) {
-                    return data == "2" ? "Active" : "Inactive";
+                        if (data == 1){
+                            return "Inactive";
+                        } else if (data == 2){
+                            return "Active";
+                        } else if (data == 3){
+                            return "Reallocated";
+                        } else if (data == 4){
+                            return "No Schedule";
+                        } else {
+                            return data;
+                        }
                     }},
                 {"data": "period", "className": "all text-center"},
                 {"data": "latestVersion", "className": "all text-center"},
@@ -71,7 +81,19 @@ var Monitoring = function (){
                 {"data": "hardcopyIn", "className": "all text-right"},
                 {"data": "hardcopyOut", "className": "all text-right"},
                 {"data": "hardcopyLeft", "className": "all text-right"},
-                {"data": "paymentStatus", "className": "all"},
+                {"data": "paymentStatus", "className": "all", "render": function (data, type, full, meta) {
+                        if (data == 1){
+                            return "Belum Dapat Dibayarkan";
+                        } else if (data == 2){
+                            return "Belum Ditagih";
+                        } else if (data == 3){
+                            return "Proses Pembayaran";
+                        } else if (data == 4){
+                            return "Sudah Dibayarkan";
+                        } else {
+                            return data;
+                        }
+                    }},
                 {"data": "keterangan", "className": "all"},
                 {"data": null, "className": "all text-center"}
             ],

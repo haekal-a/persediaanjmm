@@ -120,15 +120,17 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">Pengaturan</li>
-                <li class="nav-item">
-                    <a th:href="@{/pengaturan/role}" th:class="'nav-link ' + ${roleMenu}">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Role
-                        </p>
-                    </a>
-                </li>
+                <div th:if="${user.level == '1'}">
+                    <li class="nav-header">Pengaturan</li>
+                    <li class="nav-item">
+                        <a th:href="@{/pengaturan/role}" th:class="'nav-link ' + ${roleMenu}">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Role
+                            </p>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

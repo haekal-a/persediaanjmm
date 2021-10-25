@@ -64,4 +64,16 @@ public class AlurDokController {
         User user = (User) request.getSession().getAttribute("userLogin");
         return detailDocumentService.getListDetailDocumentByIdMonitoringAndPeriod(idMonitoring, period);
     }
+
+    @GetMapping("/getdocumentfile")
+    public ResponseModel getDocumentFileByIdDetailDocument(DataTablesInput dataTablesInput, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return detailDocumentService.getDocumentFileByIdDetailDocument(dataTablesInput);
+    }
+
+    @GetMapping("/getlistdocumentfile")
+    public ResponseModel getListDocumentFileByIdDetailDocument(@RequestParam String idDetailDocument, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return detailDocumentService.getListDocumentFileByIdDetailDocument(idDetailDocument);
+    }
 }

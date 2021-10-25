@@ -17,4 +17,8 @@ public interface IDetailDocumentService {
     ResponseModel getDaftarDetailDocument(DataTablesInput dataTablesInput);
 
     ResponseModel getListDetailDocumentByIdMonitoringAndPeriod(String idMonitoring, String period);
+
+    ResponseModel getDocumentFileByIdDetailDocument(DataTablesInput dataTablesInput);
+
+    ResponseModel getListDocumentFileByIdDetailDocument(String idDetailDocument);
 }

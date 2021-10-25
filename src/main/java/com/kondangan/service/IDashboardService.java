@@ -7,4 +7,6 @@ public interface IDashboardService {
     ResponseModel getDeliverable(DataTablesInput dataTablesInput);
 
     ResponseModel getPieChart();
+
+    ResponseModel getPayment(DataTablesInput dataTablesInput);
 }

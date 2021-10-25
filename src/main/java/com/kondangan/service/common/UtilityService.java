@@ -3,6 +3,7 @@ package com.kondangan.service.common;
 import com.kondangan.domain.model.datatables.mapping.DataTablesOutput;
 import com.kondangan.domain.table.DocumentFile;
 import com.kondangan.repository.DocumentFileRepo;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -77,25 +79,15 @@ public class UtilityService {
     public void deleteFile(String idDetailDocument) throws IOException {
         List<DocumentFile> documentFileList = documentFileRepo.findAllByIdDetailDocument(idDetailDocument);
         if (!documentFileList.isEmpty()){
-            // deleting all files
-            for (DocumentFile documentFile : documentFileList){
-                Path path = FileSystems.getDefault().getPath(documentFile.getPath());
-                try {
-                    Files.deleteIfExists(path);
-                } catch (IOException x) {
-                    System.err.println(x);
-                }
+            try {
+                // deleting file & directory
+                FileUtils.deleteDirectory(new File(root + File.separator + idDetailDocument));
+
+                // deleting all documentFiles
+                documentFileRepo.deleteAll(documentFileList);
+            } catch (IOException x) {
+                System.err.println(x);
             }
-
-            // deleting directory
-            Path pathToBeDeleted = Paths.get(root + File.separator + idDetailDocument);
-            Files.walk(pathToBeDeleted)
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
-
-            // deleting all documentFiles
-            documentFileRepo.deleteAll(documentFileList);
         }
     }
 }

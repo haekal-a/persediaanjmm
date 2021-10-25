@@ -35,7 +35,7 @@ var AlurDok = function (){
             serverSide: false,
             columns: [
                 {
-                    "data": null, "className": "text-center", "width": "5%", "render": function (data, type, full, meta) {
+                    "data": null, "className": "all text-center", "width": "5%", "render": function (data, type, full, meta) {
                         return meta.settings._iDisplayStart + meta.row + 1;
                     }
                 },
@@ -174,6 +174,7 @@ var AlurDok = function (){
             // $("#idDeliverable").selectpicker('refresh');
             // $("#period").selectpicker('refresh');
             // getListMonitoring();
+            $("a.btnDownload").remove();
         });
 
         $("#formPmqaAlurDok").submit(function (e) {
@@ -192,6 +193,7 @@ var AlurDok = function (){
             var table = $('#tblPmqaAlurDok').DataTable();
             var tbl = table.row($(this).parents('tr'));
             var rData = tbl.data();
+            getListDocumentFile(rData["idDetailDocument"]);
             $("#idDetailDocument").val(rData["idDetailDocument"]);
             $("#idDeliverable").val(rData["idDeliverable"]);
             $("#idDeliverable").selectpicker('refresh');
@@ -378,6 +380,75 @@ var AlurDok = function (){
         });
     };
 
+    var getListDocumentFile = function (idDetailDocument){
+        Utility.showBoxOverlay("formPmqaAlurDok");
+        $.ajax({
+            type: "GET",
+            url: "/pmqa/alurdok/getlistdocumentfile",
+            data: {"idDetailDocument": idDetailDocument},
+            success: function (data) {
+                Utility.removeBoxOverlay();
+                if (data.code == 1) {
+                    var obj = data.object;
+                    if (obj.length>0) {
+                        $.each(obj, function (index, item){
+                            var elem;
+                            switch (this.idJenisDocument){
+                                case "1":
+                                    elem = "uploadSurat"; break;
+                                case "2":
+                                    elem = "uploadNd"; break;
+                                case "3":
+                                    elem = "uploadNdPsiap"; break;
+                                case "4":
+                                    elem = "uploadBaSteerco"; break;
+                                case "5":
+                                    elem = "uploadPersetujuanSteerco"; break;
+                                case "6":
+                                    elem = "uploadSPemberitahuanPPK"; break;
+                                case "7":
+                                    elem = "uploadBaKemajuan"; break;
+                                case "8":
+                                    elem = "uploadBast"; break;
+                                case "9":
+                                    elem = "uploadBaPembayaran"; break;
+                                case "10":
+                                    elem = "uploadTagihan"; break;
+                                case "11":
+                                    elem = "uploadNdPermohonanBayar"; break;
+                                case "12":
+                                    elem = "uploadSpp"; break;
+                                case "13":
+                                    elem = "uploadSpm"; break;
+                                case "14":
+                                    elem = "uploadSp2d"; break;
+                            }
+                            $("#"+elem).parents().append('<a th:href="@{/}" class="btn btn-outline-success btnDownload"><i class="fa fa-download"></i></a>');
+                        });
+                    }
+                } else {
+                    var message = data.message;
+                    Utility.showErrorMessage("Terjadi Kesalahan!", "Gagal mengambil data detail document "+message);
+                }
+            },
+            error: function (xhr, status, error) {
+                var err = xhr.responseJSON;
+                var msg = "";
+                if (err.status === "Bad Request") {
+                    $.each(err.errors, function (index, item) {
+                        msg += " [" + item.field + "] " + item.defaultMessage;
+                    });
+                } else {
+                    // msg = eval("(" + xhr.responseText + ")");
+                    msg = xhr.responseText;
+                }
+                Utility.showErrorMessage('Terjadi kesalahan!', msg, function (r) {
+                    Utility.removeBoxOverlay();
+                });
+            }
+        });
+    };
+
     var saveAlurDok = function () {
         Utility.showBoxOverlay("formPmqaAlurDok");
         var myform = $('#formPmqaAlurDok');
@@ -401,25 +472,29 @@ var AlurDok = function (){
 
         var fd = new FormData();
         fd.append('model', new Blob([JSON.stringify(data)], {type: "application/json"}));
-        $.each($('input[type=file]')[0].files, function(i, file) {
-            if (file.length !== 0){
-                fd.append('file'+$('input[type=file]').prop('id'), file);
+        /*$.each($('input[type=file]'), function(i, val) {
+            console.log("tes");
+            var id = $('input[type=file]').prop('id');
+            var file = $("#"+id)[0].files[0];
+            console.log(file);
+            if (this[0].files.length !== 0){
+                fd.append('file'+id, file);
             }
-        });
-        // fd.append('fileUploadSurat', $("#uploadSurat")[0].files[0]);
-        // fd.append('fileUploadNd', $('#uploadNd')[0].files[0]);
-        // fd.append('fileUploadNdPsiap', $('#uploadNdPsiap')[0].files[0]);
-        // fd.append('fileUploadBaSteerco', $('#uploadBaSteerco')[0].files[0]);
-        // fd.append('fileUploadPersetujuanSteerco', $('#uploadPersetujuanSteerco')[0].files[0]);
-        // fd.append('fileUploadSPemberitahuanPPK', $('#uploadSPemberitahuanPPK')[0].files[0]);
-        // fd.append('fileUploadBaKemajuan', $('#uploadBaKemajuan')[0].files[0]);
-        // fd.append('fileUploadBast', $('#uploadBast')[0].files[0]);
-        // fd.append('fileUploadBaPembayaran', $('#uploadBaPembayaran')[0].files[0]);
-        // fd.append('fileUploadTagihan', $('#uploadTagihan')[0].files[0]);
-        // fd.append('fileUploadNdPermohonanBayar', $('#uploadNdPermohonanBayar')[0].files[0]);
-        // fd.append('fileUploadSpp', $('#uploadSpp')[0].files[0]);
-        // fd.append('fileUploadSpm', $('#uploadSpm')[0].files[0]);
-        // fd.append('fileUploadSp2d', $('#uploadSp2d')[0].files[0]);
+        });*/
+        fd.append('fileuploadSurat', $("#uploadSurat")[0].files[0]);
+        fd.append('fileuploadNd', $('#uploadNd')[0].files[0]);
+        fd.append('fileuploadNdPsiap', $('#uploadNdPsiap')[0].files[0]);
+        fd.append('fileuploadBaSteerco', $('#uploadBaSteerco')[0].files[0]);
+        fd.append('fileuploadPersetujuanSteerco', $('#uploadPersetujuanSteerco')[0].files[0]);
+        fd.append('fileuploadSPemberitahuanPPK', $('#uploadSPemberitahuanPPK')[0].files[0]);
+        fd.append('fileuploadBaKemajuan', $('#uploadBaKemajuan')[0].files[0]);
+        fd.append('fileuploadBast', $('#uploadBast')[0].files[0]);
+        fd.append('fileuploadBaPembayaran', $('#uploadBaPembayaran')[0].files[0]);
+        fd.append('fileuploadTagihan', $('#uploadTagihan')[0].files[0]);
+        fd.append('fileuploadNdPermohonanBayar', $('#uploadNdPermohonanBayar')[0].files[0]);
+        fd.append('fileuploadSpp', $('#uploadSpp')[0].files[0]);
+        fd.append('fileuploadSpm', $('#uploadSpm')[0].files[0]);
+        fd.append('fileuploadSp2d', $('#uploadSp2d')[0].files[0]);
 
         $.ajax({
             type: "POST",

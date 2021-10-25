@@ -7,7 +7,9 @@ import com.kondangan.domain.model.datatables.mapping.DataTablesOutput;
 import com.kondangan.domain.table.DetailDocument;
 import com.kondangan.domain.table.Monitoring;
 import com.kondangan.repository.DetailDocumentRepo;
+import com.kondangan.repository.DocumentFileRepo;
 import com.kondangan.repository.MonitoringRepo;
+import com.kondangan.repository.repomodel.DocumentRepoModel;
 import com.kondangan.service.IDetailDocumentService;
 import com.kondangan.service.common.UtilityService;
 import com.kondangan.util.Constanta;
@@ -36,6 +38,9 @@ public class DetailDocumentService implements IDetailDocumentService {
 
     @Autowired
     private MonitoringRepo monitoringRepo;
+
+    @Autowired
+    private DocumentFileRepo documentFileRepo;
 
     @Override
     public ResponseModel saveDetailDocument(AlurDocFormModel alurDocFormModel, MultipartFile fileUploadSurat, MultipartFile fileUploadNd,
@@ -145,6 +150,23 @@ public class DetailDocumentService implements IDetailDocumentService {
         List<DetailDocument> detailDocuments = detailDocumentRepo.findAllByIdMonitoringAndPeriod(idMonitoring, Integer.parseInt(period));
         ResponseModel res = new ResponseModel("Get List Detail Document");
         res.setObject(detailDocuments);
+        return res;
+    }
+
+    @Override
+    public ResponseModel getDocumentFileByIdDetailDocument(DataTablesInput dataTablesInput) {
+        List<DocumentRepoModel> documentRepoModels = documentFileRepo.getDocumentFileByIdDetailDocument(dataTablesInput.getParam1());
+        DataTablesOutput output = utilityService.dataTablesOutputWrapper(documentRepoModels, (long) documentRepoModels.size(), dataTablesInput.getDraw());
+        ResponseModel<DataTablesOutput> res = new ResponseModel("Get List Document File");
+        res.setObject(output);
+        return res;
+    }
+
+    @Override
+    public ResponseModel getListDocumentFileByIdDetailDocument(String idDetailDocument) {
+        List<DocumentRepoModel> documentRepoModels = documentFileRepo.getDocumentFileByIdDetailDocument(idDetailDocument);
+        ResponseModel res = new ResponseModel("Get List Document File");
+        res.setObject(documentRepoModels);
         return res;
     }
 }

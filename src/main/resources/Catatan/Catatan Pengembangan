@@ -64,22 +64,22 @@
 -----DONE------
 
 11 Okt 2021
-5. Dashboard Awal
+<V>5. Dashboard Awal
 6. Fungsi Alur Dokumen untuk Download Dokumen
 0. Admin ada tombol View (jadi ada 3 tombol, view update delete). User hanya view.
-0.1 Kolom No di Table Alur Dokumen.
-1. User > user tidak bisa hapus
+<V>0.1 Kolom No di Table Alur Dokumen.
+<V>1. User > user tidak bisa hapus
 <Next> 2. Permintaan Pak Febri, liat user yang sedang login dan bisa diskonek
 <Next> 3. Permintaan Pak Febri, Menunjukan Lama Deliverables di DJP.
-4. Tabel Monitoring, Submission Status :
+<V>4. Tabel Monitoring, Submission Status :
     1 = inactive
     2 = Active
     3 = Reallocated
     4 = No Schedule
 5. Menu ubah Password > Pengaturan > Ubah Password. buat semua level user
-6. menu role tidak usah di tampilkan untuk Login sebagai user.
+<V>6. menu role tidak usah di tampilkan untuk Login sebagai user.
 <done> 6. Monitoring > Posisi (diupdate saat save alurdokumen)
-7. Monitoring > Payment_STatus, tampilan di table (UI)
+<V>7. Monitoring > Payment_STatus, tampilan di table (UI)
     1 = Belum Dapat Dibayarkan
     2 = Belum Ditagih
     3 = Proses Pembayaran

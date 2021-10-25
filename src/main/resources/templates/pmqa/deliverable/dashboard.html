@@ -55,24 +55,75 @@
                             </button>
                         </div>-->
                     </div>
-                    <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                        <canvas id="paymentChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 572px;" width="715" height="312" class="chartjs-render-monitor"></canvas>
-<!--                    <p>Jumlah Data yang Ditampilkan adalah Jumlah Data Sudah Disubmit oleh PT Deloitte Consulting</p>-->
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="paymentChart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 572px;"
+                                width="715" height="312" class="chartjs-render-monitor"></canvas>
+                        <!--                    <p>Jumlah Data yang Ditampilkan adalah Jumlah Data Sudah Disubmit oleh PT Deloitte Consulting</p>-->
                     </div>
                     <!-- /.card-body -->
                 </div>
             </div>
-            <!--<div class="col-12">
-                <div class="card">
+            <div class="col-12">
+                <div class="card card-blue">
                     <div class="card-header">
-                        <h3 class="card-title">Monitoring</h3>
+                        <h3 class="card-title">Deliverables Completion</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table id="tblPmqaMonitoring" class="table table-bordered table-hover dataTable table-cell">
+                                <table id="tblDeliverable"
+                                       class="table table-bordered table-hover dataTable table-cell">
                                     <thead>
                                     <tr>
+                                        <th class="text-center">Process</th>
+                                        <th class="text-center">M1 (Jan 21)</th>
+                                        <th class="text-center">M2 (Feb 21)</th>
+                                        <th class="text-center">M3 (Mar 21)</th>
+                                        <th class="text-center">M4 (Apr 21)</th>
+                                        <th class="text-center">M5 (Mai 21)</th>
+                                        <th class="text-center">M6 (Jun 21)</th>
+                                        <th class="text-center">M7 (Jul 21)</th>
+                                        <th class="text-center">M8 (Aug 21)</th>
+                                        <th class="text-center">M9 (Sep 21)</th>
+                                        <th class="text-center">M10 (Oct 21)</th>
+                                        <th class="text-center">M11 (Nov 21)</th>
+                                        <th class="text-center">M12 (Dec 21)</th>
+                                        <th class="text-center">M13 (Jan 22)</th>
+                                        <th class="text-center">M14 (Feb 22)</th>
+                                        <th class="text-center">M15 (Mar 22)</th>
+                                        <th class="text-center">M16 (Apr 22)</th>
+                                        <th class="text-center">M17 (Mai 22)</th>
+                                        <th class="text-center">M18 (Jun 22)</th>
+                                        <th class="text-center">M19 (Jul 22)</th>
+                                        <th class="text-center">M20 (Aug 22)</th>
+                                        <th class="text-center">M21 (Sep 22)</th>
+                                        <th class="text-center">M22 (Oct 22)</th>
+                                        <th class="text-center">M23 (Nov 22)</th>
+                                        <th class="text-center">M24 (Dec 22)</th>
+                                        <th class="text-center">M25 (Jan 23)</th>
+                                        <th class="text-center">M26 (Feb 23)</th>
+                                        <th class="text-center">M27 (Mar 23)</th>
+                                        <th class="text-center">M28 (Apr 23)</th>
+                                        <th class="text-center">M29 (Mai 23)</th>
+                                        <th class="text-center">M30 (Jun 23)</th>
+                                        <th class="text-center">M31 (Jul 23)</th>
+                                        <th class="text-center">M32 (Aug 23)</th>
+                                        <th class="text-center">M33 (Sep 23)</th>
+                                        <th class="text-center">M34 (Oct 23)</th>
+                                        <th class="text-center">M35 (Nov 23)</th>
+                                        <th class="text-center">M36 (Dec 23)</th>
+                                        <th class="text-center">Total Deliverables</th>
+                                    </tr>
+                                    <!--<tr>
                                         <th class="text-center" rowspan="2">ID Monitoring</th>
                                         <th colspan="10" class="text-center">Deliverable Detail</th>
                                         <th rowspan="2" class="text-center">Latest Version</th>
@@ -98,6 +149,64 @@
                                         <th class="text-center">Masuk</th>
                                         <th class="text-center">Keluar</th>
                                         <th class="text-center">Sisa</th>
+                                    </tr>-->
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card card-blue">
+                    <div class="card-header">
+                        <h3 class="card-title">Payment Completion</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tblPayment"
+                                       class="table table-bordered table-hover dataTable table-cell">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Process</th>
+                                        <th class="text-center">M1 (Jan 21)</th>
+                                        <th class="text-center">M2 (Feb 21)</th>
+                                        <th class="text-center">M3 (Mar 21)</th>
+                                        <th class="text-center">M4 (Apr 21)</th>
+                                        <th class="text-center">M5 (Mai 21)</th>
+                                        <th class="text-center">M6 (Jun 21)</th>
+                                        <th class="text-center">M7 (Jul 21)</th>
+                                        <th class="text-center">M8 (Aug 21)</th>
+                                        <th class="text-center">M9 (Sep 21)</th>
+                                        <th class="text-center">M10 (Oct 21)</th>
+                                        <th class="text-center">M11 (Nov 21)</th>
+                                        <th class="text-center">M12 (Dec 21)</th>
+                                        <th class="text-center">M13 (Jan 22)</th>
+                                        <th class="text-center">M14 (Feb 22)</th>
+                                        <th class="text-center">M15 (Mar 22)</th>
+                                        <th class="text-center">M16 (Apr 22)</th>
+                                        <th class="text-center">M17 (Mai 22)</th>
+                                        <th class="text-center">M18 (Jun 22)</th>
+                                        <th class="text-center">M19 (Jul 22)</th>
+                                        <th class="text-center">M20 (Aug 22)</th>
+                                        <th class="text-center">M21 (Sep 22)</th>
+                                        <th class="text-center">M22 (Oct 22)</th>
+                                        <th class="text-center">M23 (Nov 22)</th>
+                                        <th class="text-center">M24 (Dec 22)</th>
+                                        <th class="text-center">M25 (Jan 23)</th>
+                                        <th class="text-center">M26 (Feb 23)</th>
+                                        <th class="text-center">M27 (Mar 23)</th>
+                                        <th class="text-center">M28 (Apr 23)</th>
+                                        <th class="text-center">M29 (Mai 23)</th>
+                                        <th class="text-center">M30 (Jun 23)</th>
+                                        <th class="text-center">M31 (Jul 23)</th>
+                                        <th class="text-center">M32 (Aug 23)</th>
+                                        <th class="text-center">M33 (Sep 23)</th>
+                                        <th class="text-center">M34 (Oct 23)</th>
+                                        <th class="text-center">M35 (Nov 23)</th>
+                                        <th class="text-center">M36 (Dec 23)</th>
+                                        <th class="text-center">Total</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -105,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div><!-- /.container-fluid -->
 

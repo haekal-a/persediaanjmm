@@ -20,10 +20,16 @@ public class DashboardController {
     @Autowired
     private IDashboardService dashboardService;
 
-    @GetMapping("/")
+    @GetMapping("/deliverable")
     public ResponseModel getDeliverable(DataTablesInput dataTablesInput, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("userLogin");
         return dashboardService.getDeliverable(dataTablesInput);
+    }
+
+    @GetMapping("/payment")
+    public ResponseModel getPayment(DataTablesInput dataTablesInput, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return dashboardService.getPayment(dataTablesInput);
     }
 
     @GetMapping("/piechart")
