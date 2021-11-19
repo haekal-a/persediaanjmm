@@ -423,7 +423,7 @@ var AlurDok = function (){
                                 case "14":
                                     elem = "uploadSp2d"; break;
                             }
-                            $("#"+elem).parents().append('<a th:href="@{/}" class="btn btn-outline-success btnDownload"><i class="fa fa-download"></i></a>');
+                            $("#"+elem).parent().after("<a href='/pmqa/alurdok/download/"+this.idDocument+"' class='btn btn-outline-success btnDownload' title='Download "+this.nmDocument+"'><i class='fa fa-download'></i></a>");
                         });
                     }
                 } else {

@@ -65,7 +65,7 @@
 
 11 Okt 2021
 <done>5. Dashboard Awal
-6. Fungsi Alur Dokumen untuk Download Dokumen
+<V>6. Fungsi Alur Dokumen untuk Download Dokumen
 0. Admin ada tombol View (jadi ada 3 tombol, view update delete). User hanya view.
 <done>0.1 Kolom No di Table Alur Dokumen.
 <done>1. User > user tidak bisa hapus

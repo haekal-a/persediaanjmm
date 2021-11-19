@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface DocumentFileRepo extends JpaRepository<DocumentFile, BigDecimal> {
     DocumentFile findByIdDetailDocumentAndIdJenisDocument(String idDetailDocument, String idJenisDocument);
+    DocumentFile findByIdDocument(BigDecimal id);
     List<DocumentFile> findAllByIdDetailDocument(String idDetailDocument);
 
     @Query(value = RepoQuery.DOCUMENT_FILE_GET_BY_ID_DETAIL_DOCUMENT)

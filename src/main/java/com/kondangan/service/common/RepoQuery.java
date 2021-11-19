@@ -2,7 +2,7 @@ package com.kondangan.service.common;
 
 public final class RepoQuery {
     public static final String DOCUMENT_FILE_GET_BY_ID_DETAIL_DOCUMENT =
-            " SELECT a.idDocument, a.idDetailDocument, a.documentName, a.idJenisDocument, a.path, b.nmDocument " +
+            " SELECT a.idDocument as idDocument, a.idDetailDocument as idDetailDocument, a.documentName as documentName, a.idJenisDocument as idJenisDocument, a.path as path, b.nmDocument as nmDocument " +
                     " FROM DocumentFile a, JenisDocument b " +
             " WHERE a.idJenisDocument = b.idJenisDocument " +
             " AND a.idDetailDocument = ?1 ";

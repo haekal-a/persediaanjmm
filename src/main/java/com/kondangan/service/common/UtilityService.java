@@ -3,6 +3,7 @@ package com.kondangan.service.common;
 import com.kondangan.domain.model.datatables.mapping.DataTablesOutput;
 import com.kondangan.domain.table.DocumentFile;
 import com.kondangan.repository.DocumentFileRepo;
+import com.kondangan.util.AppException;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Comparator;
@@ -56,7 +59,7 @@ public class UtilityService {
 
             // save the file on the local file system
             try {
-                filePath = root + File.separator + idDetailDocument + File.separator + idJenisDocument + File.separator + fileName;
+                filePath = root + "/" + idDetailDocument + "/" + idJenisDocument + "/" + fileName;
                 createDirectories(filePath);
                 Path path = Paths.get(filePath);
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
@@ -81,7 +84,7 @@ public class UtilityService {
         if (!documentFileList.isEmpty()){
             try {
                 // deleting file & directory
-                FileUtils.deleteDirectory(new File(root + File.separator + idDetailDocument));
+                FileUtils.deleteDirectory(new File(root + "/" + idDetailDocument));
 
                 // deleting all documentFiles
                 documentFileRepo.deleteAll(documentFileList);
@@ -89,5 +92,11 @@ public class UtilityService {
                 System.err.println(x);
             }
         }
+    }
+
+    public DocumentFile getDocumentFile(String idDocument, BigDecimal idUser){
+        DocumentFile documentFile = documentFileRepo.findByIdDocument(new BigDecimal(idDocument));
+        if (Objects.isNull(documentFile)){ throw new AppException(2, "File tidak ditemukan");}
+        return documentFile;
     }
 }
