@@ -8,11 +8,11 @@
         <version>2.5.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.kondangan</groupId>
-    <artifactId>kondangan</artifactId>
+    <groupId>com.tamu</groupId>
+    <artifactId>tamu</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Kondangan</name>
-    <description>Subtim Kondangan</description>
+    <name>Pertamuan</name>
+    <description>Aplikasi Tamu KPP</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -47,8 +47,8 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page-layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css">
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+</th:block>
+<th:block layout:fragment="page_title">
+</th:block>
+<th:block layout:fragment="page_breadcrumb">
+</th:block>
+<th:block layout:fragment="content">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card card-rounded table-darkBGImg">
+      <div class="card-body">
+        <div class="col-sm-8">
+          <h3 class="text-white upgrade-info">
+            Silahkan masukkan <span class="fw-bold">NPWP</span> anda!
+          </h3>
+          <form id="frmSearchNpwp">
+            <div class="form-group mt-3">
+              <div class="input-group">
+                <input type="text" class="form-control" name="txtNpwp" id="txtNpwp" placeholder="Recipient's username"
+                       aria-label="Recipient's username">
+              </div>
+            </div>
+            <button class="btn btn-info btn-icon-text" id="btnCari" type="submit">
+              <i class="ti-search btn-icon-prepend"></i>Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card card-rounded">
+      <div class="card-body">
+        <h4 class="card-title">Profil Wajib Pajak</h4>
+<!--        <p class="card-description"></p>-->
+        <form id="frmProfilWp">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>NPWP</label>
+              <input type="text" id="txtIdWp" hidden/>
+              <label id="lblNpwp" class="fw-bold">lblNpwp</label>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Jenis Wajib Pajak</label>
+              <input class="form-control" name="txtJenisWp" id="txtJenisWp" placeholder="Jenis Wajib Pajak">
+<!--              <label id="lblJenisWp" class="fw-bold">lblJenisWp</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Nama Wajib Pajak</label>
+              <input class="form-control" name="txtNama" id="txtNama" placeholder="Nama Wajib Pajak">
+<!--              <label id="lblNama" class="fw-bold">lblNama</label>-->
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Tanggal Lahir</label>
+              <input class="form-control" name="txtTglLahir" id="txtTglLahir" placeholder="Tanggal Lahir">
+<!--              <label id="lblTglLahir" class="fw-bold">lblTglLahir</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Alamat</label>
+              <input class="form-control" name="txtAlamat" id="txtAlamat" placeholder="Alamat">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Tanggal Daftar</label>
+              <input class="form-control" name="txtTglDaftar" id="txtTglDaftar" placeholder="Tanggal Daftar">
+<!--              <label id="lblTglDaftar" class="fw-bold">lblTglDaftar</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Kelurahan</label>
+              <input class="form-control" name="txtKelurahan" id="txtKelurahan" placeholder="Kelurahan">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Status WP</label>
+              <input class="form-control" name="txtStatusWp" id="txtStatusWp" placeholder="Status WP">
+<!--              <label id="lblStatusWp" class="fw-bold">lblStatusWp</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Kecamatan</label>
+              <input class="form-control" name="txtKecamatan" id="txtKecamatan" placeholder="Kecamatan">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>NIP AR</label>
+              <input class="form-control" name="txtNipAr" id="txtNipAr" placeholder="NIP AR">
+<!--              <label id="lblNipAr" class="fw-bold">lblNipAr</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Kabupaten/Kota</label>
+              <input class="form-control" name="txtKota" id="txtKota" placeholder="Kabupaten/Kota">
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Nama AR</label>
+              <input class="form-control" name="txtNamaAr" id="txtNamaAr" placeholder="Nama AR">
+<!--              <label id="lblNamaAr" class="fw-bold">lblNamaAr</label>-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Propinsi</label>
+              <input class="form-control" name="txtPropinsi" id="txtPropinsi" placeholder="Propinsi">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Kode Pos</label>
+              <input class="form-control" name="txtKdPos" id="txtKdPos" placeholder="Kode Pos">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Nomor Telepon</label>
+              <input class="form-control" name="txtNoTelp" id="txtNoTelp" placeholder="Nomor Telepon">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Nomor Fax</label>
+              <input class="form-control" name="txtNoFax" id="txtNoFax" placeholder="Nomor Fax">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Email</label>
+              <input class="form-control" name="txtEmail" id="txtEmail" placeholder="Email">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Nomor Identitas</label>
+              <input class="form-control" name="txtNoIdentitas" id="txtNoIdentitas" placeholder="Nomor Identitas">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary me-2">Submit</button>
+          <button type="button" class="btn btn-light">Cancel</button>
+        </form>
+        <div class="d-sm-flex align-items-center justify-content-between">
+          <button class="btn btn-success btn-icon-text" id="btnNext" type="button">
+            <i class="ti-check btn-icon-prepend"></i>Lanjutkan
+          </button>
+          <button class="btn btn-outline-info btn-icon-text" id="btnEdit" type="button">
+            <i class="ti-pencil btn-icon-prepend"></i>Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+<th:block layout:fragment="page_js">
+  <script th:src="@{/pages-js/pencarian-npwp.js}"></script>
+</th:block>
+
+</html>
