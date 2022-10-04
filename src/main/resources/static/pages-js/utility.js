@@ -12,6 +12,11 @@ var Utility = function (){
             }
         });
 
+        $(".npwp").inputmask("99.999.999.9-999.999", {
+            clearMaskOnLostFocus: true,
+            placeholder: "_"
+        });
+
         //Date picker
         $('.datepicker').datepicker({
             format: "dd-mm-yyyy",
@@ -21,10 +26,11 @@ var Utility = function (){
             e.stopPropagation();
         });
 
-        // var attr = $("form").prop("id");
-        // if (typeof attr !== 'undefined' && attr !== false) {
-        //     setDefaultValidation();
-        // }
+        var attr = $("form").prop("id");
+        if (typeof attr !== 'undefined' && attr !== false) {
+            setDefaultValidation();
+            localizeValidationMessage();
+        }
 
         var bsFile = $(".custom-file-input").prop("id");
         if (typeof bsFile !== 'undefined' && bsFile !== false){
@@ -140,7 +146,9 @@ var Utility = function (){
 
     var setDefaultValidation = function (){
 
-        jQuery.validator.setDefaults({
+        $.validator.setDefaults({
+            ignore: ":hidden",
+            onfocusout: false,
             errorElement: 'span',
             errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
@@ -154,14 +162,55 @@ var Utility = function (){
             }
         });
 
-        jQuery.validator.addMethod("checkForWhiteSpaceErrors", function (value, element, param) {
+        $.validator.addMethod("checkForWhiteSpaceErrors", function (value, element, param) {
             var elem = $(element);
             var val = elem.val();
             if (val && $.trim(val) == '') {
                 return false;
             }
             return true;
-        }, "Isian ini harus diisi.");
+        }, "Isian ini tidak boleh spasi.");
+    };
+
+    var localizeValidationMessage = function(){
+
+        //belum semua di translate
+        jQuery.extend(jQuery.validator.messages, {
+            required: "Isian ini harus diisi.",
+            remote: "Silahkan perbaiki isian ini.",
+            email: "silahkan masukkan alamat email valid.",
+            url: "Silahkan masukkan URL valid.",
+            date: "Silahkan masukkan format tanggal valid.",
+            dateISO: "Please enter a valid date (ISO).",
+            number: "Please enter a valid number.",
+            digits: "Isian ini harus diisi dengan angka.",
+            creditcard: "Please enter a valid credit card number.",
+            equalTo: "Please enter the same value again.",
+            accept: "Silahkan masukkan type file valid.",
+            maxlength: jQuery.validator.format("Isian tidak boleh lebih dari {0} karakter."),
+            minlength: jQuery.validator.format("Isian tidak boleh kurang dari {0} karakter."),
+            rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+            range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+            max: jQuery.validator.format("Silahkan masukkan nilai kurang dari atau sama dengan {0}."),
+            min: jQuery.validator.format("Silahkan masukkan nilai lebih dari atau sama dengan {0}.")
+        });
+    };
+
+    /**
+     * Creates an anchor element `<a></a>` with
+     * the base64 pdf source and a filename with the
+     * HTML5 `download` attribute then clicks on it.
+     * @param  {string} base64
+     * @param  {string} fileName
+     * @return {void}
+     */
+    var downloadExcel = function (base64, fileName) {
+        const linkSource = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${base64}`;
+        const downloadLink = document.createElement("a");
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
     }
 
     return{
@@ -192,11 +241,17 @@ var Utility = function (){
         setDefaultValidation: function (){
             setDefaultValidation()
         },
+        localizeValidationMessage: function (){
+            localizeValidationMessage()
+        },
         formatTanggalToString: function (data){
             return formatTanggalToString(data)
         },
         formatTanggalToDate: function (data){
             return formatTanggalToDate(data)
+        },
+        downloadExcel: function (base64, fileName){
+            return downloadExcel(base64, fileName)
         }
     }
 }();

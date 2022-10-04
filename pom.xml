@@ -91,6 +91,36 @@
             <version>6.0.11.Final</version>
         </dependency>
 
+        <!--DOCX4J-->
+<!--        <dependency>-->
+<!--            <groupId>org.docx4j</groupId>-->
+<!--            <artifactId>docx4j</artifactId>-->
+<!--            <version>6.1.0</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.docx4j/xhtmlrenderer -->
+        <!--		<dependency>-->
+        <!--			<groupId>org.docx4j</groupId>-->
+        <!--			<artifactId>xhtmlrenderer</artifactId>-->
+        <!--			<version>3.0.0</version>-->
+        <!--		</dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.docx4j</groupId>-->
+<!--            <artifactId>docx4j-ImportXHTML</artifactId>-->
+<!--            <version>3.3.1</version>-->
+<!--        </dependency>-->
+
+        <!--Apache-poi-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.15</version>
+        </dependency>
+
         <!-- Verify validation annotations usage at compile time -->
         <!--<dependency>
             <groupId>org.hibernate</groupId>

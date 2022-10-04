@@ -2,6 +2,7 @@ package com.tamu.service.common;
 
 import com.tamu.domain.model.datatables.mapping.DataTablesOutput;
 import com.tamu.util.AppException;
+import com.tamu.util.Constanta;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,19 @@ public class UtilityService {
         if (!d.exists()) {
             d.mkdirs();
         }
+    }
+
+    public String stringDdmmyyyToIndonesianDate(String ddmmyyyy, String namaField) {
+        if (ddmmyyyy == null || ddmmyyyy.equals("")) {
+            return "";
+        }
+        String[] temp = ddmmyyyy.split("-");
+        String res = "";
+        if (temp.length != 3) {
+            throw new AppException(AppException.LEVEL_INFO, "Format " + namaField + " salah.");
+        }
+        temp[1] = Constanta.MASA_PAJAK[Integer.parseInt(temp[1])];
+        res = temp[0] + " " + temp[1] + " " + temp[2];
+        return res;
     }
 }

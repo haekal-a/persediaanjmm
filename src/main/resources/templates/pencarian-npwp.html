@@ -3,6 +3,8 @@
       layout:decorate="~{fragments/_page-layout}" xmlns="http://www.w3.org/1999/xhtml">
 <th:block layout:fragment="page_css">
   <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+  <!-- Bootstrap-Select -->
+  <link rel="stylesheet" th:href="@{/vendors/bootstrap-selectpicker/css/bootstrap-select.min.css}">
 </th:block>
 <th:block layout:fragment="page_title">
 </th:block>
@@ -19,11 +21,11 @@
           <form id="frmSearchNpwp">
             <div class="form-group mt-3">
               <div class="input-group">
-                <input type="text" class="form-control" name="txtNpwp" id="txtNpwp" placeholder="Recipient's username"
+                <input type="text" class="form-control npwp" name="txtNpwp" id="txtNpwp" placeholder="Recipient's username"
                        aria-label="Recipient's username">
               </div>
             </div>
-            <button class="btn btn-info btn-icon-text" id="btnCari" type="submit">
+            <button class="btn btn-info btn-icon-text" id="btnCari" type="button">
               <i class="ti-search btn-icon-prepend"></i>Search
             </button>
           </form>
@@ -32,7 +34,7 @@
     </div>
   </div>
 
-  <div class="col-12 grid-margin stretch-card">
+  <div class="col-12 grid-margin stretch-card" id="divProfilWp">
     <div class="card card-rounded">
       <div class="card-body">
         <h4 class="card-title">Profil Wajib Pajak</h4>
@@ -42,123 +44,193 @@
             <div class="form-group col-sm-6">
               <label>NPWP</label>
               <input type="text" id="txtIdWp" hidden/>
-              <label id="lblNpwp" class="fw-bold">lblNpwp</label>
+              <input class="form-control npwp" name="txtNpwp1" id="txtNpwp1" placeholder="Jenis Wajib Pajak" disabled>
+<!--              <label id="lblNpwp" class="fw-bold">lblNpwp</label>-->
             </div>
             <div class="form-group col-sm-6">
               <label>Jenis Wajib Pajak</label>
-              <input class="form-control" name="txtJenisWp" id="txtJenisWp" placeholder="Jenis Wajib Pajak">
+              <input class="form-control" name="txtJenisWp" id="txtJenisWp" placeholder="Jenis Wajib Pajak" disabled>
 <!--              <label id="lblJenisWp" class="fw-bold">lblJenisWp</label>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Nama Wajib Pajak</label>
-              <input class="form-control" name="txtNama" id="txtNama" placeholder="Nama Wajib Pajak">
+              <input class="form-control" name="txtNama" id="txtNama" placeholder="Nama Wajib Pajak" disabled>
 <!--              <label id="lblNama" class="fw-bold">lblNama</label>-->
             </div>
             <div class="form-group col-sm-6">
               <label>Tanggal Lahir</label>
-              <input class="form-control" name="txtTglLahir" id="txtTglLahir" placeholder="Tanggal Lahir">
-<!--              <label id="lblTglLahir" class="fw-bold">lblTglLahir</label>-->
+<!--              <div class="input-group">-->
+<!--                <div class="input-group-prepend">-->
+<!--                  <span class="icon-calendar input-group-text calendar-icon"></span>-->
+<!--                </div>-->
+                <input class="form-control ubah datepicker" name="txtTglLahir" id="txtTglLahir" placeholder="Tanggal Lahir" required>
+<!--              </div>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Alamat</label>
-              <input class="form-control" name="txtAlamat" id="txtAlamat" placeholder="Alamat">
+              <input class="form-control ubah" name="txtAlamat" id="txtAlamat" placeholder="Alamat" maxlength="200" required>
             </div>
             <div class="form-group col-sm-6">
               <label>Tanggal Daftar</label>
-              <input class="form-control" name="txtTglDaftar" id="txtTglDaftar" placeholder="Tanggal Daftar">
+              <input class="form-control" name="txtTglDaftar" id="txtTglDaftar" placeholder="Tanggal Daftar" disabled>
 <!--              <label id="lblTglDaftar" class="fw-bold">lblTglDaftar</label>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Kelurahan</label>
-              <input class="form-control" name="txtKelurahan" id="txtKelurahan" placeholder="Kelurahan">
+              <input class="form-control ubah" name="txtKelurahan" id="txtKelurahan" placeholder="Kelurahan" maxlength="100" required>
             </div>
             <div class="form-group col-sm-6">
               <label>Status WP</label>
-              <input class="form-control" name="txtStatusWp" id="txtStatusWp" placeholder="Status WP">
+              <input class="form-control" name="txtStatusWp" id="txtStatusWp" placeholder="Status WP" disabled>
 <!--              <label id="lblStatusWp" class="fw-bold">lblStatusWp</label>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Kecamatan</label>
-              <input class="form-control" name="txtKecamatan" id="txtKecamatan" placeholder="Kecamatan">
+              <input class="form-control ubah" name="txtKecamatan" id="txtKecamatan" placeholder="Kecamatan" maxlength="100" required>
             </div>
             <div class="form-group col-sm-6">
               <label>NIP AR</label>
-              <input class="form-control" name="txtNipAr" id="txtNipAr" placeholder="NIP AR">
+              <input class="form-control" name="txtNipAr" id="txtNipAr" placeholder="NIP AR" disabled>
 <!--              <label id="lblNipAr" class="fw-bold">lblNipAr</label>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Kabupaten/Kota</label>
-              <input class="form-control" name="txtKota" id="txtKota" placeholder="Kabupaten/Kota">
+              <input class="form-control ubah" name="txtKota" id="txtKota" placeholder="Kabupaten/Kota" maxlength="100" required>
             </div>
             <div class="form-group col-sm-6">
               <label>Nama AR</label>
-              <input class="form-control" name="txtNamaAr" id="txtNamaAr" placeholder="Nama AR">
+              <input class="form-control" name="txtNamaAr" id="txtNamaAr" placeholder="Nama AR" disabled>
 <!--              <label id="lblNamaAr" class="fw-bold">lblNamaAr</label>-->
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Propinsi</label>
-              <input class="form-control" name="txtPropinsi" id="txtPropinsi" placeholder="Propinsi">
+              <input class="form-control ubah" name="txtPropinsi" id="txtPropinsi" placeholder="Propinsi" maxlength="100" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Kode Pos</label>
-              <input class="form-control" name="txtKdPos" id="txtKdPos" placeholder="Kode Pos">
+              <input class="form-control ubah" name="txtKdPos" id="txtKdPos" placeholder="Kode Pos" maxlength="5" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Nomor Telepon</label>
-              <input class="form-control" name="txtNoTelp" id="txtNoTelp" placeholder="Nomor Telepon">
+              <input class="form-control ubah angka" name="txtNoTelp" id="txtNoTelp" placeholder="Nomor Telepon" maxlength="13" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Nomor Fax</label>
-              <input class="form-control" name="txtNoFax" id="txtNoFax" placeholder="Nomor Fax">
+              <input class="form-control ubah angka" name="txtNoFax" id="txtNoFax" placeholder="Nomor Fax" maxlength="13" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Email</label>
-              <input class="form-control" name="txtEmail" id="txtEmail" placeholder="Email">
+              <input class="form-control ubah" name="txtEmail" id="txtEmail" placeholder="Email" maxlength="50" required>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
               <label>Nomor Identitas</label>
-              <input class="form-control" name="txtNoIdentitas" id="txtNoIdentitas" placeholder="Nomor Identitas">
+              <input class="form-control ubah angka" name="txtNoIdentitas" id="txtNoIdentitas" placeholder="Nomor Identitas" maxlength="25" required>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary me-2">Submit</button>
-          <button type="button" class="btn btn-light">Cancel</button>
+          <div id="divActionEdit">
+            <button id="btnSubmit" type="button" class="btn btn-primary me-2">Submit</button>
+            <button id="btnCancel" type="button" class="btn btn-light">Cancel</button>
+          </div>
         </form>
-        <div class="d-sm-flex align-items-center justify-content-between">
-          <button class="btn btn-success btn-icon-text" id="btnNext" type="button">
-            <i class="ti-check btn-icon-prepend"></i>Lanjutkan
-          </button>
-          <button class="btn btn-outline-info btn-icon-text" id="btnEdit" type="button">
-            <i class="ti-pencil btn-icon-prepend"></i>Edit
-          </button>
+        <div id="divAction">
+          <div class="d-sm-flex align-items-center justify-content-between">
+            <button class="btn btn-success btn-icon-text" id="btnNext" data-toggle="modal" data-target="#mdlPmqaMonitoring" type="button">
+              <i class="ti-check btn-icon-prepend"></i>Lanjutkan
+            </button>
+            <button class="btn btn-outline-info btn-icon-text" id="btnEdit" type="button">
+              <i class="ti-pencil btn-icon-prepend"></i>Edit
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="mdlPegawai" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Kunjungan</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="box box-solid">
+            <div class="card-body">
+              <form class="forms-sample" id="frmKunjungan">
+                <input type="text" name="txtIdWpKunjungan" id="txtIdWpKunjungan" hidden/>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Bertemu dengan</label>
+                  <select class="col-sm-9 selectpicker" id="ddlPegawai" data-live-search="true" >
+                  </select>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">NIP</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtNip" placeholder="NIP Petugas" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Jabatan</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtJabatan" placeholder="Jabatan" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Unit</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtUnit" placeholder="Unit Petugas" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Keperluan</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtKeperluan" placeholder="Keperluan" maxlength="100" required>
+                  </div>
+                </div>
+                <button type="button" id="btnSubmitKunjungan" class="btn btn-primary me-2">Submit</button>
+                <button type="reset" class="btn btn-light" data-dismiss="modal">Cancel</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
 </th:block>
 <th:block layout:fragment="page_js">
   <script th:src="@{/pages-js/pencarian-npwp.js}"></script>
+  <!-- Bootstrap-Select -->
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/bootstrap-select.min.js}"></script>
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/i18n/defaults-id_ID.min.js}"></script>
 </th:block>
 
 </html>
