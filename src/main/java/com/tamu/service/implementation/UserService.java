@@ -45,7 +45,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseModel getDaftarUser(DataTablesInput dataTablesInput, BigDecimal idUser, String level) {
+    public ResponseModel getDaftarUser(DataTablesInput dataTablesInput, String idUser, String level) {
         List<User> users = new ArrayList<>();
         if (!level.equals(Constanta.LEVEL_ADMIN)){
             User user = userRepo.findById(idUser).get();
@@ -72,7 +72,7 @@ public class UserService implements IUserService {
             user.setCreatedBy(idUserLogin);
             user.setCreationDate(new Date());
         } else {
-            user = userRepo.getById(new BigDecimal(userFormModel.getId()));
+            user = userRepo.getById(userFormModel.getId());
             user.setLastUpdateBy(idUserLogin);
             user.setLastUpdateDate(new Date());
         }
@@ -82,7 +82,7 @@ public class UserService implements IUserService {
         user.setPassword(DigestUtils.md5Hex(userFormModel.getPassword() + Constanta.SALT));
         User userNew = userRepo.save(user);
         // update user session
-        if (userNew.getId().toString().equals(idUserLogin)){
+        if (userNew.getId().equals(idUserLogin)){
             request.getSession().setAttribute("userLogin", userNew);
         }
         return new ResponseModel("Save User");
@@ -93,7 +93,7 @@ public class UserService implements IUserService {
         if (id.equals(idUserLogin)){
             throw new AppException(1, "User ini tidak dapat dihapus!");
         }
-        User user = userRepo.getById(new BigDecimal(id));
+        User user = userRepo.getById(id);
         userRepo.delete(user);
         return new ResponseModel("Delete User");
     }

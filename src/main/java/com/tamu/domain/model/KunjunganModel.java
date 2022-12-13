@@ -12,4 +12,9 @@ public class KunjunganModel implements Serializable {
     private String jabatan;
     private String unit;
     private String keperluan;
+    private String namaWp;
+    private String npwp;
+    private String namaPegawai;
+    private String status;
+    private String keterangan;
 }

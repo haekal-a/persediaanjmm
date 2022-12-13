@@ -2,6 +2,7 @@ package com.tamu.domain.table;
 
 import lombok.Data;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,15 +14,13 @@ import java.util.Date;
 @Table(name="mfwp", schema = "public")
 public class Mfwp implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private BigDecimal id;
   @Temporal(TemporalType.DATE)
   private Date tanggalDaftar;
   @Temporal(TemporalType.DATE)
   private Date tanggalPindah;
   @Temporal(TemporalType.DATE)
   private Date tanggalLahir;
+  @Id
   private String npwp;
   private String kdKpp;
   private String kdCabang;

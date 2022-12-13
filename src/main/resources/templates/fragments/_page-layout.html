@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Tamu</title>
+    <title>Kunjung Pajak</title>
     <!-- Plugin css for this template -->
     <link rel="stylesheet" th:href="@{/vendors/feather/feather.css}">
     <link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
@@ -19,9 +19,9 @@
 <!--    <link rel="stylesheet" th:href="@{/js/select.dataTables.min.css}">-->
     <!-- End plugin css for this template -->
     <!-- custom:css -->
-    <link rel="stylesheet" th:href="@{/custom/sweetalert/sweetalert.css}">
+    <link rel="stylesheet" th:href="@{/vendors/sweetalert2/dist/sweetalert2.min.css}">
     <!-- endcustom -->
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+    <link rel="shortcut icon" th:href="@{/images/djp-putih.png}" />
     <th:block layout:fragment="page_css"></th:block>
 </head>
 <body>
@@ -48,6 +48,7 @@
                             <!--end::Breadcrumb-->
                         </div>
                     </div>
+                    <input type="text"  th:value="${session.userLogin.level}" id="role" name="role" hidden/>
                     <!--begin::Content-->
                     <th:block layout:fragment="content"></th:block>
                     <!--end::Content-->
@@ -79,10 +80,13 @@
 <!-- End plugin js for this page -->
 
 <!-- Custom js for this page-->
-<script th:src="@{/custom/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/vendors/sweetalert2/dist/sweetalert2.min.js}"></script>
 <script th:src="@{/vendors/jquery-validation/jquery.validate.min.js}"></script>
 <script th:src="@{/vendors/inputmask/jquery.inputmask.bundle.js}"></script>
 <script th:src="@{/pages-js/utility.js}"></script>
+<script>
+    var roleUser = $("#role").val() == "2";
+</script>
 <!-- End custom js for this page-->
 <th:block layout:fragment="page_js"></th:block>
 </body>

@@ -5,6 +5,7 @@ import com.tamu.domain.model.ResponseModel;
 import com.tamu.domain.table.User;
 import com.tamu.service.ICetakanService;
 import com.tamu.service.IDataWpService;
+import com.tamu.service.IRefKluService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public class DataWpController {
     private IDataWpService dataWpService;
 
     @Autowired
+    private IRefKluService refKluService;
+
+    @Autowired
     private ICetakanService cetakanService;
 
     @GetMapping("/get")
@@ -32,6 +36,18 @@ public class DataWpController {
     @PostMapping("/save")
     public ResponseModel saveDataWp(@RequestBody ProfilWpModel profilWpModel, HttpServletRequest request) throws IOException {
         User user = (User) request.getSession().getAttribute("userLogin");
-        return dataWpService.saveDataWp(profilWpModel);
+        return dataWpService.saveDataWp(profilWpModel, user);
+    }
+
+    @GetMapping("/getlistklu")
+    public ResponseModel getDataKlu(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return refKluService.getAllKlu();
+    }
+
+    @GetMapping("/getlistallklu")
+    public ResponseModel getDataKlu(@RequestParam String q, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("userLogin");
+        return refKluService.getAllKluWithParam(q);
     }
 }

@@ -40,11 +40,19 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping("/pengaturan/role")
+    @GetMapping("/pengaturanrole")
     public String showPengaturanRole(HttpServletRequest request, ModelMap model){
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("roleMenu", "active");
         return "role";
+    }
+
+    @GetMapping("/monitoringkunjungan")
+    public String showDaftarKunjungan(HttpServletRequest request, ModelMap model){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("kunjunganMenu", "active");
+        return "daftar_kunjungan";
     }
 }

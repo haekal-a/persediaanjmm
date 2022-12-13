@@ -1,5 +1,6 @@
 var PencarianNpwp = function (){
     var listPegawai = [];
+    var listKlu = [];
     var pageHandler = function () {
         // init validation
         var validator = $('#frmProfilWp').validate({
@@ -53,23 +54,27 @@ var PencarianNpwp = function (){
         });
 
         $("#btnEdit").on("click", function () {
+            validator = $('#frmProfilWp').validate();
             $(".ubah").removeAttr('disabled');
+            $(".ubah").removeClass('disabled');
             $('#divAction').hide();
             $('#divActionEdit').show();
+            $('.selectpicker').selectpicker('refresh');
         });
 
         $("#btnSubmit").on("click", function (e) {
             e.preventDefault();
             if (validator.form()) {
-                Utility.showConfirmMessageCallback("Profil Wajib Pajak", "Apakah anda yakin ingin menyimpan data ini?", function (r) {
-                    if (r) {
-                        save();
-                    }
+                Utility.showConfirmMessageCallback("Profil Wajib Pajak", "Apakah anda yakin ingin menyimpan data ini?", function () {
+                    save();
                 })
+            } else {
+                Utility.showErrorMessage("Error!", "Terdapat isian yang belum sesuai.")
             }
         });
 
         $("#btnCancel").on("click", function () {
+            validator.resetForm();
             $("#txtNpwp").val($("#txtNpwp1").val());
             $("#btnCari").trigger('click');
             $('#frmProfilWp input').each(function (){
@@ -80,6 +85,7 @@ var PencarianNpwp = function (){
         $("#btnNext").on("click", function () {
             $("#mdlPegawai").modal("show");
             $("#txtIdWpKunjungan").val($("#txtIdWp").val());
+            $("#txtNpwpKunjungan").val($("#txtNpwp1").val().replace(/_/g, '').replace('-', '').replace(/\./gi, ''))
         });
 
         $("#ddlPegawai").on("change", function (){
@@ -92,27 +98,66 @@ var PencarianNpwp = function (){
             });
         });
 
+        $("#ddlKlu").on("change", function (){
+            $.each(listKlu, function (){
+                if (this.klu == $("#ddlKlu").val()){
+                    $("#txtKeteranganKlu").val(this.uraian);
+                }
+            });
+        });
+
         $("#btnSubmitKunjungan").on("click", function (e){
             e.preventDefault();
-            if (validator.form()) {
-                Utility.showConfirmMessageCallback("Kunjungan Wajib Pajak", "Apakah anda yakin ingin menyimpan data ini?", function (r) {
-                    if (r) {
-                        saveKunjungan();
-                    }
-                })
+            if($("#ddlPegawai").val() == null){
+                Utility.showErrorMessage("Kunjungan Wajib Pajak", "Anda belum memilih pegawai");
+                return;
             }
+            if (validator.form()) {
+                Utility.showConfirmMessageCallback("Kunjungan Wajib Pajak", "Apakah anda yakin ingin menyimpan data ini?", function () {
+                    saveKunjungan();
+                })
+            } else {
+                Utility.showErrorMessage("Error!", "Terdapat isian yang belum sesuai.")
+            }
+        });
+
+        $('#mdlPegawai').on('show.bs.modal', function () {
+            validator = $('#frmKunjungan').validate();
+        });
+
+        $('#mdlPegawai').on('hide.bs.modal', function () {
+            validator.resetForm();
+            $('#frmKunjungan').each(function () {
+                this.reset();
+            });
+            $(".selectpicker").selectpicker('refresh');
+        });
+
+        $("#btnBatal").on("click", function (e) {
+            e.preventDefault();
+            $("#mdlPegawai").modal("hide");
         })
     }
 
     var getDataWp = function (npwp) {
-        // Utility.showBoxOverlay();
+        Utility.showBoxOverlay();
         $.ajax({
             type: "GET",
             url: "/datawp/get",
             data: {"npwp": npwp},
             success: function (data) {
-                // Utility.removeBoxOverlay();
+                Utility.removeBoxOverlay();
                 if (data.code == 1) {
+                    if (data.object == null){
+                        Utility.showErrorMessage("Terjadi Kesalahan!", "NPWP tidak ditemukan");
+                        $('#divProfilWp').hide();
+                        return;
+                    }
+                    if(data.object.jenisWp == "OP"){
+                        $(".op").show();
+                    } else {
+                        $(".op").hide();
+                    }
                     $('#divProfilWp').show('slow');
                     $("#txtIdWp").val(data.object.id);
                     $("#txtNpwp1").val(data.object.npwp15);
@@ -120,22 +165,27 @@ var PencarianNpwp = function (){
                     $("#txtNama").val(data.object.namaWp);
                     $("#txtTglLahir").val(Utility.formatTanggalToString(data.object.tanggalLahir));
                     $("#txtAlamat").val(data.object.alamat);
-                    $("#txtTglDaftar").val(data.object.tanggalDaftar);
+                    // $("#txtTglDaftar").val(data.object.tanggalDaftar);
                     $("#txtKelurahan").val(data.object.kelurahan);
-                    $("#txtStatusWp").val(data.object.statusWp);
+                    // $("#txtStatusWp").val(data.object.statusWp);
                     $("#txtKecamatan").val(data.object.kecamatan);
-                    $("#txtNipAr").val(data.object.nipAr);
+                    // $("#txtNipAr").val(data.object.nipAr);
                     $("#txtKota").val(data.object.kota);
-                    $("#txtNamaAr").val(data.object.nipAr);
+                    // $("#txtNamaAr").val(data.object.nipAr);
                     $("#txtPropinsi").val(data.object.propinsi);
                     $("#txtKdPos").val(data.object.kodePos);
                     $("#txtNoTelp").val(data.object.nomorTelepon);
                     $("#txtNoFax").val(data.object.nomorFax);
                     $("#txtEmail").val(data.object.email);
                     $("#txtNoIdentitas").val(data.object.nomorIdentitas);
+                    $("#ddlKlu").val(data.object.kodeKlu).trigger('change');
+                    $("#txtKeteranganKlu").val(data.object.namaKlu);
+                    // $('.selectpicker').selectpicker('refresh');
+                    // preselected(data.object.kodeKlu);
                 } else {
                     var message = data.message;
-                    Utility.showErrorMessage("Terjadi Kesalahan!", "NPWP tidak ditemukan " + message);
+                    Utility.showErrorMessage("Terjadi Kesalahan!", message);
+                    $('#divProfilWp').hide();
                 }
             },
             error: function (xhr, status, error) {
@@ -149,18 +199,19 @@ var PencarianNpwp = function (){
                     // msg = eval("(" + xhr.responseText + ")");
                     msg = xhr.responseText;
                 }
-                Utility.showErrorMessageCallback('Terjadi kesalahan!', msg, function (r) {
-                    // Utility.removeBoxOverlay();
-                });
+                Utility.showErrorMessage('Terjadi kesalahan!', msg);
+                Utility.removeBoxOverlay();
             }
         });
     };
 
     var save = function () {
-        // Utility.showBoxOverlay("frmProfilWp");
+        Utility.showBoxOverlay("frmProfilWp");
         var myform = $('#frmProfilWp');
+        var npwp = $("#txtNpwp").val().replace(/_/g, '').replace('-', '').replace(/\./gi, '');
         var data = {
             "id": $("#txtIdWp").val(),
+            "npwp15": npwp,
             "alamat": $("#txtAlamat").val(),
             "kelurahan": $("#txtKelurahan").val(),
             "kecamatan": $("#txtKecamatan").val(),
@@ -171,7 +222,9 @@ var PencarianNpwp = function (){
             "nomorFax": $("#txtNoFax").val(),
             "email": $("#txtEmail").val(),
             "noIdentitas": $("#txtNoIdentitas").val(),
-            "tglLahir": Utility.formatTanggalToDate($("#txtTglLahir").val())
+            "tglLahir": Utility.formatTanggalToDate($("#txtTglLahir").val()),
+            "klu": $("#ddlKlu").val(),
+            "keteranganKlu": $("#txtKeteranganKlu").val()
         }
         $.ajax({
             type: "POST",
@@ -180,16 +233,14 @@ var PencarianNpwp = function (){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                // Utility.removeBoxOverlay();
+                Utility.removeBoxOverlay();
                 if (data.code == 1) {
-                    Utility.downloadExcel(data.object.newData, "data baru.xls");
-                    Utility.downloadExcel(data.object.oldData, "data lama.xls");
-                    Utility.showSuccessMessageCallback("Sukses!", "Data Berhasil diubah.", function (r) {
-                        if (r) {
-                            $("#txtNpwp").val($("#txtNpwp1").val());
-                            $("#btnCari").trigger('click');
-                        }
-                    })
+                    Utility.downloadExcel(data.object.newData, "Data Baru_"+npwp+".xls");
+                    Utility.downloadExcel(data.object.oldData, "Data Lama_"+npwp+".xls");
+                    Utility.showSuccessMessageCallback("Sukses!", "Data Berhasil diubah.", function () {
+                        $("#txtNpwp").val($("#txtNpwp1").val());
+                        $("#btnCari").trigger('click');
+                    });
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", message);
@@ -206,20 +257,19 @@ var PencarianNpwp = function (){
                     // msg = eval("(" + xhr.responseText + ")");
                     msg = xhr.responseText;
                 }
-                Utility.showErrorMessage('Terjadi kesalahan!', msg, function (r) {
-                    // Utility.removeBoxOverlay();
-                });
+                Utility.showErrorMessage('Terjadi kesalahan!', msg);
+                Utility.removeBoxOverlay();
             }
         });
     };
 
     var getListPegawai = function () {
-        // Utility.showBoxOverlay("formPmqaAlurDok");
+        Utility.showBoxOverlay();
         $.ajax({
             type: "GET",
             url: "/pegawai/getlist",
             success: function (data) {
-                // Utility.removeBoxOverlay();
+                Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     var obj = data.object;
                     listPegawai = obj;
@@ -245,15 +295,142 @@ var PencarianNpwp = function (){
                     // msg = eval("(" + xhr.responseText + ")");
                     msg = xhr.responseText;
                 }
-                Utility.showErrorMessage('Terjadi kesalahan!', msg, function (r) {
-                    Utility.removeBoxOverlay();
-                });
+                Utility.showErrorMessage('Terjadi kesalahan!', msg);
+                Utility.removeBoxOverlay();
             }
         });
     };
 
+    var getListKlu = function () {
+        Utility.showBoxOverlay();
+        $.ajax({
+            type: "GET",
+            url: "/datawp/getlistklu",
+            success: function (data) {
+                Utility.removeBoxOverlay();
+                if (data.code == 1) {
+                    var obj = data.object;
+                    listKlu = obj;
+                    $("#ddlKlu").empty();
+                    $("#ddlKlu").append('<option value="" selected="" disabled>Pilih</option>');
+                    $.each(obj, function () {
+                        $("#ddlKlu").append('<option value="' + this.klu + '">' + this.klu + ' - ' + this.uraian + '</option>');
+                    });
+                    // $("#ddlKlu").selectpicker('refresh');
+                    $('.js-data-example-ajax').select2();
+                } else {
+                    var message = data.message;
+                    Utility.showErrorMessage("Terjadi Kesalahan!", "Gagal mengambil data KLU " + message);
+                }
+            },
+            error: function (xhr, status, error) {
+                var err = xhr.responseJSON;
+                var msg = "";
+                if (err.status === "Bad Request") {
+                    $.each(err.errors, function (index, item) {
+                        msg += " [" + item.field + "] " + item.defaultMessage;
+                    });
+                } else {
+                    // msg = eval("(" + xhr.responseText + ")");
+                    msg = xhr.responseText;
+                }
+                Utility.showErrorMessage('Terjadi kesalahan!', msg);
+                Utility.removeBoxOverlay();
+            }
+        });
+    };
+
+    function getListKluRemote () {
+        $('.js-data-example-ajax').select2({
+            ajax: {
+                url: '/datawp/getlistallklu',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data.object,
+                        pagination: {
+                            more: (params.page * 30) < data.object.length
+                        }
+                    };
+                },
+                transport: function (params, success, failure) {
+                    var $request = $.ajax(params);
+
+                    $request.then(success);
+                    $request.fail(failure);
+
+                    return $request;
+                },
+                cache: true
+            },
+            width: 'resolve',
+            placeholder: 'Cari data klu',
+            minimumInputLength: 1,
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
+        });
+    }
+
+    function formatRepo (repo) {
+        if (repo.loading) {
+            return repo.text;
+        }
+
+        var $container = $(
+            "<div class='select2-result-repository clearfix'>" +
+            "<div class='select2-result-repository__meta'>" +
+            "<div class='select2-result-repository__title'></div>" +
+            "<div class='select2-result-repository__description'></div>" +
+            "</div>" +
+            "</div>"
+        );
+
+        $container.find(".select2-result-repository__title").text(repo.klu);
+        $container.find(".select2-result-repository__description").text(repo.uraian);
+
+        return $container;
+    }
+
+    function formatRepoSelection (repo) {
+        return repo.klu || repo.uraian;
+    }
+
+    function preselected (q) {
+        // Fetch the preselected item, and add to the control
+        var ddlKlu = $('.js-data-example-ajax');
+        $.ajax({
+            type: 'GET',
+            url: '/datawp/getlistklu?q=' + q
+        }).then(function (data) {
+            // create the option and append to Select2
+            var option = new Option(data.object.klu, data.object.klu, true, true);
+            ddlKlu.append(option).trigger('change');
+
+            // manually trigger the `select2:select` event
+            ddlKlu.trigger({
+                type: 'select2:select',
+                params: {
+                    data: data
+                }
+            });
+        });
+    }
+
     var saveKunjungan = function () {
-        // Utility.showBoxOverlay("frmProfilWp");
+        Utility.showBoxOverlay("frmProfilWp");
         var myform = $('#frmProfilWp');
         var data = {
             "idWp": $("#txtIdWpKunjungan").val(),
@@ -262,6 +439,7 @@ var PencarianNpwp = function (){
             "jabatan": $("#txtJabatan").val(),
             "unit": $("#txtUnit").val(),
             "keperluan": $("#txtKeperluan").val(),
+            "npwp": $("#txtNpwpKunjungan").val(),
         }
         $.ajax({
             type: "POST",
@@ -270,13 +448,11 @@ var PencarianNpwp = function (){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                // Utility.removeBoxOverlay();
+                Utility.removeBoxOverlay();
                 if (data.code == 1) {
-                    Utility.showSuccessMessageCallback("Sukses!", "Data Berhasil disimpan.", function (r) {
-                        if (r) {
-                            window.location.href = "/";
-                        }
-                    })
+                    Utility.showSuccessMessageCallback("Sukses!", "Data Berhasil disimpan.", function (){
+                        window.location.href = "/";
+                    });
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", message);
@@ -293,9 +469,8 @@ var PencarianNpwp = function (){
                     // msg = eval("(" + xhr.responseText + ")");
                     msg = xhr.responseText;
                 }
-                Utility.showErrorMessage('Terjadi kesalahan!', msg, function (r) {
-                    // Utility.removeBoxOverlay();
-                });
+                Utility.showErrorMessage('Terjadi kesalahan!', msg);
+                Utility.removeBoxOverlay();
             }
         });
     };
@@ -303,6 +478,7 @@ var PencarianNpwp = function (){
     return {
         init: function () {
             pageHandler();
+            getListKlu();
             getListPegawai();
         }
     }

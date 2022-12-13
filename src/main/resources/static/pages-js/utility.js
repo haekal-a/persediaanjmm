@@ -17,6 +17,10 @@ var Utility = function (){
             placeholder: "_"
         });
 
+        $(".datepicker").inputmask("99-99-9999", {
+            clearMaskOnLostFocus: true,
+        });
+
         //Date picker
         $('.datepicker').datepicker({
             format: "dd-mm-yyyy",
@@ -43,6 +47,16 @@ var Utility = function (){
             $('.selectpicker').selectpicker();
         }
     }
+
+    var formatNpwp = function (npwp) {
+
+        var npwpString = npwp.substring(0, 2) + '.' +
+            npwp.substring(2, 5) + '.' + npwp.substring(5, 8) + '.' +
+            npwp.substring(8, 9) + '-' + npwp.substring(9, 12) + '.' +
+            npwp.substring(12, 15);
+
+        return npwpString;
+    };
 
     var formatTanggalToString = function (data) {
         if (typeof data === "string") {
@@ -71,63 +85,63 @@ var Utility = function (){
     };
 
     var showSuccessMessage = function (t, m){
-        swal({
-            title: t,
-            text: m,
-            type: "success",
-            confirmButtonText: "Ok",
-        });
+        Swal.fire(t, m, "success")
     }
 
     var showErrorMessage = function (t, m){
-        swal({
-            title: t,
-            text: m,
-            type: "error",
-            confirmButtonText: "Ok",
-        });
+        Swal.fire(t, m, "error");
     }
 
     var showSuccessMessageCallback = function (t, m, callback){
-        swal({
+        Swal.fire({
             title: t,
             text: m,
-            type: "success",
-            confirmButtonText: "Ok",
-        }, function (isConfirm) {
-            callback(isConfirm);
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "OK",
+            allowOutsideClick: false
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                callback();
+            }
         });
     }
 
     var showErrorMessageCallback = function (t, m, callback){
-        swal({
+        Swal.fire({
             title: t,
             text: m,
-            type: "error",
-            confirmButtonText: "Ok",
-        }, function (isConfirm) {
-            callback(isConfirm);
+            icon: "error",
+            showCancelButton: false,
+            confirmButtonText: "OK",
+            allowOutsideClick: false
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                callback();
+            }
         });
     }
 
     var showConfirmMessageCallback = function (t, m, callback){
-        swal({
+        Swal.fire({
             title: t,
             text: m,
-            type: "warning",
-            confirmButtonText: "Ya",
-            // confirmButtonColor: "#DD6B55",
+            icon: "warning",
             showCancelButton: true,
-            cancelButtonText: "Batal",
-            // allowOutsideClick: false
-        }, function (isConfirm) {
-            callback(isConfirm);
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            reverseButtons: false
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                callback();
+            }
         });
     }
 
     var showBoxOverlay = function (target) {
         var boxOverlay = '<div class="overlay">\n' +
-            '                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>\n' +
+            // '                        <div class="loader"></div>\n' +
+            '                        <div class="loader"></div>\n' +
             '                    </div>';
         if (target == null || target == ""){
             $("body").append(boxOverlay);
@@ -243,6 +257,9 @@ var Utility = function (){
         },
         localizeValidationMessage: function (){
             localizeValidationMessage()
+        },
+        formatNpwp: function (npwp) {
+            return formatNpwp(npwp);
         },
         formatTanggalToString: function (data){
             return formatTanggalToString(data)

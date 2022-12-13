@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 public class ProfilWpModel implements Serializable {
     private String id;
+    private String npwp15;
     private String alamat;
     private String kelurahan;
     private String kecamatan;
@@ -19,4 +20,6 @@ public class ProfilWpModel implements Serializable {
     private String email;
     private String noIdentitas;
     private Date tglLahir;
+    private String klu;
+    private String keteranganKlu;
 }

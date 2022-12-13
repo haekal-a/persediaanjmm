@@ -28,12 +28,12 @@ public class PengaturanController {
     @PostMapping(value = "/role/")
     public ResponseModel saveUser(@Valid final UserFormModel UserFormModel, HttpServletRequest request) throws IOException {
         User user = (User) request.getSession().getAttribute("userLogin");
-        return userService.saveUser(UserFormModel, user.getId().toString(), user.getLevel(), request);
+        return userService.saveUser(UserFormModel, user.getId(), user.getLevel(), request);
     }
 
     @DeleteMapping(value = "/role/")
     public ResponseModel deleteUser(@RequestParam String id, HttpServletRequest request) throws IOException {
         User user = (User) request.getSession().getAttribute("userLogin");
-        return userService.deleteUser(id, user.getId().toString());
+        return userService.deleteUser(id, user.getId());
     }
 }

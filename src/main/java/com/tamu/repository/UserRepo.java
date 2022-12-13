@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, BigDecimal> {
+public interface UserRepo extends JpaRepository<User, String> {
     User findByUsername(String user);
 }

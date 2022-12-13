@@ -19,7 +19,7 @@ public class PegawaiController {
     private IPegawaiService pegawaiService;
 
     @GetMapping("/getlist")
-    public ResponseModel getDataWp(HttpServletRequest request) {
+    public ResponseModel getDataPegawai(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("userLogin");
         return pegawaiService.getAllPegawai();
     }

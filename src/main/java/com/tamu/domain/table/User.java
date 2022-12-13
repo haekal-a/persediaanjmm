@@ -1,6 +1,7 @@
 package com.tamu.domain.table;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,8 +14,9 @@ import java.util.Date;
 public class User implements Serializable {
 
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private BigDecimal id;
+  @GeneratedValue(generator = "uuidGen")
+  @GenericGenerator(name = "uuidGen", strategy = "org.hibernate.id.UUIDGenerator")
+  private String id;
   private String username;
   private String nama;
   private String password;

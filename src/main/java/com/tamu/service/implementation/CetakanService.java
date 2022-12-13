@@ -1,6 +1,7 @@
 package com.tamu.service.implementation;
 
 import com.tamu.domain.model.ResponseModel;
+import com.tamu.domain.table.DataWp;
 import com.tamu.domain.table.Mfwp;
 import com.tamu.service.ICetakanService;
 import com.tamu.service.common.UtilityService;
@@ -24,7 +25,7 @@ public class CetakanService implements ICetakanService {
     UtilityService utilityService;
 
     @Override
-    public ResponseModel getCetakanWpOp(Mfwp mfwp) {
+    public ResponseModel getCetakanWpOp(DataWp dataWp) {
         ResponseModel res = new ResponseModel("Get data cetak WP OP");
 
         try (
@@ -36,16 +37,16 @@ public class CetakanService implements ICetakanService {
             Sheet halaman2 = workbook.getSheetAt(1);
 
             //  Cell npwp
-            setCellNpwp(mfwp.getNpwp15(), halaman1.getRow(13), 16);
+            setCellNpwp(dataWp.getNpwp15(), halaman1.getRow(13), 16);
 
             //  cell Nama
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 15, 16, 26);
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 33, 16, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 15, 16, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 33, 16, 26);
 
             //  tgl Lahir
             SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-            if (mfwp.getTanggalLahir() != null) {
-                String tgl = sdf.format(mfwp.getTanggalLahir());
+            if (dataWp.getTanggalLahir() != null) {
+                String tgl = sdf.format(dataWp.getTanggalLahir());
                 Row rowtglLahir = halaman1.getRow(38);
                 rowtglLahir.getCell(32).setCellValue(String.valueOf(tgl.charAt(0)));
                 rowtglLahir.getCell(33).setCellValue(String.valueOf(tgl.charAt(1)));
@@ -58,40 +59,40 @@ public class CetakanService implements ICetakanService {
             }
 
             //  NIK
-            setGeneralCellValues(mfwp.getNomorIdentitas(), halaman1, 45, 25, 17);
+            setGeneralCellValues(dataWp.getNomorIdentitas(), halaman1, 45, 25, 17);
 
             //  No Telepon
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman1, 53, 16, 26);
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman2, 56, 15, 12);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman1, 53, 16, 26);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman2, 56, 15, 12);
 
             //  Email
-            setGeneralCellValues(mfwp.getEmail().toUpperCase(), halaman1, 55, 16, 26);
+            setGeneralCellValues(dataWp.getEmail().toUpperCase(), halaman1, 55, 16, 26);
 
             //  Jalan
-            setGeneralCellValues(mfwp.getAlamat(), halaman2, 39, 15, 26);
+            setGeneralCellValues(dataWp.getAlamat(), halaman2, 39, 15, 26);
 
             //  Kelurahan
-            setGeneralCellValues(mfwp.getKelurahan(), halaman2, 46, 15, 26);
+            setGeneralCellValues(dataWp.getKelurahan(), halaman2, 46, 15, 26);
 
             //  Kecamatan
-            setGeneralCellValues(mfwp.getKecamatan(), halaman2, 48, 15, 26);
+            setGeneralCellValues(dataWp.getKecamatan(), halaman2, 48, 15, 26);
 
             //  Kota
-            setGeneralCellValues(mfwp.getKota(), halaman2, 50, 15, 26);
+            setGeneralCellValues(dataWp.getKota(), halaman2, 50, 15, 26);
 
             //  Propinsi
-            setGeneralCellValues(mfwp.getPropinsi(), halaman2, 52, 15, 26);
+            setGeneralCellValues(dataWp.getPropinsi(), halaman2, 52, 15, 26);
 
             //  Kode Pos
-            setGeneralCellValues(mfwp.getKodePos(), halaman2, 54, 15, 5);
+            setGeneralCellValues(dataWp.getKodePos(), halaman2, 54, 15, 5);
 
             //  No Fax
-            setGeneralCellValues(mfwp.getNomorFax(), halaman2, 56, 31, 10);
+            setGeneralCellValues(dataWp.getNomorFax(), halaman2, 56, 31, 10);
 
             SimpleDateFormat formatTgl = new SimpleDateFormat("dd-MM-yyyy");
             String tgl = utilityService.stringDdmmyyyToIndonesianDate(formatTgl.format(new Date()), "Tanggal TTD");
             halaman2.getRow(65).getCell(34).setCellValue(String.valueOf(tgl));
-            halaman2.getRow(70).getCell(28).setCellValue(String.valueOf(mfwp.getNamaWp()));
+            halaman2.getRow(70).getCell(28).setCellValue(String.valueOf(dataWp.getNamaWp()));
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
@@ -106,7 +107,7 @@ public class CetakanService implements ICetakanService {
     }
 
     @Override
-    public ResponseModel getCetakanWpBadan(Mfwp mfwp) {
+    public ResponseModel getCetakanWpBadan(DataWp dataWp) {
         ResponseModel res = new ResponseModel("Get data cetak WP Badan");
 
         try (
@@ -118,39 +119,39 @@ public class CetakanService implements ICetakanService {
             Sheet halaman2 = workbook.getSheetAt(1);
 
             //  Cell npwp
-            setCellNpwp(mfwp.getNpwp15(), halaman1.getRow(9), 16);
+            setCellNpwp(dataWp.getNpwp15(), halaman1.getRow(9), 16);
 
             //  cell Nama
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 11, 16, 26);
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 18, 16, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 11, 16, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 18, 16, 26);
 
             //  Jalan
-            setGeneralCellValues(mfwp.getAlamat(), halaman1, 23, 16, 26);
+            setGeneralCellValues(dataWp.getAlamat(), halaman1, 23, 16, 26);
 
             //  Kelurahan
-            setGeneralCellValues(mfwp.getKelurahan(), halaman1, 30, 16, 26);
+            setGeneralCellValues(dataWp.getKelurahan(), halaman1, 30, 16, 26);
 
             //  Kecamatan
-            setGeneralCellValues(mfwp.getKecamatan(), halaman1, 32, 16, 26);
+            setGeneralCellValues(dataWp.getKecamatan(), halaman1, 32, 16, 26);
 
             //  Kota
-            setGeneralCellValues(mfwp.getKota(), halaman1, 34, 16, 26);
+            setGeneralCellValues(dataWp.getKota(), halaman1, 34, 16, 26);
 
             //  Kode Pos
-            setGeneralCellValues(mfwp.getKodePos(), halaman1, 36, 16, 5);
+            setGeneralCellValues(dataWp.getKodePos(), halaman1, 36, 16, 5);
 
             //  Propinsi
-            setGeneralCellValues(mfwp.getPropinsi(), halaman1, 38, 16, 26);
+            setGeneralCellValues(dataWp.getPropinsi(), halaman1, 38, 16, 26);
 
             //  No Telepon
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman1, 40, 16, 12);
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman1, 42, 16, 26);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman1, 40, 16, 12);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman1, 42, 16, 26);
 
             //  No Fax
-            setGeneralCellValues(mfwp.getNomorFax(), halaman1, 40, 32, 10);
+            setGeneralCellValues(dataWp.getNomorFax(), halaman1, 40, 32, 10);
 
             //  Email
-            setGeneralCellValues(mfwp.getEmail().toUpperCase(), halaman1, 45, 16, 26);
+            setGeneralCellValues(dataWp.getEmail().toUpperCase(), halaman1, 45, 16, 26);
 
             SimpleDateFormat formatTgl = new SimpleDateFormat("dd-MM-yyyy");
             String tgl = utilityService.stringDdmmyyyToIndonesianDate(formatTgl.format(new Date()), "Tanggal TTD");
@@ -169,7 +170,7 @@ public class CetakanService implements ICetakanService {
     }
 
     @Override
-    public ResponseModel getCetakanWpPemerintah(Mfwp mfwp) {
+    public ResponseModel getCetakanWpPemerintah(DataWp dataWp) {
         ResponseModel res = new ResponseModel("Get data cetak ");
 
         try (
@@ -180,39 +181,39 @@ public class CetakanService implements ICetakanService {
             Sheet halaman1 = workbook.getSheetAt(0);
 
             //  Cell npwp
-            setCellNpwp(mfwp.getNpwp15(), halaman1.getRow(14), 13);
+            setCellNpwp(dataWp.getNpwp15(), halaman1.getRow(14), 13);
 
             //  cell Nama
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 16, 13, 26);
-            setGeneralCellValues(mfwp.getNamaWp(), halaman1, 29, 13, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 16, 13, 26);
+            setGeneralCellValues(dataWp.getNamaWp(), halaman1, 29, 13, 26);
 
             //  Jalan
-            setGeneralCellValues(mfwp.getAlamat(), halaman1, 34, 13, 26);
+            setGeneralCellValues(dataWp.getAlamat(), halaman1, 34, 13, 26);
 
             //  Kelurahan
-            setGeneralCellValues(mfwp.getKelurahan(), halaman1, 41, 13, 26);
+            setGeneralCellValues(dataWp.getKelurahan(), halaman1, 41, 13, 26);
 
             //  Kecamatan
-            setGeneralCellValues(mfwp.getKecamatan(), halaman1, 43, 13, 26);
+            setGeneralCellValues(dataWp.getKecamatan(), halaman1, 43, 13, 26);
 
             //  Kota
-            setGeneralCellValues(mfwp.getKota(), halaman1, 45, 13, 26);
+            setGeneralCellValues(dataWp.getKota(), halaman1, 45, 13, 26);
 
             //  Propinsi
-            setGeneralCellValues(mfwp.getPropinsi(), halaman1, 47, 13, 26);
+            setGeneralCellValues(dataWp.getPropinsi(), halaman1, 47, 13, 26);
 
             //  Kode Pos
-            setGeneralCellValues(mfwp.getKodePos(), halaman1, 49, 13, 5);
+            setGeneralCellValues(dataWp.getKodePos(), halaman1, 49, 13, 5);
 
             //  No Telepon
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman1, 51, 13, 12);
-            setGeneralCellValues(mfwp.getNomorTelepon(), halaman1, 53, 13, 26);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman1, 51, 13, 12);
+            setGeneralCellValues(dataWp.getNomorTelepon(), halaman1, 53, 13, 26);
 
             //  No Fax
-            setGeneralCellValues(mfwp.getNomorFax(), halaman1, 51, 29, 10);
+            setGeneralCellValues(dataWp.getNomorFax(), halaman1, 51, 29, 10);
 
             //  Email
-            setGeneralCellValues(mfwp.getEmail().toUpperCase(), halaman1, 55, 13, 26);
+            setGeneralCellValues(dataWp.getEmail().toUpperCase(), halaman1, 55, 13, 26);
 
             SimpleDateFormat formatTgl = new SimpleDateFormat("dd-MM-yyyy");
             String tgl = utilityService.stringDdmmyyyToIndonesianDate(formatTgl.format(new Date()), "Tanggal TTD");

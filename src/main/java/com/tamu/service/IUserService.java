@@ -12,7 +12,7 @@ public interface IUserService {
 
     User findByUsername(String username);
 
-    ResponseModel getDaftarUser(DataTablesInput dataTablesInput, BigDecimal idUser, String level);
+    ResponseModel getDaftarUser(DataTablesInput dataTablesInput, String idUser, String level);
 
     ResponseModel saveUser(UserFormModel userFormModel, String idUserLogin, String levelUserLogin, HttpServletRequest request);
 
