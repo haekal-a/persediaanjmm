@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page-layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css">
+  <link rel="shortcut icon" th:href="@{/images/logo-jmm.png}" />
+  <!-- Bootstrap-Select -->
+  <link rel="stylesheet" th:href="@{/vendors/bootstrap-selectpicker/css/bootstrap-select.min.css}">
+</th:block>
+<section layout:fragment="content">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-sm-flex justify-content-between align-items-start">
+          <div>
+            <h4 class="card-title">Transaksi barang masuk & barang keluar</h4>
+<!--            <p class="card-subtitle card-subtitle-dash">Transaksi barang masuk & barang keluar</p>-->
+          </div>
+        </div>
+        <form class="forms-sample pt-lg-1" id="frmTransaksi">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-description">Detail Barang</p>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Nama Barang</label>
+                <select class="col-sm-9 selectpicker" data-live-search="true" data-size="5" id="ddlBarang">
+                </select>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Jenis barang</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtJenisBarang" placeholder="Nama Jenis Barang" disabled>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Merk</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtMerk" placeholder="Merk barang" disabled>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Jumlah Barang</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtJumlahBarang" placeholder="Jumlah Barang" disabled>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Harga Satuan</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtHargaSatuan" placeholder="Jumlah Barang" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <p class="card-description">Transaksi Barang</p>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Jenis Transaksi</label>
+                <div class="col-sm-9">
+                  <select class="form-control selectpicker" data-live-search="true" id="ddlStatus">
+                    <option value="" selected>Pilih</option>
+                    <option value="1">Barang Masuk</option>
+                    <option value="2">Barang Keluar</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Tanggal Transaksi</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control datepicker" name="txtTanggalTransaksi" id="txtTanggalTransaksi" placeholder="Tanggal Transaksi" required>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Kode Transaksi</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtKodeTransaksi" placeholder="Nama Jenis Barang" >
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Title</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="txtTitle" placeholder="Title" >
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Keterangan</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" rows="3" id="txtKeterangan" placeholder="Keterangan" ></textarea>
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Jumlah Barang</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" id="txtjmlBarang" placeholder="Jumlah Barang" >
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Harga Satuan</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" id="txtHrgSatuan" placeholder="Harga Satuan" >
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-sm-3 col-form-label">Total</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" id="txtTotal" placeholder="Total" >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12" style="text-align:right">
+              <button type="button" id="btnCari" class="btn btn-primary me-2">Simpan</button>
+              <button type="reset" class="btn btn-secondary" id="btnReset">Batal</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="mdlBatal" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Keterangan Pembatalan</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <input type="text" name="id" id="id" hidden/>
+          <div class="card-body p-0 mb-3">
+            <div class="col-sm-12">
+              <input type="text" class="form-control" id="ket" name="ket" placeholder="" required maxlength="100">
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="box-footer">
+            <div class="pull-right">
+              <button type="submit" class="btn btn-primary" id="btnUpdate">Simpan</button>
+              <button type="button" class="btn btn-secondary" id="btnBatal" data-dismiss="modal">Batal</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+</section>
+<th:block layout:fragment="page_js">
+  <!-- Bootstrap-Select -->
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/bootstrap-select.min.js}"></script>
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/i18n/defaults-id_ID.min.js}"></script>
+
+  <script th:src="@{/pages-js/transaksi.js}"></script>
+</th:block>
+</html>

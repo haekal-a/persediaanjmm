@@ -7,27 +7,27 @@
         </div>
         <div>
           <a class="navbar-brand brand-logo" th:href="@{/}">
-            <img th:src="@{/images/KPP-Pratama-Pare.png}" style="height: 84px; max-width: 120%" alt="logo" />
+            <img th:src="@{/images/logo-jmm.png}" style="height: 84px; max-width: 120%" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" th:href="@{/}">
-            <img th:src="@{/images/djp-putih.png}" alt="logo" />
+            <img th:src="@{/images/logo-jmm.png}" alt="logo" />
           </a>
         </div>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-top"> 
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-            <h1 class="welcome-text">Selamat Datang di <span class="text-black fw-bold">Aplikasi Kunjung Pajak </span></h1>
-            <h3 class="welcome-sub-text">Pajak kita, untuk kita !</h3>
+            <h1 class="welcome-text">Selamat Datang di <span class="fw-bold" style="color: #1F3BB3">Aplikasi Persediaan Barang</span></h1>
+            <h3 class="welcome-sub-text">Jawa Mandiri Motor</h3>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
             <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> </a>
+              <img class="img-xs rounded-circle" th:src="@{/images/faces/face8.jpg}" alt="Profile image"> </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <div class="dropdown-header text-center">
-                <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
+                <img class="img-md rounded-circle" th:src="@{/images/faces/face8.jpg}" alt="Profile image">
                 <p class="mb-1 mt-3 font-weight-semibold" th:text="${session.userLogin.nama}">Username</p>
                 <p class="fw-light text-muted mb-0" th:text="${session.userLogin.level == '1' ? 'Admin' : 'User'}">Level</p>
               </div>

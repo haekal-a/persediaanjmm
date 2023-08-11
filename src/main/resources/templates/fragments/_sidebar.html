@@ -2,12 +2,11 @@
         <ul class="nav">
           <li th:class="'nav-item ' + ${dashboardMenu}">
             <a class="nav-link" th:href="@{/dashboard}">
-              <i class="mdi mdi-grid-large menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Home</span>
             </a>
           </li>
-          <div th:if="${user.level == '1'}">
-            <li class="nav-item nav-category">ADMIN</li>
+<!--            <li class="nav-item nav-category">ADMIN</li>-->
             <li th:class="'nav-item ' + ${kunjunganMenu}">
               <a class="nav-link" data-bs-toggle="collapse" href="#ui-kunjungan" aria-expanded="false"
                  aria-controls="ui-basic">
@@ -16,27 +15,38 @@
                 <i class="menu-arrow"></i>
               </a>
               <div class="collapse" id="ui-kunjungan">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a th:class="'nav-link ' + ${kunjunganMenu}" th:href="@{/monitoringkunjungan}">Daftar Kunjungan</a>
-                  </li>
-                </ul>
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"><a th:class="'nav-link ' + ${monTransaksiMenu}"
+                                              th:href="@{/monitoring/trx}">Transaksi</a>
+                      </li>
+                  </ul>
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item"><a th:class="'nav-link ' + ${monPersediaanMenu}"
+                                              th:href="@{/monitoring/persediaan}">Persediaan</a>
+                      </li>
+                  </ul>
               </div>
             </li>
+            <li th:class="'nav-item ' + ${transMenu}">
+                <a class="nav-link" th:href="@{/transaksi}">
+                    <i class="mdi mdi-shopping menu-icon"></i>
+                    <span class="menu-title">Transaksi</span>
+                </a>
+            </li>
+<!--            <div th:if="${user.level == '1'}">-->
+                <li th:class="'nav-item ' + ${refMenu}" th:if="${user.level == '1'}">
+                    <a class="nav-link" th:href="@{/refbarang}">
+                        <i class="mdi mdi-playlist-plus menu-icon"></i>
+                        <span class="menu-title">Referensi Barang</span>
+                    </a>
+                </li>
+<!--            </div>-->
             <li th:class="'nav-item ' + ${roleMenu}">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                 aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-settings"></i>
-                <span class="menu-title">Pengaturan</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a th:class="'nav-link ' + ${roleMenu}" th:href="@{/pengaturanrole}">Role</a>
-                  </li>
-                </ul>
-              </div>
+                <a class="nav-link" th:href="@{/pengaturanrole}">
+                    <i class="mdi mdi-settings menu-icon"></i>
+                    <span class="menu-title">Pengaturan User</span>
+                </a>
             </li>
-          </div>
-<!--          <li class="nav-item nav-category">Forms and Datas</li>-->
+            <!--          <li class="nav-item nav-category">Forms and Datas</li>-->
         </ul>
       </nav>

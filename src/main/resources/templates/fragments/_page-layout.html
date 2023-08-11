@@ -21,7 +21,7 @@
     <!-- custom:css -->
     <link rel="stylesheet" th:href="@{/vendors/sweetalert2/dist/sweetalert2.min.css}">
     <!-- endcustom -->
-    <link rel="shortcut icon" th:href="@{/images/djp-putih.png}" />
+    <link rel="shortcut icon" th:href="@{/images/logo-jmm.png}" />
     <th:block layout:fragment="page_css"></th:block>
 </head>
 <body>
@@ -38,16 +38,16 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                            <!--begin::Page Title-->
+                    <!--<div class="col-sm-12">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            &lt;!&ndash;begin::Page Title&ndash;&gt;
                             <th:block layout:fragment="page_title"></th:block>
-                            <!--end::Page Title-->
-                            <!--begin::Breadcrumb-->
+                            &lt;!&ndash;end::Page Title&ndash;&gt;
+                            &lt;!&ndash;begin::Breadcrumb&ndash;&gt;
                             <th:block layout:fragment="page_breadcrumb"></th:block>
-                            <!--end::Breadcrumb-->
+                            &lt;!&ndash;end::Breadcrumb&ndash;&gt;
                         </div>
-                    </div>
+                    </div>-->
                     <input type="text"  th:value="${session.userLogin.level}" id="role" name="role" hidden/>
                     <!--begin::Content-->
                     <th:block layout:fragment="content"></th:block>

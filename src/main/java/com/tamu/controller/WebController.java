@@ -55,4 +55,36 @@ public class WebController {
         model.addAttribute("kunjunganMenu", "active");
         return "daftar_kunjungan";
     }
+
+    @GetMapping("/monitoring/trx")
+    public String showMonitoringTransaksi(HttpServletRequest request, ModelMap model){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("monTransaksiMenu", "active");
+        return "pencarian-npwp";
+    }
+
+    @GetMapping("/monitoring/persediaan")
+    public String showMonitoringPersediaan(HttpServletRequest request, ModelMap model){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("monPersediaanMenu", "active");
+        return "daftar_kunjungan";
+    }
+
+    @GetMapping("/transaksi")
+    public String showTransaksi(HttpServletRequest request, ModelMap model){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("transMenu", "active");
+        return "transaksi";
+    }
+
+    @GetMapping("/refbarang")
+    public String showRefBarang(HttpServletRequest request, ModelMap model){
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("refMenu", "active");
+        return "daftar_kunjungan";
+    }
 }
