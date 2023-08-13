@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page-layout}" xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="page_css">
+  <link rel="shortcut icon" th:href="@{/images/logo-jmm.png}" />
+  <!-- Bootstrap-Select -->
+  <link rel="stylesheet" th:href="@{/vendors/bootstrap-selectpicker/css/bootstrap-select.min.css}">
+  <!-- DataTables -->
+  <link rel="stylesheet" th:href="@{/vendors/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+  <link rel="stylesheet" th:href="@{/vendors/datatables-responsive/css/responsive.bootstrap4.min.css}">
+  <link rel="stylesheet" th:href="@{/vendors/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</th:block>
+<section layout:fragment="content">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-sm-flex justify-content-between align-items-start">
+          <div>
+            <h4 class="card-title">Monitoring Transaksi Barang</h4>
+            <!--            <p class="card-subtitle card-subtitle-dash">Transaksi barang masuk & barang keluar</p>-->
+          </div>
+          <div>
+            <button type="button" id="btnFilterDown" class="btn btn-primary btn-sm">Filter Pencarian <i class="ti-arrow-down"></i></button>
+            <button type="button" id="btnFilterUp" class="btn btn-primary btn-sm">Kembali <i class="ti-arrow-up"></i></button>
+          </div>
+        </div>
+        <form class="forms-sample pt-lg-5" id="frmTransaksi">
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label">Jenis Transaksi</label>
+            <div class="col-sm-9">
+              <select class="form-control selectpicker" data-live-search="true" id="ddlJenisTransaksi" >
+                <option disabled selected>Pilih</option>
+                <option value="1">Barang Masuk</option>
+                <option value="2">Barang Keluar</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label">Jenis Barang</label>
+            <select class="col-sm-9 selectpicker" data-live-search="true" data-size="5" id="ddlJenisBarang" multiple="multiple">
+            </select>
+          </div>
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label">Nama Barang</label>
+            <select class="col-sm-9 selectpicker" data-live-search="true" data-size="5" id="ddlBarang" multiple="multiple">
+            </select>
+          </div>
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label">Tanggal Transaksi</label>
+            <div class="col-sm-3">
+              <input class="form-control datepicker" name="txtTglAwal" id="txtTglAwal" placeholder="Tanggal Awal" >
+            </div>
+            s.d.
+            <div class="col-sm-3">
+              <input class="form-control datepicker" name="txtTglAkhir" id="txtTglAkhir" placeholder="Tanggal Akhir" >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+              <button type="button" id="btnCari" class="btn btn-primary me-2">Cari</button>
+              <button type="reset" class="btn btn-secondary" id="btnReset">Reset</button>
+            </div>
+          </div>
+        </form>
+        <div class="pt-5">
+          <table class="table table-bordered table-striped table-hover" id="tblTransaksi">
+            <thead>
+            <tr>
+              <th class="text-center">No.</th>
+              <th class="text-center">Kode Transaksi</th>
+              <th class="text-center">Nama Barang</th>
+              <th class="text-center">Jenis Transaksi</th>
+              <th class="text-center">Tanggal Transaksi</th>
+              <th class="text-center">Title</th>
+              <th class="text-center">Keterangan</th>
+              <th class="text-center">Harga</th>
+              <th class="text-center">Jumlah Barang</th>
+              <th class="text-center">Sisa Barang</th>
+              <th class="text-center">Aksi</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="mdlBarang" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Detail Barang</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="box box-solid">
+            <form class="form-horizontal" id="formBarang" method="post">
+              <input type="text" name="idPersediaan" id="idPersediaan" hidden/>
+              <div class="card-body">
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Nama Barang</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="namaBarang" name="namaBarang" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Kode Barang</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="kodeBarang" name="kodeBarang" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Jenis Barang</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="jenisBarang" name="jenisBarang" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Merk</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="merk" name="merk" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Keterangan</label>
+                  <div class="col-sm-6">
+                    <textarea rows="3" class="form-control" id="keterangan" name="keterangan" disabled></textarea>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Jumlah Barang</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Harga Satuan</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="hargaSatuan" name="hargaSatuan" disabled>
+                  </div>
+                </div>
+                <div class="form-group row mb-0">
+                  <label class="col-sm-2 col-form-label">Total Harga Perolehan</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="hargaPerolehan" name="hargaPerolehan" disabled>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="box-footer">
+                <div class="pull-right">
+                  <button type="button" class="btn btn-secondary" id="btnBatal" data-dismiss="modal">Kembali</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+</section>
+<th:block layout:fragment="page_js">
+  <!-- DataTables  & Plugins -->
+  <script th:src="@{/vendors/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/vendors/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+  <script th:src="@{/vendors/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+  <script th:src="@{/vendors/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+  <script th:src="@{/vendors/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+  <script th:src="@{/vendors/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+  <script th:src="@{/vendors/jszip/jszip.min.js}"></script>
+  <script th:src="@{/vendors/pdfmake/pdfmake.min.js}"></script>
+  <script th:src="@{/vendors/pdfmake/vfs_fonts.js}"></script>
+  <script th:src="@{/vendors/datatables-buttons/js/buttons.html5.min.js}"></script>
+  <script th:src="@{/vendors/datatables-buttons/js/buttons.print.min.js}"></script>
+  <script th:src="@{/vendors/datatables-buttons/js/buttons.colVis.min.js}"></script>
+  <!-- Bootstrap-Select -->
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/bootstrap-select.min.js}"></script>
+  <script th:src="@{/vendors/bootstrap-selectpicker/js/i18n/defaults-id_ID.min.js}"></script>
+
+  <script th:src="@{/pages-js/monitoring_transaksi.js}"></script>
+</th:block>
+</html>

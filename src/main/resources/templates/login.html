@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Kunjung Pajak</title>
+  <title>App Persediaan JMM</title>
   <!-- plugins:css -->
   <link rel="stylesheet" th:href="@{/vendors/feather/feather.css}">
   <link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
@@ -32,8 +32,10 @@
               <div class="brand-logo">
                 <img th:src="@{/images/logo-jmm.png}" style="width: 130px" alt="logo">
               </div>
-              <h4>Hello! <br>Selamat datang di Aplikasi Persediaan Barang JMM</h4>
+              <h4>Hello! Selamat datang di<br>Aplikasi Persediaan Barang JMM</h4>
               <h6 class="fw-light">Sign in to continue.</h6>
+              <h6 class="fw-bold text-white bg-danger" th:if="${error != null}" th:text="${error}">error</h6>
+              <h6 class="fw-bold text-white bg-success" th:if="${message != null}" th:text="${message}">message</h6>
               <form class="pt-3" th:action="@{/login}" method="post">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" placeholder="Username" name="username" id="username" required >

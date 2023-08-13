@@ -61,7 +61,7 @@ public class WebController {
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("monTransaksiMenu", "active");
-        return "pencarian-npwp";
+        return "monitoring_transaksi";
     }
 
     @GetMapping("/monitoring/persediaan")
@@ -69,7 +69,7 @@ public class WebController {
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("monPersediaanMenu", "active");
-        return "daftar_kunjungan";
+        return "monitoring_persediaan";
     }
 
     @GetMapping("/transaksi")
@@ -85,6 +85,6 @@ public class WebController {
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("refMenu", "active");
-        return "daftar_kunjungan";
+        return "referensi_barang";
     }
 }
