@@ -73,6 +73,14 @@ var Utility = function (){
         }
     };
 
+    const formatRupiah = function (number){
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
+
     var formatTanggalToDate = function (ddmmyyyy) {
         if (ddmmyyyy === null || ddmmyyyy === "" || typeof ddmmyyyy == "undefined") {
             return;
@@ -263,6 +271,9 @@ var Utility = function (){
         },
         formatTanggalToString: function (data){
             return formatTanggalToString(data)
+        },
+        formatRupiah: function (data){
+            return formatRupiah(data)
         },
         formatTanggalToDate: function (data){
             return formatTanggalToDate(data)

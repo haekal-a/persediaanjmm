@@ -2,6 +2,7 @@ package com.tamu.controller;
 
 import com.tamu.domain.table.User;
 import com.tamu.service.common.SecurityService;
+import com.tamu.service.common.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,12 +16,15 @@ public class WebController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    UtilityService utilityService;
+
     @GetMapping({"/", "/dashboard"})
     public String showHome(HttpServletRequest request, ModelMap model) {
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("dashboardMenu", "active");
-        return "pencarian-npwp";
+        return "home";
     }
 
     @GetMapping(value = "/login")
@@ -77,6 +81,26 @@ public class WebController {
         User user = (User) request.getSession().getAttribute("userLogin");
         model.addAttribute("user", user);
         model.addAttribute("transMenu", "active");
+        return "transaksi";
+    }
+
+    @GetMapping("/transaksi/{idTransaksi}")
+    public String showTransaksiWithParam(@PathVariable String idTransaksi, HttpServletRequest request, ModelMap model){
+        idTransaksi = UtilityService.cleanParam(idTransaksi);
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("transMenu", "active");
+        model.addAttribute("idTransaksi", idTransaksi);
+        return "transaksi";
+    }
+
+    @GetMapping("/transaksibrg/{idPersediaan}")
+    public String showTransaksiWithIdPersediaan(@PathVariable String idPersediaan, HttpServletRequest request, ModelMap model){
+        idPersediaan = UtilityService.cleanParam(idPersediaan);
+        User user = (User) request.getSession().getAttribute("userLogin");
+        model.addAttribute("user", user);
+        model.addAttribute("transMenu", "active");
+        model.addAttribute("idPersediaan", idPersediaan);
         return "transaksi";
     }
 

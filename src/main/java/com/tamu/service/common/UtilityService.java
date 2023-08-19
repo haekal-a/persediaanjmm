@@ -4,6 +4,8 @@ import com.tamu.domain.model.datatables.mapping.DataTablesOutput;
 import com.tamu.util.AppException;
 import com.tamu.util.Constanta;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
 import java.nio.file.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 
 @Service
 public class UtilityService {
@@ -55,5 +58,10 @@ public class UtilityService {
         temp[1] = Constanta.MASA_PAJAK[Integer.parseInt(temp[1])];
         res = temp[0] + " " + temp[1] + " " + temp[2];
         return res;
+    }
+
+    public static String cleanParam(String arg0) {
+        return Jsoup.clean(arg0.replaceAll("\"", Matcher.quoteReplacement(""))
+                , Whitelist.basic());
     }
 }

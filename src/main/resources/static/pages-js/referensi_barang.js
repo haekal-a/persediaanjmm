@@ -55,8 +55,8 @@ var ReferensiBarang = function (){
 
     var loadTblBarang = function () {
         $('#tblBarang').DataTable({
-            /*ajax: {
-                url: "/persediaan/getlist/",
+            ajax: {
+                url: "/barang/getlist/",
                 type: "GET",
                 data: function (data) {
                     data.draw = 1;
@@ -79,9 +79,9 @@ var ReferensiBarang = function (){
                 error: function (jqXHR, status, error) {
                     Utility.showErrorMessage(status, error);
                 }
-            },*/
+            },
             //todo
-            data: listBarang,
+            // data: listBarang,
             processing: false,
             destroy: true,
             serverSide: false,
@@ -107,7 +107,7 @@ var ReferensiBarang = function (){
                     }
                 }
             ],
-            responsive: true,
+            responsive: false,
             // dom: 'Bfrtip',
             // buttons: [
             //     "copy", "csv", "excel", "pdf", "print", "colvis"
@@ -196,17 +196,19 @@ var ReferensiBarang = function (){
         $(formData).each(function (index, obj) {
             data[this.name] = this.value;
         });
-        /*$.ajax({
+        $.ajax({
             type: "POST",
-            url: "/persediaan/save/",
-            data: data,
+            url: "/barang/save/",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             success: function (data) {
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     loadTblBarang();
                     $("#mdlBarang").modal('hide');
                     $("#btnBatal").trigger('click');
-                    Utility.showSuccessMessage("Sukses!", "Data Berhasil diubah.");
+                    Utility.showSuccessMessage("Sukses!", "Data Berhasil disimpan.");
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", message);
@@ -226,30 +228,14 @@ var ReferensiBarang = function (){
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
-        // todo
-        data["kodeBarang"] = "T013";
-        console.log(data);
-        console.log(data["idPersediaan"]);
-        if (data["idPersediaan"]==""||data["idPersediaan"]==null ||data["idPersediaan"]==undefined) {
-            data["idPersediaan"]=listBarang.length+1;
-        } else {
-            deleteBarang(data["idPersediaan"]);
-            data["idPersediaan"] == parseInt(data["idPersediaan"]);
-        }
-        listBarang.push(data);
-        Utility.removeBoxOverlay();
-        loadTblBarang();
-        $("#mdlBarang").modal('hide');
-        $("#btnBatal").trigger('click');
-        Utility.showSuccessMessage("Sukses!", "Data Berhasil diubah.");
+        });
     };
 
     var deleteBarang = function (idPersediaan){
         Utility.showBoxOverlay("formBarang");
-        /*$.ajax({
+        $.ajax({
             type: "DELETE",
-            url: "/persediaan/del/",
+            url: "/barang/del/",
             data: {"idPersediaan": idPersediaan},
             success: function (data) {
                 Utility.removeBoxOverlay();
@@ -275,9 +261,9 @@ var ReferensiBarang = function (){
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
+        });
         //todo
-        var i = listBarang.length;
+        /*var i = listBarang.length;
         console.log(idPersediaan);
         console.log(i);
         while(i--){
@@ -291,7 +277,7 @@ var ReferensiBarang = function (){
         console.log(listBarang);
         Utility.removeBoxOverlay();
         loadTblBarang();
-        Utility.showSuccessMessage("Sukses!", "Data Berhasil dihapus.");
+        Utility.showSuccessMessage("Sukses!", "Data Berhasil dihapus.");*/
     };
 
     return {

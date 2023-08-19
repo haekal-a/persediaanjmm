@@ -30,16 +30,16 @@ var MonitoringTransaksi = function (){
             "merk": "Honda",
             "keterangan": "Pad Set Belakang",
             "hargaSatuan": "48.000",
-            "hargaPerolehan": "720.000",
-            "jumlahBarang": "15",
+            "hargaPerolehan": "240.000",
+            "jumlahBarang": "5",
             "kodeTransaksi": "MSK230811002",
             "jenisTransaksi": "1",
             "tanggalTransaksi": "11-08-2023",
             "title": "PT. Putra Jaya",
             "keteranganTrx": "pembelian barang",
             "hargaSatuanTrx": "48.000",
-            "jumlahBarangTrx": "15",
-            "sisaBarang": "15",
+            "jumlahBarangTrx": "5",
+            "sisaBarang": "5",
         },
         {
             "idPersediaan": 3,
@@ -61,7 +61,7 @@ var MonitoringTransaksi = function (){
             "jumlahBarangTrx": "30",
             "sisaBarang": "30",
         },
-        {
+        /*{
             "idPersediaan": 1,
             "idTransaksi": 4,
             "kodeBarang": "E002",
@@ -80,7 +80,7 @@ var MonitoringTransaksi = function (){
             "hargaSatuanTrx": "58.000",
             "jumlahBarangTrx": "1",
             "sisaBarang": "24",
-        },
+        },*/
         {
             "idPersediaan": 4,
             "idTransaksi": 5,
@@ -121,7 +121,7 @@ var MonitoringTransaksi = function (){
             "jumlahBarangTrx": "40",
             "sisaBarang": "40",
         },
-        {
+        /*{
             "idPersediaan": 3,
             "idTransaksi": 7,
             "kodeBarang": "S009",
@@ -140,7 +140,7 @@ var MonitoringTransaksi = function (){
             "hargaSatuanTrx": "15.000",
             "jumlahBarangTrx": "1",
             "sisaBarang": "29",
-        },
+        },*/
         {
             "idPersediaan": 6,
             "idTransaksi": 8,
@@ -165,11 +165,16 @@ var MonitoringTransaksi = function (){
 
     var loadTblTransaksi = function () {
         $('#tblTransaksi').DataTable({
-            /*ajax: {
-                url: "/persediaan/getlist/",
+            ajax: {
+                url: "/transaksi/getlist/",
                 type: "GET",
                 data: function (data) {
                     data.draw = 1;
+                    data.param1 = $("#ddlJenisTransaksi").val();
+                    data.param2 = $('#ddlJenisBarang').val();
+                    data.param3 = $("#ddlBarang").val();
+                    data.param4 = $("#txtTglAwal").val();
+                    data.param5 = $("#txtTglAkhir").val();
                     Utility.showBoxOverlay("tblTransaksi");
                 },
                 dataSrc: function (data) {
@@ -189,9 +194,9 @@ var MonitoringTransaksi = function (){
                 error: function (jqXHR, status, error) {
                     Utility.showErrorMessage(status, error);
                 }
-            },*/
+            },
             //todo
-            data: listTransaksi,
+            // data: listTransaksi,
             processing: false,
             destroy: true,
             serverSide: false,
@@ -215,13 +220,14 @@ var MonitoringTransaksi = function (){
             columnDefs: [
                 {
                     "targets": -1, "render": function (data, type, full, meta) {
-                        var btnedit = '<a href="#" class="ti-pencil btn-info btn-sm edit" title="Ubah"></a>';
+
+                        var btnedit = '<a href="'+ctx+'/transaksi/'+full['idTransaksi']+'" class="ti-pencil btn-info btn-sm edit" title="Ubah"></a>';
                         var btnDelete = '<a href="#" class="ti-trash btn-danger btn-sm delete" title="Hapus"></a>';
                         return roleUser ? btnedit : btnedit + btnDelete;
                     }
                 },
                 {
-                    "targets": 1, "render": function (data, type, full, meta) {
+                    "targets": 2, "render": function (data, type, full, meta) {
                         return '<a href="#" class="detail" title="Detail Barang">'+data+'</a>';
                     }
                 },
@@ -313,14 +319,14 @@ var MonitoringTransaksi = function (){
 
         });
 
-        $('#tblTransaksi').on("click", "a.edit", function (e){
+        /*$('#tblTransaksi').on("click", "a.edit", function (e){
             e.preventDefault();
             var table = $('#tblTransaksi').DataTable();
             var tbl = table.row($(this).parents('tr'));
             var rData = tbl.data();
             $("#idTransaksi").val(rData["idTransaksi"]);
             // todo
-        });
+        });*/
 
         $("#tblTransaksi").on('click', 'a.delete', function (e) {
             e.preventDefault();
@@ -348,7 +354,6 @@ var MonitoringTransaksi = function (){
                 if (data.code == 1) {
                     var obj = data.object;
                     $("#ddlBarang").empty();
-                    $("#ddlBarang").append('<option value="" selected="" disabled>Pilih</option>');
                     $.each(obj, function () {
                         $("#ddlBarang").append('<option value="' + this.namaBarang + '">' + this.namaBarang + '</option>');
                     });
@@ -377,19 +382,18 @@ var MonitoringTransaksi = function (){
 
     var getListJenis = function () {
         Utility.showBoxOverlay();
-        /*$.ajax({
+        $.ajax({
             type: "GET",
-            url: "/transaksi/getlistjenisbarang",
+            url: "/transaksi/getalljenisbarang",
             success: function (data) {
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     var obj = data.object;
-                    $("#ddlBarang").empty();
-                    $("#ddlBarang").append('<option value="" selected="">Pilih</option>');
+                    $("#ddlJenisBarang").empty();
                     $.each(obj, function () {
-                        $("#ddlBarang").append('<option value="' + this.namaBarang + '">' + this.namaBarang + '</option>');
+                        $("#ddlJenisBarang").append('<option value="' + this + '">' + this + '</option>');
                     });
-                    $("#ddlBarang").selectpicker('refresh');
+                    $("#ddlJenisBarang").selectpicker('refresh');
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", "Gagal mengambil data Barang " + message);
@@ -409,24 +413,24 @@ var MonitoringTransaksi = function (){
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
+        });
         //todo
-        $("#ddlJenisBarang").empty();
+        /*$("#ddlJenisBarang").empty();
         $("#ddlJenisBarang").append('<option value="" selected="" disabled>Pilih</option>');
         $("#ddlJenisBarang").append('<option value="Oli">Oli</option>');
         $("#ddlJenisBarang").append('<option value="Pad">Pad</option>');
         $("#ddlJenisBarang").append('<option value="Sikring">Sikring</option>');
         $("#ddlJenisBarang").append('<option value="Bearing">Bearing</option>');
         $("#ddlJenisBarang").append('<option value="Adjustment">Adjustment</option>');
-        $("#ddlJenisBarang").append('<option value="Rantai Motor">Rantai Motor</option>');
+        $("#ddlJenisBarang").append('<option value="Rantai Motor">Rantai Motor</option>');*/
     };
 
     var deleteTransaksi = function (idTransaksi){
         Utility.showBoxOverlay("tblTransaksi");
-        /*$.ajax({
+        $.ajax({
             type: "DELETE",
-            url: "/persediaan/del/",
-            data: {"idPersediaan": idPersediaan},
+            url: "/transaksi/del/",
+            data: {"idTransaksi": idTransaksi},
             success: function (data) {
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
@@ -451,9 +455,9 @@ var MonitoringTransaksi = function (){
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
+        });
         //todo
-        var i = listTransaksi.length;
+        /*var i = listTransaksi.length;
         console.log(idTransaksi);
         console.log(i);
         while(i--){
@@ -467,7 +471,7 @@ var MonitoringTransaksi = function (){
         console.log(listTransaksi);
         Utility.removeBoxOverlay();
         loadTblTransaksi();
-        Utility.showSuccessMessage("Sukses!", "Data Berhasil dihapus.");
+        Utility.showSuccessMessage("Sukses!", "Data Berhasil dihapus.");*/
     };
 
     return {

@@ -30,16 +30,16 @@ var MonitoringPersediaan = function () {
             "merk": "Honda",
             "keterangan": "Pad Set Belakang",
             "hargaSatuan": "48.000",
-            "hargaPerolehan": "720.000",
-            "jumlahBarang": 15,
+            "hargaPerolehan": "240.000",
+            "jumlahBarang": 5,
             "kodeTransaksi": "MSK230811002",
             "jenisTransaksi": "1",
             "tanggalTransaksi": "11-08-2023",
             "title": "PT. Putra Jaya",
             "keteranganTrx": "pembelian barang",
             "hargaSatuanTrx": "48.000",
-            "jumlahBarangTrx": 15,
-            "sisaBarang": 15,
+            "jumlahBarangTrx": 5,
+            "sisaBarang": 5,
         },
         {
             "idPersediaan": 3,
@@ -61,27 +61,7 @@ var MonitoringPersediaan = function () {
             "jumlahBarangTrx": 30,
             "sisaBarang": 30,
         },
-        {
-            "idPersediaan": 1,
-            "idTransaksi": 4,
-            "kodeBarang": "E002",
-            "namaBarang": "SPX 10W30 SLMA O,8L",
-            "jenisBarang": "Oli",
-            "merk": "Honda",
-            "keterangan": "oli motor bebek",
-            "hargaSatuan": "50.000",
-            "hargaPerolehan": "1.200.000",
-            "jumlahBarang": 24,
-            "kodeTransaksi": "KLR230811001",
-            "jenisTransaksi": "2",
-            "tanggalTransaksi": "11-08-2023",
-            "title": "Deni",
-            "keteranganTrx": "service dan ganti oli",
-            "hargaSatuanTrx": "58.000",
-            "jumlahBarangTrx": 1,
-            "sisaBarang": 24,
-        },
-        {
+        /*{
             "idPersediaan": 4,
             "idTransaksi": 5,
             "kodeBarang": "B014",
@@ -100,7 +80,7 @@ var MonitoringPersediaan = function () {
             "hargaSatuanTrx": "40.000",
             "jumlahBarangTrx": 20,
             "sisaBarang": 20,
-        },
+        },*/
         {
             "idPersediaan": 5,
             "idTransaksi": 6,
@@ -120,26 +100,6 @@ var MonitoringPersediaan = function () {
             "hargaSatuanTrx": "7.500",
             "jumlahBarangTrx": 40,
             "sisaBarang": 40,
-        },
-        {
-            "idPersediaan": 3,
-            "idTransaksi": 7,
-            "kodeBarang": "S009",
-            "namaBarang": "Park Plug U20EPR9S(DS)",
-            "jenisBarang": "Sikring",
-            "merk": "Honda",
-            "keterangan": "sikring karbu",
-            "hargaSatuan": "9.000",
-            "hargaPerolehan": "261.000",
-            "jumlahBarang": 29,
-            "kodeTransaksi": "KLR230811002",
-            "jenisTransaksi": "2",
-            "tanggalTransaksi": "11-08-2023",
-            "title": "Deni",
-            "keteranganTrx": "service ganti sikring",
-            "hargaSatuanTrx": "15.000",
-            "jumlahBarangTrx": 1,
-            "sisaBarang": 29,
         },
         {
             "idPersediaan": 6,
@@ -165,11 +125,18 @@ var MonitoringPersediaan = function () {
 
     var loadTblPersediaan = function () {
         $('#tblPersediaan').DataTable({
-            /*ajax: {
-                url: "/persediaan/getlist/",
+            ajax: {
+                url: "/barang/getmonitoring/",
                 type: "GET",
                 data: function (data) {
                     data.draw = 1;
+                    data.param1 = $("#ddlJenisBarang").val();
+                    data.param2 = $('#ddlBarang').val();
+                    data.param3 = $("#ddlMerk").val();
+                    data.param4 = $("#txtJmlAwal").val();
+                    data.param5 = $("#txtJmlAkhir").val();
+                    data.param6 = $("#txtHargaAwal").val();
+                    data.param7 = $("#txtHargaAkhir").val();
                     Utility.showBoxOverlay("tblPersediaan");
                 },
                 dataSrc: function (data) {
@@ -189,9 +156,9 @@ var MonitoringPersediaan = function () {
                 error: function (jqXHR, status, error) {
                     Utility.showErrorMessage(status, error);
                 }
-            },*/
+            },
             //todo
-            data: listPersediaan,
+            // data: listPersediaan,
             processing: false,
             destroy: true,
             serverSide: false,
@@ -217,7 +184,7 @@ var MonitoringPersediaan = function () {
             columnDefs: [
                 {
                     "targets": -1, "render": function (data, type, full, meta) {
-                        return  '<a href="#" class="btn btn-outline-primary btn-rounded btn-icon input" title="Input Transaksi"><i class="ti-share"></i> </a>';
+                        return  '<a href="'+ctx+'/transaksibrg/'+full['idPersediaan']+'" class="btn btn-outline-primary btn-rounded btn-icon input" title="Input Transaksi"><i class="ti-share"></i> </a>';
                     }
                 },
                 /*{
@@ -300,14 +267,14 @@ var MonitoringPersediaan = function () {
             loadTblPersediaan();
         });
 
-        $('#tblPersediaan').on("click", "a.input", function (e) {
+        /*$('#tblPersediaan').on("click", "a.input", function (e) {
             e.preventDefault();
             var table = $('#tblPersediaan').DataTable();
             var tbl = table.row($(this).parents('tr'));
             var rData = tbl.data();
             $("#idTransaksi").val(rData["idTransaksi"]);
             // todo
-        });
+        });*/
 
         $("#btnBatal").on("click", function (e) {
             e.preventDefault();
@@ -325,7 +292,6 @@ var MonitoringPersediaan = function () {
                 if (data.code == 1) {
                     var obj = data.object;
                     $("#ddlBarang").empty();
-                    $("#ddlBarang").append('<option value="" selected="" disabled>Pilih</option>');
                     $.each(obj, function () {
                         $("#ddlBarang").append('<option value="' + this.namaBarang + '">' + this.namaBarang + '</option>');
                     });
@@ -354,19 +320,18 @@ var MonitoringPersediaan = function () {
 
     var getListJenis = function () {
         Utility.showBoxOverlay();
-        /*$.ajax({
+        $.ajax({
             type: "GET",
-            url: "/transaksi/getlistjenisbarang",
+            url: "/transaksi/getalljenisbarang",
             success: function (data) {
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     var obj = data.object;
-                    $("#ddlBarang").empty();
-                    $("#ddlBarang").append('<option value="" selected="">Pilih</option>');
+                    $("#ddlJenisBarang").empty();
                     $.each(obj, function () {
-                        $("#ddlBarang").append('<option value="' + this.namaBarang + '">' + this.namaBarang + '</option>');
+                        $("#ddlJenisBarang").append('<option value="' + this + '">' + this + '</option>');
                     });
-                    $("#ddlBarang").selectpicker('refresh');
+                    $("#ddlJenisBarang").selectpicker('refresh');
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", "Gagal mengambil data Barang " + message);
@@ -386,33 +351,32 @@ var MonitoringPersediaan = function () {
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
+        });
         //todo
-        $("#ddlJenisBarang").empty();
+        /*$("#ddlJenisBarang").empty();
         $("#ddlJenisBarang").append('<option value="" selected="" disabled>Pilih</option>');
         $("#ddlJenisBarang").append('<option value="Oli">Oli</option>');
         $("#ddlJenisBarang").append('<option value="Pad">Pad</option>');
         $("#ddlJenisBarang").append('<option value="Sikring">Sikring</option>');
         $("#ddlJenisBarang").append('<option value="Bearing">Bearing</option>');
         $("#ddlJenisBarang").append('<option value="Adjustment">Adjustment</option>');
-        $("#ddlJenisBarang").append('<option value="Rantai Motor">Rantai Motor</option>');
+        $("#ddlJenisBarang").append('<option value="Rantai Motor">Rantai Motor</option>');*/
     };
 
     var getListMerk = function () {
         Utility.showBoxOverlay();
-        /*$.ajax({
+        $.ajax({
             type: "GET",
-            url: "/transaksi/getlistjenisbarang",
+            url: "/barang/getallmerk",
             success: function (data) {
                 Utility.removeBoxOverlay();
                 if (data.code == 1) {
                     var obj = data.object;
-                    $("#ddlBarang").empty();
-                    $("#ddlBarang").append('<option value="" selected="">Pilih</option>');
+                    $("#ddlMerk").empty();
                     $.each(obj, function () {
-                        $("#ddlBarang").append('<option value="' + this.namaBarang + '">' + this.namaBarang + '</option>');
+                        $("#ddlMerk").append('<option value="' + this + '">' + this + '</option>');
                     });
-                    $("#ddlBarang").selectpicker('refresh');
+                    $("#ddlMerk").selectpicker('refresh');
                 } else {
                     var message = data.message;
                     Utility.showErrorMessage("Terjadi Kesalahan!", "Gagal mengambil data Barang " + message);
@@ -432,19 +396,19 @@ var MonitoringPersediaan = function () {
                 Utility.showErrorMessage('Terjadi kesalahan!', msg);
                 Utility.removeBoxOverlay();
             }
-        });*/
+        });
         //todo
-        $("#ddlMerk").empty();
+        /*$("#ddlMerk").empty();
         $("#ddlMerk").append('<option value="" selected="" disabled>Pilih</option>');
-        $("#ddlMerk").append('<option value="Honda">Honda</option>');
+        $("#ddlMerk").append('<option value="Honda">Honda</option>');*/
     };
 
     return {
         init: function () {
-            loadTblPersediaan();
             getListJenis();
             getListBarang();
             getListMerk();
+            loadTblPersediaan();
             pageHandler();
         }
     }
