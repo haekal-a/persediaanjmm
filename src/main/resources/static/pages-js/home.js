@@ -187,7 +187,7 @@ var Home = function (){
     return {
         init: function (){
             getListBarang();
-            getListTransaksi();
+            // getListTransaksi();
         }
     }
 }();

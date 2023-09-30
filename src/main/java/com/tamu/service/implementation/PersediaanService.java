@@ -116,8 +116,11 @@ public class PersediaanService implements IPersediaanService {
             throw new AppException(1, "Not Authorized");
         }
         Persediaan persediaan = persediaanRepo.getById(id);
-        if (persediaan.getJumlahBarang()>0){
+        if (persediaan.getJumlahBarang()== null){
+            //do nothing
+        } else if (persediaan.getJumlahBarang()>0){
             throw new AppException(1, "Persediaan Barang ini tidak dapat dihapus karena masih memiliki saldo");
+
         }
         persediaanRepo.delete(persediaan);
         return new ResponseModel("Delete Barang");
